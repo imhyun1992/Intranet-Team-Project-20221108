@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjoeun.dao.MyBatisDAO"> <!-- mapper 역할을 하는 인터페이스 -->
+
+	<select id="receiveMailSelectCount" parameterType="String" resultType="int">
+		select count(*) from mailboxes where receivemail = #{email} and status = 'no'
+	</select>
+	
+	<select id="receiveMailSelectList" parameterType="param" resultType="mo">
+		<![CDATA[
+			select * from (
+				select rownum rnum, KK.* from( 
+					select * from mailboxes where receivemail = #{email} and status = 'no' order by idx desc
+				) KK where rownum <= #{endNo}
+			) where rnum >= #{startNo}
+		]]>
+	</select>
+
+	<select id="sendMailSelectCount" parameterType="String" resultType="int">
+		select count(*) from mailboxes where transemail = #{email}
+	</select>
+	
+	<select id="sendMailSelectList" parameterType="param" resultType="mo">
+		<![CDATA[
+			select * from (
+				select rownum rnum, KK.* from( 
+					select * from mailboxes where transemail = #{email} order by idx desc
+				) KK where rownum <= #{endNo}
+			) where rnum >= #{startNo}
+		]]>
+	</select>
+
+	<select id="trashMailSelectCount" parameterType="String" resultType="int">
+		select count(*) from mailboxes where receivemail = #{email} and status = 'del'
+	</select>
+	
+	<select id="trashMailSelectList" parameterType="param" resultType="mo">
+		<![CDATA[
+			select * from (
+				select rownum rnum, KK.* from( 
+					select * from mailboxes where receivemail = #{email} and status = 'del' order by idx desc
+				) KK where rownum <= #{endNo}
+			) where rnum >= #{startNo}
+		]]>
+	</select>
+
+	<select id="mailSelectByIdx" parameterType="int" resultType="mo">
+		select * from mailboxes where idx = #{idx}
+	</select>
+	
+	<insert id="mailInsert" parameterType="mo">
+		insert into mailboxes (transemail, receivemail, title, content, attachedfile,idx) values
+		(#{transemail}, #{receivemail}, #{title}, #{content}, #{attachedfile,
+		jdbcType=VARCHAR},mailboxes_idx_seq.nextval)
+	</insert>
+
+	<update id="mailTrash" parameterType="mo">
+		update mailboxes set status='del' where idx = #{idx}
+	</update>
+
+	<update id="mailRestore" parameterType="mo">
+		update mailboxes set status='no' where idx = #{idx}
+	</update>
+
+	<delete id="mailDelete" parameterType="mo">
+		delete mailboxes where idx = #{idx}
+	</delete>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

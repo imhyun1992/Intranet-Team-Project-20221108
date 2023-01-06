@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjoeun.dao.MyBatisDAO"> <!-- mapper 역할을 하는 인터페이스 -->
+
+	<select id="todocount" parameterType="todovo" resultType="int">
+		select count(*) from todo where empno=#{empno} and TO_CHAR(writedate, 'YYYY-MM-DD')=TO_CHAR(#{writedate}, 'YYYY-MM-DD')
+	</select>
+	
+	<insert id="todoinsert" parameterType="todovo">
+		insert into todo (idx, empno, content, shareset, colorcode, writedate) values(#{idx},#{empno},#{content}, #{shareset}, #{colorcode}, #{writedate})
+	</insert>
+	
+	<select id="todolist" parameterType="todovo" resultType="todovo">
+		select * from todo where empno=#{empno} and TO_CHAR(writedate, 'YYYY-MM-DD')=#{setdate} order by idx asc
+	</select>
+	
+	<select id="caltodolist" parameterType="String" resultType="todovo">
+		select * from todo where TO_CHAR(writedate, 'YYYY-MM-DD')=#{setdate} order by idx asc
+	</select>
+	
+	<update id="todoupdateS" parameterType="todovo">
+		update todo set status=#{status} where idx=#{idx} and empno=#{empno} and TO_CHAR(writedate, 'YYYY-MM-DD')=#{setdate}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjoeun.dao.MyBatisDAO"> <!-- mapper 역할을 하는 인터페이스 -->
+
+	<resultMap type="com.tjoeun.vo.ApprovalVO" id="approvalResultMap">
+		<id property="appNo" column="APP_SEQ"/>
+		<result property="appWriteDate" column="APP_WRITE_SYS"/>
+		<result property="firstApprover" column="FIRST_TIME_APPROVER"/>
+		<result property="interimApprover" column="INTERIM_APPROVER"/>
+		<result property="finalApprover" column="FINAL_APPROVER"/>
+		<result property="appCheckSysdate" column="APP_CHECK_SYSDATE"/>
+		<result property="appCheckProgress" column="APP_CHECK_PROGRESS"/>
+		<result property="appReason" column="APP_REASON"/>
+		<result property="appOriginalFileName" column="APP_ORIFILENAME"/>
+		<result property="appRenameFileName" column="APP_REFILENAME"/>
+		<result property="appWriterNo" column="APP_WRITER_NO"/>		
+		<result property="appKinds" column="APPROVAL_KINDS"/>
+		<result property="appPresent" column="APP_PRESENT"/>
+		
+		<result property="userNo" column="USER_NO"/>
+		<result property="deptName" column="DEPT_NAME"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="rowNum" column="ROWNUM"/>
+		<result property="rank" column="RANK"/>
+		
+		<!-- <result property="loaNo" column="LOA_SEQ"/> -->
+		<result property="loaAppNo" column="LOA_APP_SEQ"/>
+		<result property="loaTitle" column="LOA_TITLE"/>
+		<result property="loaContent" column="LOA_DETAIL"/>
+		
+		<result property="reRefAppNo" column="RECEIVE_REF_APP_SEQ"/>
+		<result property="referList" column="RECEIVE_REF_CC"/>
+		
+		<result property="erNo" column="ER_SEQ"/>
+		<result property="erAppNo" column="ER_APP_SEQ"/>
+		<result property="erDeadline" column="ER_DEADLINE"/>
+		<result property="erClassify" column="ER_CLASSIFY"/>
+		<result property="erTitle" column="ER_TITLE"/>
+		<result property="erDetail" column="ER_DETAIL"/>
+		<result property="erAmount" column="ER_AMOUNT"/>
+		<result property="erReference" column="ER_REFERENCE"/>
+		<result property="erStatus" column="ER_STATUS"/>
+		<result property="erPresent" column="ER_PRESENT"/>
+		<result property="allAmount" column="ER_ALLAMOUNT"/>
+		<result property="monetaryUnit" column="ER_MONETARYUNIT"/>
+
+		<result property="leaveNo" column="LEAVE_SEQ"/>
+      	<result property="leaveAppNo" column="LEAVE_APP_SEQ"/>
+      	<result property="leaveClassify" column="LEAVE_CLASSIFY"/>
+     	<result property="leaveStart" column="LEAVE_START"/>
+	    <result property="leaveFinish" column="LEAVE_FINISH"/>
+	    <result property="leaveDetail" column="LEAVE_DETAIL"/>
+	    <result property="leaveStatus" column="LEAVE_STATUS"/>
+	    <result property="leavePreasent" column="LEAVE_PRESENT"/>
+	    <result property="appEmergncyCall" column="APP_EMERGENCYCALL"/>
+		<!-- <collection property="app_loa" javaType="java.util.ArrayList" resultMap="app_loa"/> -->
+	</resultMap>
+	
+	<resultMap type="com.tjoeun.vo.ApprovalVO" id="leaveResultMap">
+		<id property="leaveNo" column="LEAVE_SEQ"/>
+		<result property="leaveAppNo" column="LEAVE_APP_SEQ"/>
+		<result property="leaveClassify" column="LEAVE_CLASSIFY"/>
+		<result property="leaveStart" column="LEAVE_START"/>
+		<result property="leaveFinish" column="LEAVE_FINISH"/>
+		<result property="leaveDetail" column="LEAVE_DETAIL"/>
+		<result property="leaveStatus" column="LEAVE_STATUS"/>
+		<result property="leavePreasent" column="LEAVE_PRESENT"/>
+		<result property="appEmergncyCall" column="APP_EMERGENCYCALL"/>
+	</resultMap>
+	
+ 	<resultMap type="com.tjoeun.vo.ApprovalVO" id="receiveResultMap">
+		<id property="receiveRefNo" column="RECEIVE_REF_SEQ"/>
+		<result property="reRefAppNo" column="RECEIVE_REF_APP_SEQ"/>
+		<result property="referList" column="RECEIVE_REF_CC"/>
+	</resultMap>
+	
+	<resultMap type="com.tjoeun.vo.ApprovalVO" id="LOAResultMap">
+		<id property="loaNo" column="LOA_SEQ"/>
+		<result property="loaAppNo" column="LOA_APP_SEQ"/>
+		<result property="loaTltle" column="LOA_TITLE"/>
+		<result property="loaDetale" column="LOA_DETAIL"/>
+		<result property="loaStatus" column="LOA_STATUS"/>
+		<result property="loaPresent" column="LOA_PRESENT"/>
+	</resultMap>
+	
+	<resultMap type="com.tjoeun.vo.ApprovalVO" id="ErResultMap">
+		<id property="erNo" column="ER_SEQ"/>
+		<result property="erAppNo" column="ER_APP_SEQ"/>
+		<result property="erDeadline" column="ER_DEADLINE"/>
+		<result property="erClassify" column="ER_CLASSIFY"/>
+		<result property="erTitle" column="ER_TITLE"/>
+		<result property="erDetail" column="ER_DETAIL"/>
+		<result property="erAmount" column="ER_AMOUNT"/>
+		<result property="erReference" column="ER_REFERENCE"/>
+		<result property="erStatus" column="ER_STATUS"/>
+		<result property="erPresent" column="ER_PRESENT"/>
+		<result property="allAmount" column="ER_ALLAMOUNT"/>
+		<result property="monetaryUnit" column="ER_MONETARYUNIT"/>
+	</resultMap>
+	
+	<select id="approvalCount_YET" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM APPROVAL A
+		LEFT JOIN APP_RECEIVE arr ON (A.APP_SEQ = arr.RECEIVE_REF_APP_SEQ)
+		WHERE arr.RECEIVE_REF_CC LIKE '%'|| #{user_name} ||'%' AND APP_CHECK_PROGRESS = '결재대기'
+								<!-- AND (((#{user_name} = A.FIRST_TIME_APPROVER) OR 
+			                                  (#{user_name} = A.INTERIM_APPROVER) OR 
+			                                  (#{user_name} = A.FINAL_APPROVER)) OR 
+			                                  (#{user_no} = A.APP_WRITER_NO)) -->
+	</select>
+
+	<select id="approvalCount_UNDER" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM APPROVAL A
+		LEFT JOIN APP_RECEIVE arr ON (A.APP_SEQ = arr.RECEIVE_REF_APP_SEQ)
+		WHERE arr.RECEIVE_REF_CC LIKE '%'|| #{user_name} ||'%' AND APP_CHECK_PROGRESS = '결재중'
+								<!-- AND (((#{user_name} = A.FIRST_TIME_APPROVER) OR 
+			                                  (#{user_name} = A.INTERIM_APPROVER) OR 
+			                                  (#{user_name} = A.FINAL_APPROVER)) OR 
+			                                  (#{user_no} = A.APP_WRITER_NO)) -->
+	</select>
+
+	<select id="approvalCount_DONE" parameterType="map" resultType="_int">
+		SELECT COUNT(*)
+		FROM APPROVAL A
+		LEFT JOIN APP_RECEIVE arr ON (A.APP_SEQ = arr.RECEIVE_REF_APP_SEQ)
+		WHERE arr.RECEIVE_REF_CC LIKE '%'|| #{user_name} ||'%' AND APP_CHECK_PROGRESS = '결재완료'
+								<!-- AND (((#{user_name} = A.FIRST_TIME_APPROVER) OR 
+			                                  (#{user_name} = A.INTERIM_APPROVER) OR 
+			                                  (#{user_name} = A.FINAL_APPROVER)) OR 
+			                                  (#{user_no} = A.APP_WRITER_NO)) -->
+	</select>
+
+	
+</mapper>
+
