@@ -35,7 +35,6 @@ public class ApprovalController {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	// 메인
 	@RequestMapping("/approvalMain")
 	public ModelAndView approvalMain(HttpServletRequest request, ModelAndView model) {
 		HttpSession session = request.getSession();
