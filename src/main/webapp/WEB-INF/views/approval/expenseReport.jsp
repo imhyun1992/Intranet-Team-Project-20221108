@@ -28,7 +28,7 @@
 					<li><a href="${path}/approval/expenseReport">지출결의서 작성</a></li>
 				</ul>
 			</div>
-			<form action="${path}/approval/expenseReport" method="POST"
+			<form action="${path}/approval/expenseReport_insert" method="POST"
 				name="erWriteForm" onsubmit="return check_onclick()">
 				<div class="cash-form-section">
 					<div class="cash-disbursement">
@@ -140,15 +140,13 @@
 									style="text-align: right; height: 100px; padding-right: 50px;">
 									<input type="button" name="proposer" id="proposer"
 									style="font-size: 15px; width: 70px; height: 30px; border: none; text-align: center; border-radius: 20px; margin-right: 10px"
-									value="서명" /> 영수인 : <textArea name="proposerText"
-										id="proposerText"
-										style="width: 130px; border: none; text-align: center; resize: none; font-size: 24px; margin-bottom: -42px"></textArea>
-									(인)
+									value="서명" /> 영수인 : ${EmpVO.name} (인)
 								</td>
 							</tr>
 						</table>
 					</div>
 					<div id="button">
+					<input type="hidden" name="appKinds" value="지출결의서">
 						<button type="submit">등록</button>
 						<input type="text" style="border: none; width: 40px;" disabled>
 						<button type="reset">취소</button>

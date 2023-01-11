@@ -3,8 +3,12 @@ package com.tjoeun.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.RowBounds;
 
 import com.tjoeun.vo.ApprovalVO;
+import com.tjoeun.vo.BoardList;
 import com.tjoeun.vo.BoardVO;
 import com.tjoeun.vo.EmpVO;
 import com.tjoeun.vo.MailBoxesVO;
@@ -91,29 +95,34 @@ public interface MyBatisDAO {
 	int approvalCount_YET(int empno);
 	int approvalCount_UNDER(int empno);
 	int approvalCount_DONE(int empno);
-	List<ApprovalVO> getRecentList(int empno);
-	List<ApprovalVO> getRecentList1(int empno);
-	List<ApprovalVO> getRecentList2(int empno);
-	int getListCount(String searchText);
+	List<ApprovalVO> selectRecentList(Param param);
+	List<ApprovalVO> selectRecentList1(Param param);
+	List<ApprovalVO> selectRecentList2(Param param);
+	
 	List<EmpVO> selectMemberAllForApproval(int empno);
-	int saveLetterOfApproval(ApprovalVO vo);
-	int saveLetterOfApproval2(ApprovalVO vo);
-	int saveLetterOfApproval3(ApprovalVO vo);
-	ApprovalVO findListByNo(int appNo);
+	int insertLetterOfApproval(ApprovalVO vo);
+	int insertLetterOfApproval2(ApprovalVO vo);
+	int insertLetterOfApproval3(ApprovalVO vo);
+	ApprovalVO selectApprovalListDetail(int appNo);
+	
+	int listCount(MyBatisDAO mapper);
+	ArrayList<ApprovalVO> selectApprovalList(Param param);
+	
 	List<EmpVO> selectSearchedMemberForApproval(String searchData, int empno);
 	int rejectUpdate(ApprovalVO vo);
 	List<EmpVO> getSearchMember(String userName);
+	
 	int approved1(int appNo);
 	int approved2(int appNo);
 	int approved3(int appNo);
 	int insertApproval(ApprovalVO vo);
-	int insertLeave(ApprovalVO vo);
-	int insertReceive(ApprovalVO vo);
-	int saveExpenseReport(ApprovalVO vo);
-	int saveExpenseReport2(ApprovalVO vo);
-	int saveExpenseReport3(ApprovalVO vo);
-	ApprovalVO findExpenseReportListByNo(int appNo);
-	ApprovalVO findListByLeaveNo(int appNo);
+	int insertAppLeave(ApprovalVO vo);
+	int insertReceiveRef(ApprovalVO vo);
+	int insertExpenseReport(ApprovalVO vo);
+	int insertExpenseReport2(ApprovalVO vo);
+	int insertExpenseReport3(ApprovalVO vo);
+	ApprovalVO selectExpenseReportListDetail(int appNo);
+	ApprovalVO viewAppLeaveList(int appNo);
 
 	
 	

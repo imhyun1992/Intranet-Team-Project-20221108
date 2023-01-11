@@ -79,7 +79,7 @@
 				</ul>
 			</div>
 
-			<c:if test="${!empty approval.appReason}">
+			<c:if test="${!empty ApprovalVO.appReason}">
 				<div
 					style="position: absolute; margin-left: 400px; margin-top: 30px">
 					<img src="${path}/images/rejected.png"
@@ -105,48 +105,48 @@
 							</tr>
 							<tr>
 								<c:choose>
-									<c:when test="${approval.appPresent eq 'A'}">
-										<td name="firstA" id="firstA">${approval.firstApprover}</td>
-										<td name="interimA" id="interimA">${approval.interimApprover}</td>
-										<td name="finalA" id="finalA">${approval.finalApprover}</td>
+									<c:when test="${ApprovalVO.appPresent eq 'A'}">
+										<td name="firstA" id="firstA">${ApprovalVO.firstApprover}</td>
+										<td name="interimA" id="interimA">${ApprovalVO.interimApprover}</td>
+										<td name="finalA" id="finalA">${ApprovalVO.finalApprover}</td>
 									</c:when>
-									<c:when test="${approval.appPresent eq 'B'}">
-										<td name="firstA" id="firstA">${approval.firstApprover}<img
+									<c:when test="${ApprovalVO.appPresent eq 'B'}">
+										<td name="firstA" id="firstA">${ApprovalVO.firstApprover}<img
 											src="${path}/images/approved.png"
 											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
-										<td name="interimA" id="interimA">${approval.interimApprover}</td>
-										<td name="finalA" id="finalA">${approval.finalApprover}</td>
+										<td name="interimA" id="interimA">${ApprovalVO.interimApprover}</td>
+										<td name="finalA" id="finalA">${ApprovalVO.finalApprover}</td>
 									</c:when>
-									<c:when test="${approval.appPresent eq 'C'}">
-										<td name="firstA" id="firstA">${approval.firstApprover}<img
+									<c:when test="${ApprovalVO.appPresent eq 'C'}">
+										<td name="firstA" id="firstA">${ApprovalVO.firstApprover}<img
 											src="${path}/images/approved.png"
 											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
-										<td name="interimA" id="interimA">${approval.interimApprover}<img
+										<td name="interimA" id="interimA">${ApprovalVO.interimApprover}<img
 											src="${path}/images/approved.png"
 											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
-										<td name="finalA" id="finalA">${approval.finalApprover}</td>
+										<td name="finalA" id="finalA">${ApprovalVO.finalApprover}</td>
 									</c:when>
-									<c:when test="${approval.appPresent eq 'D'}">
-										<td name="firstA" id="firstA">${approval.firstApprover}<img
+									<c:when test="${ApprovalVO.appPresent eq 'D'}">
+										<td name="firstA" id="firstA">${ApprovalVO.firstApprover}<img
 											src="${path}/images/approved.png"
 											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
-										<td name="interimA" id="interimA">${approval.interimApprover}<img
+										<td name="interimA" id="interimA">${ApprovalVO.interimApprover}<img
 											src="${path}/images/approved.png"
 											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
-										<td name="finalA" id="finalA">${approval.finalApprover}<img
+										<td name="finalA" id="finalA">${ApprovalVO.finalApprover}<img
 											src="${path}/images/approved.png"
 											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 									</c:when>
 									<c:otherwise>
-										<td name="firstA" id="firstA">${approval.firstApprover}</td>
-										<td name="interimA" id="interimA">${approval.interimApprover}</td>
-										<td name="finalA" id="finalA">${approval.finalApprover}</td>
+										<td name="firstA" id="firstA">${ApprovalVO.firstApprover}</td>
+										<td name="interimA" id="interimA">${ApprovalVO.interimApprover}</td>
+										<td name="finalA" id="finalA">${ApprovalVO.finalApprover}</td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
 							<tr style="height: 30px;">
 								<c:choose>
-									<c:when test="${!empty approval.appReason}">
+									<c:when test="${!empty ApprovalVO.appReason}">
 										<td><input type="button" name="Approver1" id="Approver1"
 											style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
 											value="결재서명" disabled /></td>
@@ -160,7 +160,7 @@
 									<c:otherwise>
 										<c:choose>
 											<c:when
-												test="${loginMember.user_name eq approval.firstApprover && approval.appPresent eq 'A'}">
+												test="${EmpVO.name eq ApprovalVO.firstApprover && ApprovalVO.appPresent eq 'A'}">
 												<td><input type="button" name="Approver1"
 													id="Approver1"
 													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
@@ -175,7 +175,7 @@
 													value="결재서명" disabled /></td>
 											</c:when>
 											<c:when
-												test="${loginMember.user_name eq approval.interimApprover && approval.appPresent eq 'B'}">
+												test="${EmpVO.name eq ApprovalVO.interimApprover && ApprovalVO.appPresent eq 'B'}">
 												<td><input type="button" name="Approver1"
 													id="Approver1"
 													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
@@ -190,7 +190,7 @@
 													value="결재서명" disabled /></td>
 											</c:when>
 											<c:when
-												test="${loginMember.user_name eq approval.finalApprover && approval.appPresent eq 'C'}">
+												test="${EmpVO.name eq ApprovalVO.finalApprover && ApprovalVO.appPresent eq 'C'}">
 												<td><input type="button" name="Approver1"
 													id="Approver1"
 													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
@@ -234,20 +234,20 @@
 							</tr>
 							<tr>
 								<td style="height: 70px; width: 80px;">성 명</td>
-								<td><input type="text" value="${approval.userName}"
+								<td><input type="text" value="${ApprovalVO.userName}"
 									readonly></td>
 								<td style="width: 80px;">부 서</td>
-								<td><input type="text" value="${approval.deptName}"
+								<td><input type="text" value="${ApprovalVO.deptName}"
 									readonly></td>
 								<td style="width: 80px;">직 급</td>
-								<td colspan="3"><input type="text" value="${approval.rank}"
+								<td colspan="3"><input type="text" value="${ApprovalVO.rank}"
 									readonly></td>
 							</tr>
 							<tr>
 								<td colspan="3" style="height: 70px; width: 80px;">비 상 연 락
 									망</td>
 								<td colspan="5"><input type="text"
-									value="${ approval.appEmergncyCall }" style="font-size: 25px;"
+									value="${ ApprovalVO.appEmergncyCall }" style="font-size: 25px;"
 									readonly></td>
 							</tr>
 							<tr>
@@ -256,9 +256,9 @@
 									<%-- <label class="leaveDate">${approval.leaveStart}</label>
                              ~  
                            <label class="leaveDate">${approval.leaveFinish}</label> --%>
-									<fmt:formatDate value="${approval.leaveStart}"
+									<fmt:formatDate value="${ApprovalVO.leaveStart}"
 										pattern="yyyy 년 MM 월 dd 일" /><label>&nbsp;&nbsp; ~
-										&nbsp;&nbsp;</label> <fmt:formatDate value="${approval.leaveFinish}"
+										&nbsp;&nbsp;</label> <fmt:formatDate value="${ApprovalVO.leaveFinish}"
 										pattern="yyyy 년 MM 월 dd 일" />&nbsp;까지
 								</td>
 							</tr>
@@ -268,7 +268,7 @@
 									구분</td>
 								<td colspan="8">
 									<div class="form-checkbox-wrap">
-										<sapn class="form-inline"> <label>${ approval.leaveClassify }</label>
+										<sapn class="form-inline"> <label>${ ApprovalVO.leaveClassify }</label>
 										</sapn>
 									</div>
 								</td>
@@ -276,7 +276,7 @@
 							<tr>
 								<td style="width: 80px;">세부사항</td>
 								<td colspan="8"><input style="height: 300px;" type="text"
-									value="${ approval.leaveDetail }" readonly></td>
+									value="${ ApprovalVO.leaveDetail }" readonly></td>
 							</tr>
 							<tr>
 								<td colspan="8"
@@ -287,7 +287,7 @@
 								<td colspan="8" style="text-align: center; height: 100px;">
 									<input type="text" style="text-align: center; font-size: 30px;"
 									readonly>
-								<fmt:formatDate value="${approval.appWriteDate}"
+								<fmt:formatDate value="${ApprovalVO.appWriteDate}"
 										pattern="yyyy 년 MM 월 dd 일" /></input>
 								</td>
 							</tr>
@@ -296,7 +296,7 @@
 									style="text-align: right; height: 100px; padding-right: 50px;">
 									신청자 : <input type="text"
 									style="width: 200px; border: none; text-align: center;"
-									maxlength="4" value="${approval.userName}" readonly>
+									maxlength="4" value="${ApprovalVO.userName}" readonly>
 									(인)
 								</td>
 							</tr>
@@ -306,21 +306,21 @@
 
 
 			<div id="button">
-				<input type="hidden" name="appNo" value="${approval.appNo}" />
+				<input type="hidden" name="appNo" value="${ApprovalVO.appNo}" />
 
 				<%-- <c:if test="${loginMember.user_name eq approval.firstApprover || approval.interimApprover || approval.finalApprover}">
                  --%>
 				<c:choose>
-					<c:when test="${!empty approval.appReason}">
+					<c:when test="${!empty ApprovalVO.appReason}">
 						<button type="button" class="openRejectionWhy">반려사유</button>
 						<input type="text" style="border: none; width: 40px;" disabled>
 					</c:when>
 					<c:otherwise>
 						<c:choose>
 							<c:when
-								test="${(loginMember.user_name eq approval.firstApprover && approval.appPresent eq 'A') || 
-                                (loginMember.user_name eq approval.interimApprover && approval.appPresent eq 'B') ||
-                                (loginMember.user_name eq approval.finalApprover && approval.appPresent eq 'C')}">
+								test="${(EmpVO.name eq ApprovalVO.firstApprover && ApprovalVO.appPresent eq 'A') || 
+                                (EmpVO.name eq ApprovalVO.interimApprover && ApprovalVO.appPresent eq 'B') ||
+                                (EmpVO.name eq ApprovalVO.finalApprover && ApprovalVO.appPresent eq 'C')}">
 								<button type="button" id="approveddone">결재</button>
 								<input type="text" style="border: none; width: 40px;" disabled>
 								<button type="button" style="color: red" id="openRejection">반려</button>
@@ -388,7 +388,7 @@
 				style="width: 600px; height: 400px; border-radius: 20px">
 				<div style="font-size: 26px; margin: 30px">반려사유 :</div>
 				<textarea name="rejectReasonText" rows="6" cols="45"
-					style="font-size: 23px; margin-left: 23px; resize: none;" readonly>${approval.appReason}</textarea>
+					style="font-size: 23px; margin-left: 23px; resize: none;" readonly>${ApprovalVO.appReason}</textarea>
 				<div style="margin: 5% 0px 0% 69%;">
 					<span style="padding-right: 20px; margin-left: 46px; float: left;">
 						<button type="button" class="closeBtn-in3">확인</button>

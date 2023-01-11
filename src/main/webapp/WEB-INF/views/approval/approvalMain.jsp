@@ -46,7 +46,7 @@
 						<div class="card">
 							<div class="card-body">
 								<button type="button" class="btn btn-info position-relative"
-									onclick="location.href='${path}/approval/approvalList?notice_search=결재대기'">결재대기</button>
+									onclick="location.href='${path}/approval/approvalList?category='결재대기'">결재대기</button>
 								<p class="card-text">${countYet}건</p>
 							</div>
 						</div>
@@ -55,7 +55,7 @@
 						<div class="card">
 							<div class="card-body">
 								<button type="button" class="btn btn-danger position-relative"
-									onclick="location.href='${path}/approval/approvalList?notice_search=결재중'">결재중</button>
+									onclick="location.href='${path}/approval/approvalList?category='결재대기'">결재중</button>
 								<p class="card-text">${countUnder}건</p>
 							</div>
 						</div>
@@ -64,7 +64,7 @@
 						<div class="card">
 							<div class="card-body">
 								<button type="button" class="btn btn-success position-relative"
-									onclick="location.href='${path}/approval/approvalList?notice_search=결재완료'">결재완료</button>
+									onclick="location.href='${path}/approval/approvalList?category='결재대기'">결재완료</button>
 								<p class="card-text">${countDone}건</p>
 							</div>
 						</div>
@@ -81,7 +81,7 @@
 				</div>
 
 				<form action="">
-					<table id="e-pay-list">
+					<table>
 
 						<c:if test="${empty mainList2}">
 						</table>
@@ -137,9 +137,7 @@
 						<a href="${path}/approval/approvalList">+ 내 결재목록 전체보기</a>
 					</h6>
 					<h4 style="margin-bottom: 0; margin-top: 70px">내 결재 목록</h4>
-					<table id="e-pay-list">
 					<c:if test="${empty mainList}">
-					</table>
 					<tr><td colspan="4"><marquee>조회된 결재목록이 없습니다.</marquee></td></tr>
 					</c:if>
 
@@ -186,14 +184,13 @@
 				</form>
 
 				<form action="">
+				<div class="list_view">
 					<h6
 						style="float: right;">
 						<a href="${path}/approval/approvalList">+ 내가 작성한 결재목록 전체보기</a>
 					</h6>
 					<h4 style="margin-bottom: 0; margin-top: 70px">내가 작성한 결재</h4>
-					<table id="e-pay-list">
 						<c:if test="${empty mainList1}">
-					</table>
 					<tr><td colspan="4"><marquee>조회된 결재목록이 없습니다.</marquee></td></tr>
 					</c:if>
 
@@ -237,6 +234,7 @@
 							</tr>
 						</c:forEach>
 					</c:if>
+					</div>
 				</form>
 				<!-- =================================contents================================================= -->
 			</div>

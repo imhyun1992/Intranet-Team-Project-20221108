@@ -26,7 +26,7 @@
 				</ul>
 			</div>
 
-			<form action="${path}/approval/letterOfApproval" method="POST"
+			<form action="${path}/approval/letterOfApproval_insert" method="POST"
 				name="loaWriteForm" onsubmit="return check_onclick()"
 				enctype="multipart/form-data">
 				<div class="cash-form-section">
@@ -71,13 +71,13 @@
 							<tr>
 								<td style="height: 70px; width: 80px;">성 명</td>
 								<td><input type="text" name="writerName"
-									value="${loginMember.user_name}" readonly></td>
+									value="${userName}" readonly></td>
 								<td style="width: 80px;">부 서</td>
-								<td><input type="text" value="${loginMember.dept_name}"
+								<td><input type="text" value="${deptname}"
 									readonly></td>
 								<td style="width: 80px;">직 급</td>
 								<td colspan="3"><input type="text"
-									value="${loginMember.rank}" readonly></td>
+									value="${EmpVO.position}" readonly></td>
 							</tr>
 							<tr>
 								<td style="height: 70px; width: 80px;">제 목</td>
@@ -86,11 +86,6 @@
 							</tr>
 							<tr>
 								<td colspan="8" style="height: 90px;">
-									<!-- <label class="inputFileButton" for="inputFile">
-                       첨부파일 업로드
-                         </label>
-               
-                         <input type="file" id="inputFile" style="display: none;" /> -->
 
 									<input type="file" id="inputFile" name="appLoaFileUpload" />
 								</td>
@@ -113,7 +108,7 @@
 							<tr style="border: white;">
 								<td colspan="8" style="text-align: center; height: 100px;">
 									<input type="text" style="text-align: center; font-size: 30px;"
-									readonly value="${ serverTime }">
+									readonly value="${serverTime}">
 								</td>
 							</tr>
 							<tr>
@@ -121,10 +116,7 @@
 									style="text-align: right; height: 100px; padding-right: 50px;">
 									<input type="button" name="proposer" id="proposer"
 									style="font-size: 15px; width: 70px; height: 30px; border: none; text-align: center; border-radius: 20px; margin-right: 10px"
-									value="서명" /> 신청자 : <textArea name="proposerText"
-										id="proposerText"
-										style="width: 130px; border: none; text-align: center; resize: none; font-size: 24px; margin-bottom: -42px"
-										readonly></textArea> (인)
+									value="서명" /> 신청자 : ${userName} (인)
 								</td>
 							</tr>
 						</table>
@@ -143,7 +135,7 @@
 
       function check_onclick() {
           var loaWriteForm = document.loaWriteForm;
-          
+          console.log(loaWriteForm);
           if(loaWriteForm.loaContent.value=="" || loaWriteForm.loaTitle.value==""){
               /* alert("상세내용 또는 제목란이 비어있습니다. 확인 후 등록하세요."); */
               Swal.fire({
@@ -183,9 +175,8 @@
 		<%@ include file="../includes/con_right.jsp"%>
 	</div>
 
-	<%-- 	
-	<!-- 수신참조자 modal/script/ajax -->
-	<%@ include file="../approval/selectReferList.jsp"%>
+<%-- 	<%@ include file="../approval/selectReferList.jsp"%> --%>
+<%--
 	<%@ include file="../approval/appAutocomplete.jsp"%>
  --%>
 	<!-- footer -->

@@ -1,7 +1,5 @@
 package com.tjoeun.vo;
 
-import java.util.Date;
-
 public class Param {
 
 	private int startNo;
@@ -10,6 +8,13 @@ public class Param {
 	private String searchcategory;
 	private String searchobj;
 	private String email;
+	
+	// approval 
+	private String approval_search;
+	private String userName;
+	private int userNo;
+	
+	public Param() {}
 	
 	public int getStartNo() {
 		return startNo;
@@ -48,4 +53,29 @@ public class Param {
 		this.email = email;
 	}
 
+	public String getApproval_search() {
+		return approval_search;
+	}
+
+	public void setApproval_search(String approval_search) {
+		this.approval_search = approval_search;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+	
+	
 }

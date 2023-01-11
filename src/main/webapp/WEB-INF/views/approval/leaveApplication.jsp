@@ -14,47 +14,6 @@
 	<% Calendar today =  Calendar.getInstance(); %>
 	<%@ include file="../includes/header.jsp"%>
 
-<style>
-/* 휴가 구분 css */
-.form-radio {
-	display: inline-block;
-	line-height: 20px;
-	vertical-align: middle;
-	font-size: 14px;
-}
-
-.form-chek::before, .form-radio::before {
-	content: "";
-	display: inline-block;
-	width: 10px;
-	height: 10px;
-	background: #ffffff;
-	border: 1px solid #3d3d3e;
-	margin-right: 8px;
-}
-
-.form-radio::before {
-	border-radius: 50%;
-}
-
-.input-chek, .input-radio {
-	display: none;
-}
-
-.input-chek:checked+.form-chek::before, .input-radio:checked+.form-radio::before
-	{
-	background: #5b18ff;
-}
-
-.input-chek:checked+.form-chek, .input-radio:checked+.form-radio {
-	color: #5b18ff;
-}
-
-.leaveDetailTextArea {
-	font-size: 25px;
-}
-</style>
-
 	<div class="tjcontainer">
 
 		<!-- menu list -->
@@ -64,15 +23,15 @@
 		<div class="con_middle">
 			<div class="nav">
 				<ul>
-					<li><a href="${path}/approval/approvalMain"><img
+					<li><a href="${path}/approval/leaveApplication_insert"><img
 							src="../images/home.png" alt="home" width="18px"></a>&#62;</li>
 					<li><a href="${path}/approval/approvalMain">전자결재</a>&#62;</li>
 					<li><a href="${path}/approval/leaveApplication">휴가신청서</a></li>
 				</ul>
 			</div>
 
-			<form name="leaveWriteForm" action="${path}/approval/updateLeave"
-				method="POST" onsubmit="return check_onclick()">
+			<form name="leaveWriteForm" action="${path}/approval/leaveApplication_insert"
+				method="post" onsubmit="return check_onclick()">
 				<div class="cash-form-section">
 					<div class="cash-disbursement">
 						<table border="2"
@@ -93,7 +52,6 @@
 							</tr>
 							<tr>
 								<td style="">
-									<!-- 이미지화 시켜서 인쇄할 수 있는 방법 찾아보기 -->
 									<input type="text" value=""
 									id="firstApprover" name="firstApprover" readonly="readonly"
 									class="nameView"> <input type="button" value="검색"
@@ -122,17 +80,17 @@
 									style="height: 70px; width: 80px; font-family: 'InfinitySans-RegularA1'; font-size: 15px;">성
 									명</td>
 								<td><input type="text" name="writerName"
-									value="${ loginMember.user_name }" readonly></td>
+									value="${EmpVO.name}" readonly></td>
 								<td
 									style="width: 80px; font-family: 'InfinitySans-RegularA1'; font-size: 15px;">부
 									서</td>
-								<td><input type="text" value="${ loginMember.dept_name }"
+								<td><input type="text" value="${deptname}"
 									readonly></td>
 								<td
 									style="width: 80px; font-family: 'InfinitySans-RegularA1'; font-size: 15px;">직
 									급</td>
 								<td colspan="3"><input type="text"
-									value="${ loginMember.rank }" readonly></td>
+									value="${EmpVO.position}" readonly></td>
 							</tr>
 							<tr>
 								<td colspan="3"
@@ -205,14 +163,14 @@
 							</tr>
 							<tr>
 								<td
-									style="width: 80px; font-family: 'InfinitySans-RegularA1'; font-size: 15px;">세부사항</td>
-								<td colspan="8"><input style="height: 300px;" type="text"
+									style="width: 30px; font-size: 15px;">세부사항</td>
+								<td colspan="8"><input style="height: 30px;" type="text"
 									name="leaveDetail" class="leaveDetailTextArea"></td>
 							</tr>
 							<tr>
 								<td colspan="8"
 									style="text-align: center; height: 100px; border-bottom: none;">위와
-									같이 휴가를 신청하오니 허락하여 주시기 바랍니다.</td>
+									같이 휴가를 신청하오니 확인 후 결재 바랍니다.</td>
 							</tr>
 							<tr style="border: white;">
 								<td colspan="8" style="text-align: center; height: 100px;">
@@ -225,10 +183,7 @@
 									style="text-align: right; height: 100px; padding-right: 50px;">
 									<input type="button" name="proposer" id="proposer"
 									style="font-size: 15px; width: 70px; height: 30px; border: none; text-align: center; border-radius: 20px; margin-right: 10px"
-									value="서명" /> 신청자 : <textArea name="proposerText"
-										id="proposerText"
-										style="width: 130px; border: none; text-align: center; resize: none; font-size: 24px; margin-bottom: -42px"
-										readonly></textArea> (인)
+									value="서명" /> 신청자 : ${EmpVO.name} (인)
 								</td>
 							</tr>
 						</table>
@@ -236,7 +191,6 @@
 					<div id="button">
 						<input type="hidden" name="appKinds" value="휴가신청서">
 						<button type="submit" class="goToLeave" onclick="">등록</button>
-						<!-- ${path}/approval/updateLeave -->
 						<input type="text" style="border: none; width: 40px;" disabled>
 						<button type="reset" class="resetLeave" onclick="">취소</button>
 					</div>
@@ -245,10 +199,9 @@
 		</div>
 
 		<!-- 필수 입력 스크립트 -->
-		<script>
+<script>
       function check_onclick() {
           var leaveWriteForm = document.leaveWriteForm;
-          
           if(leaveWriteForm.leaveClassify.value=="" || leaveWriteForm.leaveDetail.value==""){
               
               Swal.fire({

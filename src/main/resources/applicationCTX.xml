@@ -25,5 +25,6 @@
 	<bean id="param" class="com.tjoeun.vo.Param"/>
 	
 	<bean id="approvalvo" class="com.tjoeun.vo.ApprovalVO"/>
+	<bean id="approvallist" class="com.tjoeun.vo.PagingInfo"></bean>
 	<!-- <bean id="approvalService" class="com.tjoeun.service.approval.ApprovalServiceImpl"></bean> -->
 </beans>
