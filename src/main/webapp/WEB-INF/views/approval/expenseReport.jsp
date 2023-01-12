@@ -1,4 +1,4 @@
-<%@page import="java.util.Calendar"%>
+ <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -71,13 +71,13 @@
 							<tr>
 								<td style="height: 70px; width: 80px;">성 명</td>
 								<td><input type="text" name="writerName"
-									value="${loginMember.user_name}" readonly></td>
+									value="${EmpVO.name}" readonly></td>
 								<td style="width: 80px;">부 서</td>
-								<td><input type="text" value="${loginMember.dept_name}"
+								<td><input type="text" value="${deptname}"
 									readonly></td>
 								<td style="width: 80px;">직 급</td>
 								<td colspan="3"><input type="text"
-									value="${loginMember.rank}" readonly></td>
+									value="${EmpVO.position}" readonly></td>
 							</tr>
 							<tr>
 								<td colspan="1">마감일</td>
@@ -86,7 +86,7 @@
 								<td colspan="1" style="height: 70px; width: 80px;">지출금액</td>
 								<td colspan="2"><input type="text" name="allAmount"
 									id="allAmount"></td>
-								<td colspan="3"><select name="monetaryUnit"
+								<td colspan="3"><select name="moneytaryUnit"
 									style="width: 130px; height: 40px; font-size: 18px">
 										<option value="">화폐단위</option>
 										<option value="KRW">KRW</option>
@@ -222,7 +222,7 @@
 				  text: '확인 후 등록하세요!'
 			})
 		    return false;
-	    } else if(erWriteForm.monetaryUnit.value=="") {
+	    } else if(erWriteForm.moneytaryUnit.value=="") {
 	    	/* alert("화폐단위를 선택해주세요."); */
 	    	Swal.fire({
 				  icon: 'error',
@@ -254,7 +254,7 @@
             +'<td colspan="2"><input type="text" name="erDetail" id="erDetail"></td>'
             +'<td colspan="2"><input type="text" name="erAmount" id="erAmount"></td>'
             +'<td colspan="3"><input type="text" name="erReference" id="erReference" value="-"></td>'
-        	+'</tr> '
+        	+'</tr> ' 
 	});
 	$("#deleteRow").on("click", function() {
 		$('#putContents').detach();

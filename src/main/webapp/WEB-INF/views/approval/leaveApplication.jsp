@@ -38,17 +38,17 @@
 							style="width: 100%; font-size: 20px; border-collapse: collapse;">
 							<tr>
 								<td rowspan="2" colspan="4"
-									style="width: 300px; height: 120px; font-family: 'InfinitySans-RegularA1'; font-size: 40px; font-weight: 600;">휴
+									style="width: 300px; height: 120px; font-size: 40px; font-weight: 600;">휴
 									가 신 청 서</td>
 								<td rowspan="2"
-									style="width: 15px; padding-top: 20px; font-family: 'InfinitySans-RegularA1'; font-size: 20px;">결
+									style="width: 15px; padding-top: 20px; font-size: 20px;">결
 									재</td>
 								<td
-									style="height: 30px; width: 100px; font-family: 'InfinitySans-RegularA1'; font-size: 15px;">최초승인자</td>
+									style="height: 30px; width: 100px; font-size: 15px;">최초승인자</td>
 								<td
-									style="width: 100px; font-family: 'InfinitySans-RegularA1'; font-size: 15px;">중간승인자</td>
+									style="width: 100px; font-size: 15px;">중간승인자</td>
 								<td
-									style="width: 100px; font-family: 'InfinitySans-RegularA1'; font-size: 15px;">최종승인자</td>
+									style="width: 100px; font-size: 15px;">최종승인자</td>
 							</tr>
 							<tr>
 								<td style="">
@@ -77,30 +77,20 @@
 							</tr>
 							<tr>
 								<td
-									style="height: 70px; width: 80px; font-family: 'InfinitySans-RegularA1'; font-size: 15px;">성
-									명</td>
-								<td><input type="text" name="writerName"
-									value="${EmpVO.name}" readonly></td>
-								<td
-									style="width: 80px; font-family: 'InfinitySans-RegularA1'; font-size: 15px;">부
-									서</td>
-								<td><input type="text" value="${deptname}"
-									readonly></td>
-								<td
-									style="width: 80px; font-family: 'InfinitySans-RegularA1'; font-size: 15px;">직
-									급</td>
-								<td colspan="3"><input type="text"
-									value="${EmpVO.position}" readonly></td>
+									style="height: 70px; width: 80px; font-size: 15px;">성명</td>
+								<td><input type="text" name="writerName" value="${EmpVO.name}" readonly></td>
+								<td	style="width: 80px; font-size: 15px;">부서</td>
+								<td><input type="text" value="${deptname}" readonly></td>
+								<td	style="width: 80px; font-size: 15px;">직급</td>
+								<td colspan="3"><input type="text" value="${EmpVO.position}" readonly></td>
 							</tr>
 							<tr>
 								<td colspan="3"
-									style="height: 70px; width: 80px; font-family: 'InfinitySans-RegularA1'; font-size: 15px;">비
-									상 연 락 망</td>
-								<td colspan="5"><input type="tel"
-									placeholder="전화번호만 입력하세요." class="callNumber"
+									style="height: 70px; width: 80px; font-size: 15px;">비 상 연 락 망</td>
+								<td colspan="5"><input type="tel" placeholder="전화번호만 입력하세요." class="callNumber"
 									name="appEmergncyCall" style="font-size: 18px;" required /></td>
 							</tr>
-							<script>
+					<script>
                        $(document).on("keyup", ".callNumber", function() {
                           $(this).val( $(this).val()
                                 .replace(/[^0-9]/g, "")
@@ -109,7 +99,7 @@
                    </script>
 							<tr>
 								<td colspan="3"
-									style="height: 70px; width: 80px; font-family: 'InfinitySans-RegularA1'; font-size: 15px;">기
+									style="height: 70px; width: 80px; font-size: 15px;">기
 									간</td>
 								<td colspan="5"><span> <input
 										style="width: 160px; font-size: 18px;" type="date"
@@ -134,7 +124,7 @@
 							</tr>
 							<tr>
 								<td
-									style="width: 80px; height: 70px; font-family: 'InfinitySans-RegularA1'; font-size: 15px;">휴가
+									style="width: 80px; height: 70px; font-size: 15px;">휴가
 									구분</td>
 								<td colspan="8">
 									<div class="form-checkbox-wrap">

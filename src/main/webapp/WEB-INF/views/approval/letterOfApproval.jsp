@@ -26,7 +26,7 @@
 				</ul>
 			</div>
 
-			<form action="${path}/approval/letterOfApproval_insert" method="POST"
+			<form action="${path}/approval/letterOfApproval_insert" method="post"
 				name="loaWriteForm" onsubmit="return check_onclick()"
 				enctype="multipart/form-data">
 				<div class="cash-form-section">
@@ -71,7 +71,7 @@
 							<tr>
 								<td style="height: 70px; width: 80px;">성 명</td>
 								<td><input type="text" name="writerName"
-									value="${userName}" readonly></td>
+									value="${EmpVO.name}" readonly></td>
 								<td style="width: 80px;">부 서</td>
 								<td><input type="text" value="${deptname}"
 									readonly></td>
@@ -106,7 +106,7 @@
 									같은 품의사유로, 검토 후 결재 바랍니다.</td>
 							</tr>
 							<tr style="border: white;">
-								<td colspan="8" style="text-align: center; height: 100px;">
+								<td>
 									<input type="text" style="text-align: center; font-size: 30px;"
 									readonly value="${serverTime}">
 								</td>
@@ -114,9 +114,9 @@
 							<tr>
 								<td colspan="8"
 									style="text-align: right; height: 100px; padding-right: 50px;">
-									<input type="button" name="proposer" id="proposer"
+									<input type="text" name="proposer" id="proposer"
 									style="font-size: 15px; width: 70px; height: 30px; border: none; text-align: center; border-radius: 20px; margin-right: 10px"
-									value="서명" /> 신청자 : ${userName} (인)
+									value="서명" /> 신청자 : ${EmpVO.name} (인)
 								</td>
 							</tr>
 						</table>

@@ -2,6 +2,8 @@ package com.tjoeun.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -47,7 +49,9 @@ public class ApprovalVO {
 	private int leaveNo;
 	private int leaveAppNo; // Approval의 appNo(FK)
 	private String leaveClassify; // 휴가 구분
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date leaveStart;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date leaveFinish;
 	private String leaveDetail; // 내용(사유)
 	private String leaveStatus; // 문서 상태
@@ -57,6 +61,7 @@ public class ApprovalVO {
 	// App_ER(지출 결의서)
 	private int erNo;
 	private int erAppNo; // Approval의 appNo(FK)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date erDeadline;
 	private String erClassify; // 계정과목
 	private String allAmount;
@@ -66,7 +71,7 @@ public class ApprovalVO {
 	private String erReference; // 비고
 	private String erStatus; // 문서 상태
 	private String erPresent; // 결재 현황
-	private String monetaryUnit; // 화폐 단위
+	private String moneytaryUnit; // 화폐 단위
 
 
 }

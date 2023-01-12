@@ -28,12 +28,6 @@
 				</ul>
 			</div>
 			<%-- <%@ include file="../approval/approvalSubMenu.jsp"%> --%>
-			<c:if test="${!empty ApprovalVO.appReason}">
-				<div>
-					<img src="${path}/images/rejected.png"
-						style="width: 200px; height: 200px" />
-				</div>
-			</c:if>
 			<div class="cash-form-section">
 				<div class="cash-disbursement"
 					style="text-align: center; border: 2px solid black;">
@@ -51,48 +45,48 @@
 						</tr>
 						<tr>
 							<c:choose>
-								<c:when test="${ApprovalVO.appPresent eq 'A'}">
-									<td name="firstA" id="firstA">${ApprovalVO.firstApprover}</td>
-									<td name="interimA" id="interimA">${ApprovalVO.interimApprover}</td>
-									<td name="finalA" id="finalA">${ApprovalVO.finalApprover}</td>
+								<c:when test="${approval.appPresent eq 'A'}">
+									<td name="firstA" id="firstA">${approval.firstApprover}</td>
+									<td name="interimA" id="interimA">${approval.interimApprover}</td>
+									<td name="finalA" id="finalA">${approval.finalApprover}</td>
 								</c:when>
-								<c:when test="${ApprovalVO.appPresent eq 'B'}">
-									<td name="firstA" id="firstA">${ApprovalVO.firstApprover}<img
+								<c:when test="${approval.appPresent eq 'B'}">
+									<td name="firstA" id="firstA">${approval.firstApprover}<img
 										src="${path}/images/approved.png"
 										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
-									<td name="interimA" id="interimA">${ApprovalVO.interimApprover}</td>
-									<td name="finalA" id="finalA">${ApprovalVO.finalApprover}</td>
+									<td name="interimA" id="interimA">${approval.interimApprover}</td>
+									<td name="finalA" id="finalA">${approval.finalApprover}</td>
 								</c:when>
-								<c:when test="${ApprovalVO.appPresent eq 'C'}">
-									<td name="firstA" id="firstA">${ApprovalVO.firstApprover}<img
+								<c:when test="${approval.appPresent eq 'C'}">
+									<td name="firstA" id="firstA">${approval.firstApprover}<img
 										src="${path}/images/approved.png"
 										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
-									<td name="interimA" id="interimA">${ApprovalVO.interimApprover}<img
+									<td name="interimA" id="interimA">${approval.interimApprover}<img
 										src="${path}/images/approved.png"
 										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
-									<td name="finalA" id="finalA">${ApprovalVO.finalApprover}</td>
+									<td name="finalA" id="finalA">${approval.finalApprover}</td>
 								</c:when>
-								<c:when test="${ApprovalVO.appPresent eq 'D'}">
-									<td name="firstA" id="firstA">${ApprovalVO.firstApprover}<img
+								<c:when test="${approval.appPresent eq 'D'}">
+									<td name="firstA" id="firstA">${approval.firstApprover}<img
 										src="${path}/images/approved.png"
 										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
-									<td name="interimA" id="interimA">${ApprovalVO.interimApprover}<img
+									<td name="interimA" id="interimA">${approval.interimApprover}<img
 										src="${path}/images/approved.png"
 										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
-									<td name="finalA" id="finalA">${ApprovalVO.finalApprover}<img
+									<td name="finalA" id="finalA">${approval.finalApprover}<img
 										src="${path}/images/approved.png"
 										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 								</c:when>
 								<c:otherwise>
-									<td name="firstA" id="firstA">${ApprovalVO.firstApprover}</td>
-									<td name="interimA" id="interimA">${ApprovalVO.interimApprover}</td>
-									<td name="finalA" id="finalA">${ApprovalVO.finalApprover}</td>
+									<td name="firstA" id="firstA">${approval.firstApprover}</td>
+									<td name="interimA" id="interimA">${approval.interimApprover}</td>
+									<td name="finalA" id="finalA">${approval.finalApprover}</td>
 								</c:otherwise>
 							</c:choose>
 						</tr>
 						<tr style="height: 30px;">
-							<c:choose>
-								<c:when test="${!empty ApprovalVO.appReason}">
+<%-- 							<c:choose>
+								<c:when test="${!empty approval.appReason}">
 									<td><input type="button" name="Approver1" id="Approver1"
 										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
 										value="결재서명" disabled /></td>
@@ -103,56 +97,54 @@
 										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
 										value="결재서명" disabled /></td>
 								</c:when>
+								<c:otherwise> --%>
+							<c:choose>
+								<c:when
+									test="${EmpVO.name eq approval.firstApprover && approval.appPresent eq 'A'}">
+									<td><input type="button" name="Approver1" id="Approver1"
+										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+										value="결재서명" /></td>
+									<td><input type="button" name="Approver2" id="Approver2"
+										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+										value="결재서명" disabled /></td>
+									<td><input type="button" name="Approver3" id="Approver3"
+										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+										value="결재서명" disabled /></td>
+								</c:when>
+								<c:when
+									test="${EmpVO.name eq approval.interimApprover && approval.appPresent eq 'B'}">
+									<td><input type="button" name="Approver1" id="Approver1"
+										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+										value="결재서명" disabled /></td>
+									<td><input type="button" name="Approver2" id="Approver2"
+										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+										value="결재서명" /></td>
+									<td><input type="button" name="Approver3" id="Approver3"
+										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+										value="결재서명" disabled /></td>
+								</c:when>
+								<c:when
+									test="${EmpVO.name eq approval.finalApprover && approval.appPresent eq 'C'}">
+									<td><input type="button" name="Approver1" id="Approver1"
+										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+										value="결재서명" disabled /></td>
+									<td><input type="button" name="Approver2" id="Approver2"
+										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+										value="결재서명" disabled /></td>
+									<td><input type="button" name="Approver3" id="Approver3"
+										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+										value="결재서명" /></td>
+								</c:when>
 								<c:otherwise>
-									<c:choose>
-										<c:when
-											test="${loginMember.user_name eq ApprovalVO.firstApprover && ApprovalVO.appPresent eq 'A'}">
-											<td><input type="button" name="Approver1" id="Approver1"
-												style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-												value="결재서명" /></td>
-											<td><input type="button" name="Approver2" id="Approver2"
-												style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-												value="결재서명" disabled /></td>
-											<td><input type="button" name="Approver3" id="Approver3"
-												style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-												value="결재서명" disabled /></td>
-										</c:when>
-										<c:when
-											test="${loginMember.user_name eq ApprovalVO.interimApprover && ApprovalVO.appPresent eq 'B'}">
-											<td><input type="button" name="Approver1" id="Approver1"
-												style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-												value="결재서명" disabled /></td>
-											<td><input type="button" name="Approver2" id="Approver2"
-												style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-												value="결재서명" /></td>
-											<td><input type="button" name="Approver3" id="Approver3"
-												style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-												value="결재서명" disabled /></td>
-										</c:when>
-										<c:when
-											test="${loginMember.user_name eq ApprovalVO.finalApprover && ApprovalVO.appPresent eq 'C'}">
-											<td><input type="button" name="Approver1" id="Approver1"
-												style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-												value="결재서명" disabled /></td>
-											<td><input type="button" name="Approver2" id="Approver2"
-												style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-												value="결재서명" disabled /></td>
-											<td><input type="button" name="Approver3" id="Approver3"
-												style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-												value="결재서명" /></td>
-										</c:when>
-										<c:otherwise>
-											<td><input type="button" name="Approver1" id="Approver1"
-												style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-												value="결재서명" disabled /></td>
-											<td><input type="button" name="Approver2" id="Approver2"
-												style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-												value="결재서명" disabled /></td>
-											<td><input type="button" name="Approver3" id="Approver3"
-												style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-												value="결재서명" disabled /></td>
-										</c:otherwise>
-									</c:choose>
+									<td><input type="button" name="Approver1" id="Approver1"
+										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+										value="결재서명" disabled /></td>
+									<td><input type="button" name="Approver2" id="Approver2"
+										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+										value="결재서명" disabled /></td>
+									<td><input type="button" name="Approver3" id="Approver3"
+										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+										value="결재서명" disabled /></td>
 								</c:otherwise>
 							</c:choose>
 						</tr>
@@ -168,30 +160,30 @@
 						</tr>
 						<tr>
 							<td style="height: 70px; width: 80px;">성 명</td>
-							<td><input type="text" readonly value="${ApprovalVO.userName}"></td>
+							<td><input type="text" readonly value="${approval.userName}"></td>
 							<td style="width: 80px;">부 서</td>
-							<td><input type="text" readonly value="${ApprovalVO.deptName}"></td>
+							<td><input type="text" readonly value="${approval.deptName}"></td>
 							<td style="width: 80px;">직 급</td>
 							<td colspan="3"><input type="text" readonly
-								value="${ApprovalVO.rank}"></td>
+								value="${approval.rank}"></td>
 						</tr>
 						<tr>
 							<td colspan="1">마감일</td>
 							<td colspan="1"><input type="date" name="erDeadline"
 								id="erDeadline"
 								style="background: none; margin-left: 35px; font-size: 30px;"
-								readonly value="${ApprovalVO.erDeadline}"></td>
+								readonly value="${approval.erDeadline}"></td>
 							<td colspan="1" style="height: 70px; width: 80px;">지출금액</td>
 							<td colspan="3"><input type="text" name="allAmount"
-								id="allAmount" readonly value="${ApprovalVO.allAmount}" /></td>
+								id="allAmount" readonly value="${approval.allAmount}" /></td>
 							<td colspan="2" style="border: 0px"><input type="text"
-								name="monetaryUnit" id="monetaryUnit" readonly
-								value="${ApprovalVO.monetaryUnit}" /></td>
+								name="moneytaryUnit" id="moneytaryUnit" readonly
+								value="${approval.moneytaryUnit}" /></td>
 						</tr>
 						<tr>
 							<td style="height: 70px; width: 80px;">제 목</td>
 							<td colspan="7"><input type="text" readonly
-								value="${ApprovalVO.erTitle}"></td>
+								value="${approval.erTitle}"></td>
 						</tr>
 						<tr>
 							<td rowspan="10" style="width: 80px;">내 역</td>
@@ -201,15 +193,15 @@
 						</tr>
 
 						<!-- 적요 -->
-						<c:set var="erDetailArr" value="${ ApprovalVO.erDetail }"></c:set>
+						<c:set var="erDetailArr" value="${ approval.erDetail }"></c:set>
 						<c:set var="erDeArr" value="${fn:split(erDetailArr,',')}" />
 
 						<!-- 금액  -->
-						<c:set var="erAmountArr" value="${ ApprovalVO.erAmount }"></c:set>
+						<c:set var="erAmountArr" value="${ approval.erAmount }"></c:set>
 						<c:set var="eAArr" value="${fn:split(erAmountArr,',')}" />
 
 						<!-- 비고  -->
-						<c:set var="erReferenceArr" value="${ ApprovalVO.erReference }"></c:set>
+						<c:set var="erReferenceArr" value="${ approval.erReference }"></c:set>
 						<c:set var="eRFArr" value="${fn:split(erReferenceArr,',')}" />
 
 						<c:forEach begin="0" end="${fn:length(eRFArr)-1}"
@@ -235,7 +227,7 @@
 							<td colspan="8" style="text-align: center; height: 100px;">
 								<input type="text" style="text-align: center; font-size: 30px;"
 								readonly>
-							<fmt:formatDate value="${ApprovalVO.appWriteDate}"
+							<fmt:formatDate value="${approval.appWriteDate}"
 									pattern="yyyy 년 MM 월 dd 일" />
 							</td>
 						</tr>
@@ -244,21 +236,19 @@
 								style="text-align: right; height: 100px; padding-right: 50px;">
 								영수인 : <input type="text"
 								style="width: 200px; border: none; text-align: center;"
-								maxlength="4" readonly value="${ApprovalVO.userName}"> (인)
+								maxlength="4" readonly value="${approval.userName}"> (인)
 							</td>
 						</tr>
 					</table>
 				</div>
 				<div id="button">
-					<input type="hidden" name="appNo" value="${ApprovalVO.appNo}" />
+					<input type="hidden" name="appNo" value="${approval.appNo}" />
 
-					<%-- <c:if test="${loginMember.user_name eq approval.firstApprover || approval.interimApprover || approval.finalApprover}">
-       			 --%>
 						<c:choose>
 							<c:when
-								test="${(EmpVO.name eq ApprovalVO.firstApprover && ApprovalVO.appPresent eq 'A') || 
-	        						(EmpVO.name eq ApprovalVO.interimApprover && ApprovalVO.appPresent eq 'B') ||
-	        						(EmpVO.name eq ApprovalVO.finalApprover && ApprovalVO.appPresent eq 'C')}">
+								test="${(EmpVO.name eq approval.firstApprover && approval.appPresent eq 'A') || 
+	        						(EmpVO.name eq approval.interimApprover && approval.appPresent eq 'B') ||
+	        						(EmpVO.name eq approval.finalApprover && approval.appPresent eq 'C')}">
 								<button type="submit" id="approveddone">결재</button>
 								<input type="text" style="border: none; width: 40px;" disabled>
 							</c:when>
@@ -275,7 +265,7 @@
 			</div>
 
 			<!-- 모달 스크립트 -->
-			<script>
+<script>
     	const open = () => {
 	    	document.querySelector(".modal1").classList.remove("hidden");
 	    }
@@ -286,9 +276,7 @@
 	
 	    document.querySelector("#openRejection").addEventListener("click", open);
 	    document.querySelector(".rejModalNo1").addEventListener("click", close);
-    		
-		<!-- 결재승인버튼 스크립트 -->
-		<script>
+	<!-- 결재승인버튼 스크립트 --> 
    	$("#Approver1").one("click",function(){
    		
    		$.ajax({
@@ -339,7 +327,7 @@
                error: function(){ alert("잠시 후 다시 시도해주세요."); }
    		});
    	});
-  	</script>
+</script>
 
 		<!-- 하단 결재버튼 -->
 		<script>

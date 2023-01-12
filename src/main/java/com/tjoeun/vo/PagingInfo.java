@@ -40,7 +40,8 @@ public class PagingInfo {
 	}
 
 	public List<ApprovalVO> setList(ArrayList<ApprovalVO> list) {
-		return this.list = list;
+		this.list = list;
+		return this.list;
 	}
 
 	public int getPageSize() {

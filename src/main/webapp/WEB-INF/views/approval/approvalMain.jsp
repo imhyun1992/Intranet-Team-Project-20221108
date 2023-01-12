@@ -46,7 +46,7 @@
 						<div class="card">
 							<div class="card-body">
 								<button type="button" class="btn btn-info position-relative"
-									onclick="location.href='${path}/approval/approvalList?category='결재대기'">결재대기</button>
+									onclick="location.href='${path}/approval/approvalList?">결재대기</button>
 								<p class="card-text">${countYet}건</p>
 							</div>
 						</div>
@@ -55,7 +55,7 @@
 						<div class="card">
 							<div class="card-body">
 								<button type="button" class="btn btn-danger position-relative"
-									onclick="location.href='${path}/approval/approvalList?category='결재대기'">결재중</button>
+									onclick="location.href='${path}/approval/approvalList?">결재중</button>
 								<p class="card-text">${countUnder}건</p>
 							</div>
 						</div>
@@ -64,7 +64,7 @@
 						<div class="card">
 							<div class="card-body">
 								<button type="button" class="btn btn-success position-relative"
-									onclick="location.href='${path}/approval/approvalList?category='결재대기'">결재완료</button>
+									onclick="location.href='${path}/approval/approvalList?">결재완료</button>
 								<p class="card-text">${countDone}건</p>
 							</div>
 						</div>
@@ -134,7 +134,7 @@
 				<form action="">
 					<h6
 						style="float: right;">
-						<a href="${path}/approval/approvalList">+ 내 결재목록 전체보기</a>
+						<a href="${path}/approval/approvalList">+ 결재목록 전체보기</a>
 					</h6>
 					<h4 style="margin-bottom: 0; margin-top: 70px">내 결재 목록</h4>
 					<c:if test="${empty mainList}">
@@ -187,7 +187,7 @@
 				<div class="list_view">
 					<h6
 						style="float: right;">
-						<a href="${path}/approval/approvalList">+ 내가 작성한 결재목록 전체보기</a>
+						<a href="${path}/approval/approvalList">+ 결재목록 전체보기</a>
 					</h6>
 					<h4 style="margin-bottom: 0; margin-top: 70px">내가 작성한 결재</h4>
 						<c:if test="${empty mainList1}">

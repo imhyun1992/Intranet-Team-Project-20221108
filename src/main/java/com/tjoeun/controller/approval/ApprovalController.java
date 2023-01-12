@@ -13,10 +13,14 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tjoeun.dao.MyBatisDAO;
@@ -33,8 +37,7 @@ public class ApprovalController {
 	private static final Logger logger = LoggerFactory.getLogger(ApprovalController.class);
 	
 	AbstractApplicationContext CTX = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
-	ApprovalVO vo = CTX.getBean("approvalvo", ApprovalVO.class);
-
+	
 	@Autowired
 	private SqlSession sqlsession;
 	
@@ -44,7 +47,6 @@ public class ApprovalController {
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 		HttpSession session = request.getSession();
 		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
-		BoardVO boardVO = new BoardVO();
 		
 		EmpVO empvo = (EmpVO) session.getAttribute("EmpVO");
 		int empno = empvo.getEmpno();
@@ -88,27 +90,24 @@ public class ApprovalController {
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 		
 		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
-		
-		List<ApprovalVO> mainList = null;
-		
+
 		int totalCount = mapper.listCount(mapper);
-		// logger.error("listCount: {}", totalCount);
 		PagingInfo paging = new PagingInfo(pageSize, totalCount, currentPage);
-		// logger.error("approvalList: {}", paging);
 		
 		// 페이지 작업
 		Param param = new Param();
 		param.setStartNo(paging.getStartNo());
 		param.setEndNo(paging.getEndNo());
 		
-		mainList = paging.setList(mapper.selectApprovalList(param));
-        request.setAttribute("mainList", mainList);
-        request.setAttribute("currentPage", currentPage);
-        
-        model.addObject("paging", paging);
-		model.addObject("mainList", mainList);
-		// logger.error("mainList{}: ", mainList);
+		paging.setList(mapper.selectApprovalList(param));
+
+//		for(ApprovalVO item : paging.getList()) {
+//			System.out.println("vo ********");
+//			System.out.println(item);
+//		}
 		
+        request.setAttribute("currentPage", currentPage);
+        model.addObject("paging", paging);
 		model.setViewName("approval/approvalList");
 		
 		return model;
@@ -120,15 +119,14 @@ public class ApprovalController {
 		return "approval/letterOfApproval";
 	}
 	
-	
 	// 품의서 글쓰기 (insert)
 	@RequestMapping("/letterOfApproval_insert")
-	public String letterOfApproval_insert(HttpServletRequest request, Model model, ApprovalVO vo){
-			 // @RequestParam("appLoaFileUpload") MultipartFile upfile) 
+	public ModelAndView letterOfApproval_insert(HttpServletRequest request, 
+			@RequestPart(value="appLoaFileUpload", required=false) MultipartFile appLoaFileUpload,
+			ModelAndView model, ApprovalVO vo){
 		
 		HttpSession session = request.getSession();
 		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
-		
 		EmpVO empvo = (EmpVO) session.getAttribute("EmpVO");
 		int empno = empvo.getEmpno();
 		String name = empvo.getName();
@@ -141,52 +139,42 @@ public class ApprovalController {
 		vo.setAppWriteNo(empno);
 		vo.setUserName(name);
 		vo.setDeptName(deptno);
-
-		String loaTitle = request.getParameter("loaTitle");
-		vo.setLoaTitle(loaTitle);
-		
-		String loaContent = request.getParameter("loaContent");
-		vo.setLoaContent(loaContent);
-		
-		logger.error("loaContent: {}", loaContent);
-		
-		
 		// 파일 업로드 코딩
 		//
-		
-		vo.setLoaAppNo(vo.getAppNo());
 		result = mapper.insertLetterOfApproval(vo); // APPROVAL
-		
-		request.setAttribute("result2", vo);
+		vo.setLoaAppNo(vo.getAppNo());
+		// request.setAttribute("result2", vo);
 		result2 = mapper.insertLetterOfApproval2(vo); // APP_LOA
-		
 		vo.setReRefAppNo(vo.getAppNo());
+		// System.out.println(vo.getUserName());
 		result3 = mapper.insertLetterOfApproval3(vo); // APP_RECEIVE_REF
 		
 		if (result > 0 && result2 > 0 && result3 > 0) {
-			model.addAttribute("msg", "품의서가 정상 등록 되었습니다.");
-			model.addAttribute("location", "/approval/approvalList");
+			model.addObject("msg", "품의서가 정상 등록 되었습니다.");
+			model.addObject("location", "/approval/approvalList");
 			System.out.println("정상");
 		} else {
-			model.addAttribute("msg", "품의서 등록에 실패했습니다.");
-			model.addAttribute("location", "/");
+			model.addObject("msg", "품의서 등록에 실패했습니다.");
+			model.addObject("location", "/");
 		}
 		
-		model.addAttribute("includes/msg");
-		model.addAttribute("approval/letterOfApproval");
+		model.addObject("includes/msg");
+		model.setViewName("approval/approvalList");
 		
-		return "redirect:approvalList";
+		return model;
 	}
 	
 	// 품의서 수신 페이지
 	@RequestMapping("/letterOfApprovalView")
-	public ModelAndView letterOfApprovalView(ModelAndView model, ApprovalVO vo) {
-		// @RequestParam(value = "appNo", required = false) Integer appNo
+	public ModelAndView letterOfApprovalView(HttpServletRequest request, ModelAndView model,
+			ApprovalVO vo, EmpVO empvo) {
 		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
 		int appNo = vo.getAppNo();
+		
 		vo = mapper.selectApprovalListDetail(appNo);
-		logger.info("appNo: {}", appNo);
-		logger.info("vo: {}", vo);
+		vo.setAppWriteNo(empvo.getEmpno());
+		vo.setUserName(empvo.getName());
+		vo.setRank(empvo.getPosition());
 		
 		model.addObject("approval", vo);
 		model.setViewName("/approval/letterOfApprovalView");
@@ -256,8 +244,8 @@ public class ApprovalController {
 	}
 	
 	// 휴가 신청서 (insert)
-	@RequestMapping(value = "/leaveApplication_insert", method = {RequestMethod.POST})
-	public ModelAndView leaveApplication_insert(ModelAndView model, HttpServletRequest request, ApprovalVO vo) {
+	@RequestMapping(value = "/leaveApplication_insert", method = RequestMethod.POST)
+	public ModelAndView leaveApplication_insert(HttpServletRequest request, @ModelAttribute ApprovalVO vo, ModelAndView model) {
 		HttpSession session = request.getSession();
 		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
 		
@@ -265,7 +253,6 @@ public class ApprovalController {
 		int empno = empvo.getEmpno();
 		String name = empvo.getName();
 		int deptno = empvo.getDeptno();
-		logger.info("휴가 신청서 작성 컨트롤러: {}", empno);
 		
 		int result = 0;
 		int result2 = 0;
@@ -275,28 +262,28 @@ public class ApprovalController {
 		vo.setUserName(name);
 		vo.setDeptName(deptno);
 		
-		logger.info("vo: {}", vo);
-		
 		if (empno == vo.getAppWriteNo()) {
 			result = mapper.insertApproval(vo);
 			vo.setLeaveAppNo(vo.getAppNo());
-			vo.setReceiveRefNo(vo.getAppNo());
+			request.setAttribute("result", vo);
 			
 			result2 = mapper.insertAppLeave(vo);
+			vo.setReRefAppNo(vo.getAppNo());
+			
 			result3 = mapper.insertReceiveRef(vo);
 			
 			if (result > 0 && result2 > 0 && result3 > 0) {
-//				model.addObject("msg", "휴가 신청서가 정상 등록 되었습니다.");
-//				model.addObject("location", "/approval/approvalList");
+				model.addObject("msg", "휴가 신청서가 정상 등록 되었습니다.");
+				model.addObject("location", "/approval/approvalList");
 				System.out.println("성공");
 			} else {
-//				model.addObject("msg", "휴가 신청서 등록 실패");
-//				model.addObject("location", "/approval/leaveApplication");
+				model.addObject("msg", "휴가 신청서 등록 실패");
+				model.addObject("location", "/approval/leaveApplication");
 				System.out.println("실패");
 			}
 		}
-		
-		model.setViewName("common/msg");
+		model.addObject("includes/msg");
+		model.setViewName("approval/approvalList");
 
 		return model;
 	}
@@ -315,7 +302,6 @@ public class ApprovalController {
 	    model.setViewName("/approval/leaveApplicationView");
 
 	    return model;
-		
 	}
 	
 	// 지출결의서 작성 페이지
@@ -343,14 +329,14 @@ public class ApprovalController {
 		vo.setUserName(name);
 		vo.setDeptName(deptno);
 		
-		vo.setAppWriteNo(empno);
-		result = mapper.insertExpenseReport(vo);
+		result = mapper.insertExpenseReport(vo); // APPROVAL
+		vo.setAppWriteNo(vo.getAppNo());
+		request.setAttribute("approval", vo);
 		
+		result2 = mapper.insertExpenseReport2(vo); // APP_ER
 		vo.setErAppNo(vo.getAppNo());
-		result2 = mapper.insertExpenseReport2(vo);
 		
-		vo.setErAppNo(vo.getAppNo());
-		result3 = mapper.insertExpenseReport3(vo);
+		result3 = mapper.insertExpenseReport3(vo); // APP_RECEIVE_REF
 		
 		if (result > 0 && result2 > 0 && result3 > 0) {
 			model.addObject("msg", "지출결의서가 등록되었습니다.");
@@ -372,7 +358,6 @@ public class ApprovalController {
 		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
 		int appNo = vo.getAppNo();
 		vo = mapper.selectExpenseReportListDetail(appNo);
-		System.out.println(vo);
 		
 		model.addObject("approval", vo);
 		model.setViewName("/approval/expenseReportView");

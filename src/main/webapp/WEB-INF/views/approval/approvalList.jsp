@@ -52,51 +52,51 @@
 						</thead>
 
 						<tbody>
-							<c:if test="${empty mainList}">
+							<c:if test="${empty paging.list}">
 								<tr>
 									<td colspan="4"><marquee>조회된 결재목록이 없습니다.</marquee></td>
 								</tr>
 							</c:if>
-							<c:if test="${mainList != null}">
-								<c:forEach var="list" items="${mainList}">
+							<c:if test="${paging.list != null}">
+								<c:forEach var="item" items="${paging.list}">
 									<tr>
 										<!--
 										${list} 
 										 -->
-										<td>${list.appNo}</td>
+										<td>${item.appNo}</td>
 										<c:choose>
-											<c:when test="${list.appKinds eq '품의서'}">
+											<c:when test="${item.appKinds eq '품의서'}">
 												<td><a
-													href="${path}/approval/letterOfApprovalView?appNo=${list.appNo}">${list.appKinds}</a></td>
+													href="${path}/approval/letterOfApprovalView?appNo=${item.appNo}">${item.appKinds}</a></td>
 											</c:when>
-											<c:when test="${list.appKinds eq '휴가신청서'}">
+											<c:when test="${item.appKinds eq '휴가신청서'}">
 												<td><a
-													href="${path}/approval/leaveApplicationView?appNo=${list.appNo}">${list.appKinds}</a></td>
+													href="${path}/approval/leaveApplicationView?appNo=${item.appNo}">${item.appKinds}</a></td>
 											</c:when>
-											<c:when test="${list.appKinds eq '지출결의서'}">
+											<c:when test="${item.appKinds eq '지출결의서'}">
 												<td><a
-													href="${path}/approval/expenseReportView?appNo=${list.appNo}">${list.appKinds}</a></td>
+													href="${path}/approval/expenseReportView?appNo=${item.appNo}">${item.appKinds}</a></td>
 											</c:when>
 										</c:choose>
 										<c:choose>
-											<c:when test="${list.appKinds eq '품의서'}">
+											<c:when test="${item.appKinds eq '품의서'}">
 												<td><a style="color: black"
-													href="${path}/approval/letterOfApprovalView?appNo=${list.appNo}">${list.loaTitle}</a></td>
+													href="${path}/approval/letterOfApprovalView?appNo=${item.appNo}">${item.loaTitle}</a></td>
 											</c:when>
-											<c:when test="${list.appKinds eq '휴가신청서'}">
+											<c:when test="${item.appKinds eq '휴가신청서'}">
 												<td><a style="color: black"
-													href="${path}/approval/leaveApplicationView?appNo=${list.appNo}">${list.leaveClassify}</a></td>
+													href="${path}/approval/leaveApplicationView?appNo=${item.appNo}">${item.leaveClassify}</a></td>
 											</c:when>
-											<c:when test="${list.appKinds eq '지출결의서'}">
+											<c:when test="${item.appKinds eq '지출결의서'}">
 												<td><a style="color: black"
-													href="${path}/approval/expenseReportView?appNo=${list.appNo}">${list.erTitle}</a></td>
+													href="${path}/approval/expenseReportView?appNo=${item.appNo}">${item.erTitle}</a></td>
 											</c:when>
 										</c:choose>
-										<td>${list.userName}</td>
+										<td>${item.userName}</td>
 										<td>${deptname}</td>
-										<td><fmt:formatDate value="${list.appWriteDate}"
+										<td><fmt:formatDate value="${item.appWriteDate}"
 												pattern="yyyy/MM/dd" /></td>
-										<td>${list.appCheckProgress}</td>
+										<td>${item.appCheckProgress}</td>
 									</tr>
 								</c:forEach>
 							</c:if>
