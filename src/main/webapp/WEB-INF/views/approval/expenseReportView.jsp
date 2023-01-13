@@ -27,7 +27,6 @@
 					<li><a href="${path}/approval/expenseReportView">지출결의서 수신</a></li>
 				</ul>
 			</div>
-			<%-- <%@ include file="../approval/approvalSubMenu.jsp"%> --%>
 			<div class="cash-form-section">
 				<div class="cash-disbursement"
 					style="text-align: center; border: 2px solid black;">
@@ -85,19 +84,6 @@
 							</c:choose>
 						</tr>
 						<tr style="height: 30px;">
-<%-- 							<c:choose>
-								<c:when test="${!empty approval.appReason}">
-									<td><input type="button" name="Approver1" id="Approver1"
-										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-										value="결재서명" disabled /></td>
-									<td><input type="button" name="Approver2" id="Approver2"
-										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-										value="결재서명" disabled /></td>
-									<td><input type="button" name="Approver3" id="Approver3"
-										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-										value="결재서명" disabled /></td>
-								</c:when>
-								<c:otherwise> --%>
 							<c:choose>
 								<c:when
 									test="${EmpVO.name eq approval.firstApprover && approval.appPresent eq 'A'}">
@@ -162,17 +148,12 @@
 							<td style="height: 70px; width: 80px;">성 명</td>
 							<td><input type="text" readonly value="${approval.userName}"></td>
 							<td style="width: 80px;">부 서</td>
-							<td><input type="text" readonly value="${approval.deptName}"></td>
+							<td><input type="text" readonly value="#"></td>
 							<td style="width: 80px;">직 급</td>
 							<td colspan="3"><input type="text" readonly
 								value="${approval.rank}"></td>
 						</tr>
 						<tr>
-							<td colspan="1">마감일</td>
-							<td colspan="1"><input type="date" name="erDeadline"
-								id="erDeadline"
-								style="background: none; margin-left: 35px; font-size: 30px;"
-								readonly value="${approval.erDeadline}"></td>
 							<td colspan="1" style="height: 70px; width: 80px;">지출금액</td>
 							<td colspan="3"><input type="text" name="allAmount"
 								id="allAmount" readonly value="${approval.allAmount}" /></td>
@@ -257,7 +238,6 @@
 								<input type="text" style="border: none; width: 40px;" disabled>
 							</c:otherwise>
 						</c:choose>
-					<%-- </c:if> --%>
 					<button>
 						<a href="${path}/approval/approvalMain" style="color: black">취소</a>
 					</button>

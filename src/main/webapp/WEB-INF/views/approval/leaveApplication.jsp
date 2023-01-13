@@ -8,6 +8,7 @@
 <%@ include file="../includes/head.jsp"%>
 <link rel="stylesheet" href="${path}/css/approvalStyle.css">
 <link rel="stylesheet" href="${path}/css/appAutocomplete.css">
+	<script type="text/javascript" src="${path}/js/approval.js"></script>
 </head>
 
 <body>
@@ -30,8 +31,8 @@
 				</ul>
 			</div>
 
-			<form name="leaveWriteForm" action="${path}/approval/leaveApplication_insert"
-				method="post" onsubmit="return check_onclick()">
+			<form id="leaveWriteForm" name="leaveWriteForm" action="${path}/approval/leaveApplication_insert"
+				method="post" onsubmit="check_onclick()">
 				<div class="cash-form-section">
 					<div class="cash-disbursement">
 						<table border="2"
@@ -189,6 +190,7 @@
 		</div>
 
 		<!-- 필수 입력 스크립트 -->
+		<!-- 
 <script>
       function check_onclick() {
           var leaveWriteForm = document.leaveWriteForm;
@@ -215,25 +217,25 @@
           
       }
    </script>
+		 -->
 
-		<!-- 서명 클릭 스크립트  -->
+<!-- 서명 클릭 스크립트  -->
 	<script>
        $("#proposer").one("click",function(){
-           var proposerValue = $("input[name='writerName']").val();
+           var proposerValue = $("input[name='writeName']").val();
         
            $("#proposerText").append(proposerValue);
        });
     </script>
+    
 		<!-- right -->
 		<%@ include file="../includes/con_right.jsp"%>
 	</div>
 
-<%-- 	
 	<!-- 수신참조자 modal/script/ajax -->
 	<%@ include file="../approval/selectReferList.jsp"%>
 	<!-- 자동완성 Ajax & script -->
-	<%@ include file="appAutocomplete.jsp"%>
---%>
+<%-- 	<%@ include file="appAutocomplete.jsp"%> --%>
 	<!-- footer -->
 	<%@ include file="../includes/footer.jsp"%>
 	<!-- 일정 등록 Modal -->

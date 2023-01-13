@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="${path}/css/approvalStyle.css">
 <link rel="stylesheet" href="${path}/css/expenseReport.css">
 <link rel="stylesheet" href="${path}/css/appAutocomplete.css">
+<script type="text/javascript" src="${path}/js/approval.js"></script>
 </head>
 <% Calendar today =  Calendar.getInstance(); %>
 <body>
@@ -28,8 +29,8 @@
 					<li><a href="${path}/approval/expenseReport">지출결의서 작성</a></li>
 				</ul>
 			</div>
-			<form action="${path}/approval/expenseReport_insert" method="POST"
-				name="erWriteForm" onsubmit="return check_onclick()">
+			<form action="${path}/approval/expenseReport_insert" method="POST" id = "erWriteForm"
+				name="erWriteForm" onsubmit="check_onclick()">
 				<div class="cash-form-section">
 					<div class="cash-disbursement">
 						<table border="2"
@@ -80,9 +81,6 @@
 									value="${EmpVO.position}" readonly></td>
 							</tr>
 							<tr>
-								<td colspan="1">마감일</td>
-								<td colspan="1"><input type="date" name="erDeadline"
-									id="erDeadline" style="font-size: 20px;"></td>
 								<td colspan="1" style="height: 70px; width: 80px;">지출금액</td>
 								<td colspan="2"><input type="text" name="allAmount"
 									id="allAmount"></td>
@@ -194,48 +192,6 @@
 	});
 </script>
 
-<!-- 필수 입력 스크립트 -->
-<script>
-	function check_onclick() {
-	    var erWriteForm = document.erWriteForm;
-	    
-	    if(erWriteForm.allAmount.value=="" || erWriteForm.erTitle.value=="") {
-	    	Swal.fire({
-			  icon: 'error',
-			  title: '지출금액 또는 제목란이 비어있습니다.',
-			  text: '확인 후 등록하세요!'
-			})
-		    return false;
-	    } else if(erWriteForm.proposerText.value=="") {
-	       /* alert("서명 후 등록을 완료해주세요."); */
-	       Swal.fire({
-				  icon: 'error',
-				  title: '서명 후 등록을 완료해주세요.',
-				  text: '확인 후 등록하세요!'
-			})
-	       return false;
-	    } else if(erWriteForm.erDeadline.value=="") {
-	    	/* alert("마감일자란이 비어있습니다. 확인 후 등록하세요."); */
-	    	Swal.fire({
-				  icon: 'error',
-				  title: '마감일자란이 비어있습니다.',
-				  text: '확인 후 등록하세요!'
-			})
-		    return false;
-	    } else if(erWriteForm.moneytaryUnit.value=="") {
-	    	/* alert("화폐단위를 선택해주세요."); */
-	    	Swal.fire({
-				  icon: 'error',
-				  title: '화폐단위를 선택해주세요.',
-				  text: '확인 후 등록하세요!'
-			})
-		    return false;
-	    } else {
-			return true;
-		}
-	}
-</script>
-
 <!-- 서명 클릭 스크립트  -->
 <script>
 	$("#proposer").one("click",function(){
@@ -254,8 +210,8 @@
             +'<td colspan="2"><input type="text" name="erDetail" id="erDetail"></td>'
             +'<td colspan="2"><input type="text" name="erAmount" id="erAmount"></td>'
             +'<td colspan="3"><input type="text" name="erReference" id="erReference" value="-"></td>'
-        	+'</tr> ' 
-	});
+        	+'</tr> '
+	}); 
 	$("#deleteRow").on("click", function() {
 		$('#putContents').detach();
 	});
@@ -265,11 +221,10 @@
 	<!-- right -->
 	<%@ include file="../includes/con_right.jsp"%>
 </div>
-<%-- 	
+
 	<!-- 수신참조자 modal/script/ajax -->
 	<%@ include file="../approval/selectReferList.jsp"%>
 
- --%>
  	<!-- footer -->
 	<%@ include file="../includes/footer.jsp"%>
 

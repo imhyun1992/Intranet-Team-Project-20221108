@@ -10,6 +10,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}">
+<script type="text/javascript" src="${pageContext.request.contextPath}"></script>
 
 <meta charset="UTF-8">
 <title>1조 팀프로젝트</title>

@@ -1,5 +1,7 @@
 package com.tjoeun.controller.approval;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +16,6 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tjoeun.dao.MyBatisDAO;
 import com.tjoeun.vo.ApprovalVO;
-import com.tjoeun.vo.BoardVO;
 import com.tjoeun.vo.EmpVO;
 import com.tjoeun.vo.PagingInfo;
 import com.tjoeun.vo.Param;
@@ -55,9 +55,9 @@ public class ApprovalController {
 		int approvalCount_UNDER = mapper.approvalCount_UNDER(empno);
 		int approvalCount_DONE = mapper.approvalCount_DONE(empno);
 		
-		List<ApprovalVO> mainList = null; // 내가 결재할 목록
-		List<ApprovalVO> mainList1 = null; // 내가 작성한 결재
-		List<ApprovalVO> mainList2 = null; // 결재 수신목록
+		List<ApprovalVO> mainList = null; // 내 결재 목록
+		// List<ApprovalVO> mainList1 = null; // 내가 작성한 결재
+		// List<ApprovalVO> mainList2 = null; // 결재 수신목록
 
 		int totalCount = mapper.listCount(mapper);
 		PagingInfo paging = new PagingInfo(pageSize, totalCount, currentPage);
@@ -69,15 +69,15 @@ public class ApprovalController {
 			param.setEndNo(paging.getEndNo());
 		
 		mainList = mapper.selectRecentList(param);
-		mainList1 = mapper.selectRecentList1(param);
-		mainList2 = mapper.selectRecentList2(param);
+		// mainList1 = mapper.selectRecentList1(param);
+		// mainList2 = mapper.selectRecentList2(param);
 		
 		model.addObject("countYet", approvalCount_YET);
 		model.addObject("countUnder", approvalCount_UNDER);
 		model.addObject("countDone", approvalCount_DONE);
 		model.addObject("mainList", mainList);
-		model.addObject("mainList1", mainList1);
-		model.addObject("mainList2", mainList2);
+		// model.addObject("mainList1", mainList1);
+		// model.addObject("mainList2", mainList2);
 		model.setViewName("approval/approvalMain");
 		
 		return model;
@@ -169,12 +169,9 @@ public class ApprovalController {
 	public ModelAndView letterOfApprovalView(HttpServletRequest request, ModelAndView model,
 			ApprovalVO vo, EmpVO empvo) {
 		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
-		int appNo = vo.getAppNo();
+		int appNo = Integer.parseInt(request.getParameter("appNo"));
 		
 		vo = mapper.selectApprovalListDetail(appNo);
-		vo.setAppWriteNo(empvo.getEmpno());
-		vo.setUserName(empvo.getName());
-		vo.setRank(empvo.getPosition());
 		
 		model.addObject("approval", vo);
 		model.setViewName("/approval/letterOfApprovalView");
@@ -366,82 +363,86 @@ public class ApprovalController {
 	}
 	
 //	// 수신참조자 모달 검색
-//	@ResponseBody
-//	@RequestMapping("/searchMemberInModal")
-//	public List<EmpVO> searchMemberInModal(EmpVO empVO, HttpServletRequest request,
-//			@RequestParam(value = "searchData") String searchData) {
-//		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
-//		HttpSession session = request.getSession();
-//
-//		empVO = (EmpVO) session.getAttribute("EmpVO");
-//		int empno = empVO.getEmpno();
-//		
-//		List<EmpVO> memberList = null;
-//		memberList = mapper.selectSearchedMemberForApproval(searchData, empno);
-//
-//		return memberList;
-//	}
+	@ResponseBody
+	@RequestMapping("/searchMemberInModal")
+	public List<EmpVO> searchMemberInModal(EmpVO empVO, HttpServletRequest request,
+			@RequestParam(value = "searchData") String searchData, EmpVO empvo) {
+		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
+		HttpSession session = request.getSession();
+
+		empVO = (EmpVO) session.getAttribute("EmpVO");
+		int empno = empVO.getEmpno();
+		
+		List<EmpVO> empList = null;
+		empList = mapper.selectSearchedMemberForApproval(searchData, empvo);
+
+		return empList;
+	}
 	
 //	// 수신참조자 모달 내 멤버 리스트 불러오기 (leaveApplication)
-//	@RequestMapping("/leaveApplication")
-//	public ModelAndView leaveApplication (HttpServletRequest request, EmpVO empVO, ModelAndView model) {
-//		HttpSession session = request.getSession();
-//		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
-//		
-//		EmpVO empvo = (EmpVO) session.getAttribute("EmpVO");
-//		int empno = empvo.getEmpno();
-//		
-//		List<EmpVO> memberList = null;
-//		
-//		memberList = mapper.selectMemberAllForApproval(empno);
-//		
-//		model.addObject("memberList", memberList);
-//		model.setViewName("approval/leaveApplication");
-//		
-//		return model;
-//	}
-//	
-//	// 수신참조자 모달 내 멤버 리스트 불러오기 (expenseReport)
-//	@RequestMapping("/expenseReport")
-//	public ModelAndView expenseReport(HttpServletRequest request, ModelAndView model, EmpVO empVO) {
-//		HttpSession session = request.getSession();
-//		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
-//		
-//		EmpVO empvo = (EmpVO) session.getAttribute("EmpVO");
-//		int empno = empvo.getEmpno();
-//		
-//		List<EmpVO> memberList = null;
-//		
-//		memberList = mapper.selectMemberAllForApproval(empno);
-//		
-//		model.addObject("memberList", memberList);
-//		model.setViewName("approval/expenseReport");
-//		
-//		return model;
-//	}
+	@ResponseBody
+	@RequestMapping(value = "/leaveApplication", method = { RequestMethod.GET })
+	public ModelAndView leaveApplication (HttpServletRequest request, EmpVO empVO, ModelAndView model) {
+		HttpSession session = request.getSession();
+		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
+		
+		EmpVO empvo = (EmpVO) session.getAttribute("EmpVO");
+		int empno = empvo.getEmpno();
+		
+		List<EmpVO> empList = null;
+		
+		empList = mapper.selectMemberAllForApproval(empvo);
+		
+		model.addObject("empList", empList);
+		model.setViewName("approval/leaveApplication");
+		
+		return model;
+	}
 	
-//	// 수신참조자 모달 내 멤버 리스트 호출
-//	@RequestMapping("/letterOfApproval")
-//	public ModelAndView letterOfApproval(HttpServletRequest request, ModelAndView model, EmpVO empvo) {
-//		HttpSession session = request.getSession();
-//		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
-//		
-//		empvo = (EmpVO) session.getAttribute("EmpVO");
-//		int empno = empvo.getEmpno();
-//		
-//		Date date = new Date();
-//		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일");
-//		String today = format.format(date);
-//		model.addObject("serverTime", today);
-//		
-//		List<EmpVO> empList = null;
-//		empList = mapper.selectMemberAllForApproval(empno);
-//		
-//		model.addObject("empList", empList);
-//		model.setViewName("approval/letterOfApproval");
-//		
-//		return model;
-//	}
+//	// 수신참조자 모달 내 멤버 리스트 불러오기 (expenseReport)
+	@ResponseBody
+	@RequestMapping(value = "/expenseReport", method = { RequestMethod.GET })
+	public ModelAndView expenseReport(HttpServletRequest request, ModelAndView model, EmpVO empVO) {
+		HttpSession session = request.getSession();
+		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
+		
+		EmpVO empvo = (EmpVO) session.getAttribute("EmpVO");
+		int empno = empvo.getEmpno();
+		
+		List<EmpVO> empList = null;
+		
+		empList = mapper.selectMemberAllForApproval(empvo);
+		
+		model.addObject("empList", empList);
+		model.setViewName("approval/expenseReport");
+		
+		return model;
+	}
+	
+//	// 수신참조자 모달 내 멤버 리스트 리스트 불러오기 (letterOfApproval)
+	@ResponseBody
+	@RequestMapping(value = "/letterOfApproval", method = { RequestMethod.GET })
+	public ModelAndView letterOfApproval(HttpServletRequest request, ModelAndView model, EmpVO empvo) {
+		HttpSession session = request.getSession();
+		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
+		
+		empvo = (EmpVO) session.getAttribute("EmpVO");
+		int empno = empvo.getEmpno();
+		
+		Date date = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월 dd일");
+		String today = format.format(date);
+		model.addObject("serverTime", today);
+		
+		List<EmpVO> empList = null;
+		empList = mapper.selectMemberAllForApproval(empvo);
+		// System.out.println(empList);
+		
+		model.addObject("empList", empList);
+		model.setViewName("approval/letterOfApproval");
+		
+		return model;
+	}
 //	
 //	
 //	/*
@@ -456,6 +457,7 @@ public class ApprovalController {
 //	 * 
 //	 * 
 //	 */
+	
 //	// 자동 완성 (JSON으로 구현, 안 되면 뺄지도 ...) 
 //	@ResponseBody
 //	@RequestMapping("/search/json")

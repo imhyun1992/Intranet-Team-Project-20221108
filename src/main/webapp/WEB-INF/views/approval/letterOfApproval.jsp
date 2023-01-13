@@ -4,8 +4,10 @@
 <html>
 <head>
 <%@ include file="../includes/head.jsp"%>
-<link rel="stylesheet" href="${path}/css/approvalStyle.css">
-<link rel="stylesheet" href="${path}/css/appAutocomplete.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="${path}/css/approvalStyle.css">
+	<link rel="stylesheet" href="${path}/css/appAutocomplete.css">
+	<script type="text/javascript" src="${path}/js/approval.js"></script>
 </head>
 
 <body>
@@ -26,7 +28,7 @@
 				</ul>
 			</div>
 
-			<form action="${path}/approval/letterOfApproval_insert" method="post"
+			<form action="${path}/approval/letterOfApproval_insert" method="post" id = "loaWriteForm"
 				name="loaWriteForm" onsubmit="return check_onclick()"
 				enctype="multipart/form-data">
 				<div class="cash-form-section">
@@ -70,7 +72,7 @@
 							</tr>
 							<tr>
 								<td style="height: 70px; width: 80px;">성 명</td>
-								<td><input type="text" name="writerName"
+								<td><input type="text" name="writeName"
 									value="${EmpVO.name}" readonly></td>
 								<td style="width: 80px;">부 서</td>
 								<td><input type="text" value="${deptname}"
@@ -123,62 +125,52 @@
 					</div>
 					<div id="button">
 						<input type="hidden" name="appKinds" value="품의서">
-						<button type="submit" class="goToLeave">등록</button>
+						<button type="submit" class="goToLeave" >등록</button>
 						<input type="text" style="border: none; width: 40px;" disabled>
 						<button type="reset" class="resetLeave" onclick="">취소</button>
 					</div>
 				</div>
 			</form>
 
-			<!-- 필수 입력 스크립트 -->
-			<script>
-
-      function check_onclick() {
-          var loaWriteForm = document.loaWriteForm;
-          console.log(loaWriteForm);
-          if(loaWriteForm.loaContent.value=="" || loaWriteForm.loaTitle.value==""){
-              /* alert("상세내용 또는 제목란이 비어있습니다. 확인 후 등록하세요."); */
-              Swal.fire({
-            	  icon: 'error',
-            	  title: '상세내용 또는 \n제목란이 비어있습니다.',
-            	  text: '확인 후 등록하세요!'
-            	})
-              
-              return false;
-          } else if(loaWriteForm.proposerText.value=="") {
-				Swal.fire({
-     			   icon: 'error',
-     			   title: '결재서명 후 \n결재를 진행해주세요.'
-     			})
-             
-             return false;
-         } else {
-            return true;
-         }
-          
-      }
-
-   </script>
-
-			<!-- 서명 클릭 스크립트  -->
-
-			<script>
+		</div>
+<!-- 		
+	<script>
+		function check_onclick() {
+			let loaWriteForm = $('#loaWriteForm').val();
+			let loaTitle = $('#loaTitle').val();
+			console.log(loaWriteForm);
+			console.log("제목", loaTitle);
+			
+			if (loaWriteForm.loaContent.value == "" || loaWriteForm.loaTitle.value == "") {
+				alert('상세내용 또는 제목란이 비어있습니다. 확인 후 등록하세요.');
+				return false;
+	
+			} else if (loaWriteForm.proposerText.value == "") {
+				alert('결재서명 후 \n결재를 진행해주세요.');
+				return false;
+				
+			} else {
+				return true;
+			}
+	
+		}
+	</script>	
+		 -->
+		
+	<script>
        $("#proposer").one("click",function(){
-           var proposerValue = $("input[name='writerName']").val();
+           var proposerValue = $("input[name='writeName']").val();
         
            $("#proposerText").append(proposerValue);
        });
     </script>
-
-		</div>
+    
 		<!-- right -->
 		<%@ include file="../includes/con_right.jsp"%>
 	</div>
 
-<%-- 	<%@ include file="../approval/selectReferList.jsp"%> --%>
-<%--
-	<%@ include file="../approval/appAutocomplete.jsp"%>
- --%>
+<%@ include file="../approval/selectReferList.jsp"%> 
+<%@ include file="../approval/appAutocomplete.jsp"%>
 	<!-- footer -->
 	<%@ include file="../includes/footer.jsp"%>
 

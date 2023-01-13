@@ -99,7 +99,7 @@ public interface MyBatisDAO {
 	List<ApprovalVO> selectRecentList1(Param param);
 	List<ApprovalVO> selectRecentList2(Param param);
 	
-	List<EmpVO> selectMemberAllForApproval(int empno);
+	List<EmpVO> selectMemberAllForApproval(EmpVO empvo);
 	int insertLetterOfApproval(ApprovalVO vo);
 	int insertLetterOfApproval2(ApprovalVO vo);
 	int insertLetterOfApproval3(ApprovalVO vo);
@@ -108,7 +108,7 @@ public interface MyBatisDAO {
 	int listCount(MyBatisDAO mapper);
 	ArrayList<ApprovalVO> selectApprovalList(Param param);
 	
-	List<EmpVO> selectSearchedMemberForApproval(String searchData, int empno);
+	List<EmpVO> selectSearchedMemberForApproval(String searchData, EmpVO empvo);
 	int rejectUpdate(ApprovalVO vo);
 	List<EmpVO> getSearchMember(String userName);
 	

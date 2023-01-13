@@ -18,10 +18,10 @@
 		<result property="appKinds" column="APPROVAL_KINDS" />
 		<result property="appPresent" column="APP_PRESENT" />
 
-		<result property="deptName" column="DEPT_NAME" />
+		<result property="deptName" column="DEPTNO" />
 		<result property="userName" column="NAME" />
 		<result property="rowNum" column="ROWNUM" />
-		<result property="rank" column="RANK" />
+		<result property="rank" column="POSITION" />
 
 		<!-- APP_LOA -->
 		<result property="loaNo" column="LOA_SEQ" />
@@ -106,7 +106,7 @@
 		<result property="erStatus" column="ER_STATUS" />
 		<result property="erPresent" column="ER_PRESENT" />
 		<result property="allAmount" column="ER_ALLAMOUNT" />
-		<result property="monetaryUnit" column="ER_MONEYTARYUNIT" />
+		<result property="moneytaryUnit" column="ER_MONEYTARYUNIT" />
 	</resultMap>
 
 	<select id="approvalCount_YET" parameterType="hash"
@@ -180,7 +180,7 @@
 		A.APP_SEQ DESC) B
 		ORDER BY ROWNUM
 	</select>
-
+<!-- 
 	<select id="selectRecentList1" parameterType="param"
 		resultMap="approvalResultMap">
 		SELECT ROWNUM, B.* FROM (SELECT A.APP_SEQ,
@@ -215,7 +215,8 @@
 		ORDER BY
 		ROWNUM
 	</select>
-
+-->
+<!-- 
 	<select id="selectRecentList2" parameterType="param"
 		resultMap="approvalResultMap">
 		SELECT ROWNUM, B.* FROM (SELECT A.APP_SEQ,
@@ -254,7 +255,8 @@
 		ORDER BY ROWNUM
 	</select>
 
-	<select id="selectExpenseReportListDetail" parameterType="_int"
+ -->	
+ 	<select id="selectExpenseReportListDetail" parameterType="_int"
 		resultMap="approvalResultMap">
 		SELECT A.APP_SEQ,
 		A.APP_WRITE_NO,
@@ -267,6 +269,7 @@
 		A.APP_ORIFILENAME,
 		A.APP_REFILENAME,
 		E.EMPNO,
+		E.NAME,
 		E.POSITION,
 		A.APPROVAL_KINDS,
 		E.DEPTNO,
@@ -365,7 +368,7 @@
 		#{appNo}
 	</select>
 
-	<select id="selectApprovalListDetail" parameterType="_int"
+	<select id="selectApprovalListDetail" parameterType="param"
 		resultMap="approvalResultMap">
 		SELECT A.APP_SEQ,
 		A.APP_WRITE_NO,
@@ -650,7 +653,7 @@
 		DEFAULT,
 		DEFAULT,
 		#{allAmount},
-		#{monetaryUnit}
+		#{moneytaryUnit}
 		)
 	</insert>
 
@@ -689,6 +692,9 @@
 		UPDATE APPROVAL SET
 		APP_PRESENT='D', APP_CHECK_PROGRESS='결재완료' WHERE APP_SEQ=#{appNo}
 	</update>
+	
+	
+	
 
 </mapper>
 

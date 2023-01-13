@@ -48,6 +48,10 @@
 		update emp set position=#{position}, deptno=#{deptno}, incnum=#{incnum}, hiredate=#{hiredate}, permission=#{permission} where empno=#{empno}
 	</update>
 	
+	<select id ="selectMemberAllForApproval" parameterType="int" resultType="empvo">
+		select empno, name, position, deptno from emp where empno != #{empno}
+	</select>
+	
 </mapper>
 
 

@@ -13,7 +13,7 @@
           <div class="appModal_content">
           <div class="appModalInputName">이름을 입력해 주세요.</div>
              <div>
-                <input type="text" id="memSearchInput2" name="userName" class="APPLE_searchArea"> <lable class="anserMember">님이 맞으신가요?</lable>
+                <input type="text" id="memSearchInput2" name="userName" class="APPLE_searchArea">
              </div>
              <br><br>
                 <button class="modalSearchMember" type="button" id="appModalClose2" style="">확인</button>
@@ -27,7 +27,7 @@
           <div class="appModal_content">
           <div class="appModalInputName">이름을 입력해 주세요.</div>
              <div>
-                <input type="text" id="memSearchInput1" name="userName" class="APPLE_searchArea"> <lable class="anserMember">님이 맞으신가요?</lable>
+                <input type="text" id="memSearchInput1" name="userName" class="APPLE_searchArea">
              </div>
              <br><br>
                 <button class="modalSearchMember" type="button" id="appModalCloseFirst">확인</button>
@@ -41,7 +41,7 @@
           <div class="appModal_content">
           <div class="appModalInputName">이름을 입력해 주세요.</div>
              <div>
-                <input type="text" id="memSearchInput3" name="userName" class="APPLE_searchArea"> <lable class="anserMember">님이 맞으신가요?</lable>
+                <input type="text" id="memSearchInput3" name="userName" class="APPLE_searchArea">
              </div>
              <br><br>
                 <button class="modalSearchMember" type="button" id="appModalCloseThird">확인</button>
