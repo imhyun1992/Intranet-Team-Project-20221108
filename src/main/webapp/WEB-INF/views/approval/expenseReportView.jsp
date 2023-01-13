@@ -31,6 +31,12 @@
 				<div class="cash-disbursement"
 					style="text-align: center; border: 2px solid black;">
 					<table style="width: 100%; font-size: 20px; border-collapse: collapse;">
+						<c:if test="${approval.deptName == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
+						<c:if test="${approval.deptName == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
+						<c:if test="${approval.deptName == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
+						<c:if test="${approval.deptName == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
+						<c:if test="${approval.deptName == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
+					
 						<tr>
 							<td rowspan="3" colspan="4"
 								style="width: 300px; height: 140px; font-size: 40px; font-weight: 600;">지
@@ -148,7 +154,7 @@
 							<td style="height: 70px; width: 80px;">성 명</td>
 							<td><input type="text" readonly value="${approval.userName}"></td>
 							<td style="width: 80px;">부 서</td>
-							<td><input type="text" readonly value="#"></td>
+							<td><input type="text" readonly value="${dname}"></td>
 							<td style="width: 80px;">직 급</td>
 							<td colspan="3"><input type="text" readonly
 								value="${approval.rank}"></td>

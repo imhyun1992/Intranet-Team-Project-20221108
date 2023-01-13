@@ -101,6 +101,8 @@ public class ApprovalController {
 		
 		paging.setList(mapper.selectApprovalList(param));
 
+		
+		
 //		for(ApprovalVO item : paging.getList()) {
 //			System.out.println("vo ********");
 //			System.out.println(item);
@@ -293,7 +295,7 @@ public class ApprovalController {
 		int appNo = vo.getAppNo();
 
 		vo = mapper.viewAppLeaveList(appNo);
-		System.out.println(vo);
+		// System.out.println(vo);
 		
 		model.addObject("approval", vo);
 	    model.setViewName("/approval/leaveApplicationView");
