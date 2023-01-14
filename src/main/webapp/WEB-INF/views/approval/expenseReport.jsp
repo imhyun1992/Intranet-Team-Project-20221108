@@ -84,7 +84,7 @@
 								<td colspan="1" style="height: 70px; width: 80px;">지출금액</td>
 								<td colspan="2"><input type="text" name="allAmount"
 									id="allAmount"></td>
-								<td colspan="3"><select name="moneytaryUnit"
+								<td colspan="3"><select id="moneytaryUnit" name="moneytaryUnit" 
 									style="width: 130px; height: 40px; font-size: 18px">
 										<option value="">화폐단위</option>
 										<option value="KRW">KRW</option>
@@ -134,12 +134,12 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="8"
-									style="text-align: right; height: 100px; padding-right: 50px;">
-									<input type="button" name="proposer" id="proposer"
-									style="font-size: 15px; width: 70px; height: 30px; border: none; text-align: center; border-radius: 20px; margin-right: 10px"
-									value="서명" /> 영수인 : ${EmpVO.name} (인)
-								</td>
+		                    <td colspan="8" style="text-align: right; height: 100px; padding-right: 50px;">
+		                        <input type="button" name="proposer" id="proposer" style="font-size:15px; width:70px; height:30px; border: none; text-align: center; border-radius:20px; margin-right:10px" value="서명" />
+		                        영수인 :
+		                        <textArea name="proposerText" id="proposerText" style="width:130px; border: none; text-align: center; resize: none; font-size:24px; margin-bottom:-42px"></textArea>
+		                        (인)
+		                    </td>
 							</tr>
 						</table>
 					</div>
@@ -151,6 +151,29 @@
 					</div>
 				</div>
 			</form>
+
+<script>
+function check_onclick() {
+	
+    if ($('#allAmount').val() == "" || $('#erTitle').val() == "") {
+    	alert('지출금액 또는 제목란이 비어있습니다.');
+    	$('#erTitle').focus();
+	    return false;
+	    
+    } if ($('#proposerText').val() == "") {
+       	alert("서명 후 등록을 완료해주세요.");
+       return false;
+       
+    }  if($('#moneytaryUnit').val() == "") {
+    	alert("화폐단위를 선택해주세요.");
+	    return false;
+	    
+    } else {
+		return true;
+	}
+}
+</script>
+
 
 <script>
 	$(document).ready(function(){
@@ -212,7 +235,7 @@
             +'<td colspan="3"><input type="text" name="erReference" id="erReference" value="-"></td>'
         	+'</tr> '
 	}); 
-	$("#deleteRow").on("click", function() {
+	$('#deleteRow').on('click', function() {
 		$('#putContents').detach();
 	});
 </script>

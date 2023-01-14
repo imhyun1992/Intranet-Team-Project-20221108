@@ -123,6 +123,11 @@ public interface MyBatisDAO {
 	int insertExpenseReport3(ApprovalVO vo);
 	ApprovalVO selectExpenseReportListDetail(int appNo);
 	ApprovalVO viewAppLeaveList(int appNo);
+	
+	// 검색
+	int AselecCountMulti(Param param);
+	ArrayList<ApprovalVO> AselectListMulti(Param param);
+	
 
 	
 	

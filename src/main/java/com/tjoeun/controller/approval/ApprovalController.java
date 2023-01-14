@@ -1,8 +1,10 @@
 package com.tjoeun.controller.approval;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -89,22 +91,63 @@ public class ApprovalController {
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 		
+		HttpSession session = request.getSession();
 		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
 
-		int totalCount = mapper.listCount(mapper);
-		PagingInfo paging = new PagingInfo(pageSize, totalCount, currentPage);
+		String searchcategory = request.getParameter("searchcategory");
+		String searchobj = request.getParameter("searchobj");
 		
-		// 페이지 작업
-		Param param = new Param();
-		param.setStartNo(paging.getStartNo());
-		param.setEndNo(paging.getEndNo());
-		
-		paging.setList(mapper.selectApprovalList(param));
+		try {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		} catch (Exception e) {
 
+		}
 		
+		PagingInfo paging = null;
+		
+		if (searchobj != null) { 
+			
+			session.setAttribute("searchcategory", searchcategory);
+			searchobj = searchobj.trim().length() == 0 ? "" : searchobj;
+			session.setAttribute("searchobj", searchobj);
+			
+		} else { // 페이지가 이동되어도 검색 내용 유지
+			searchcategory = (String) session.getAttribute("searchcategory");
+			searchobj = (String) session.getAttribute("searchobj");
+		}
+		
+		if (searchobj == null || searchobj.trim().length() == 0) {
+			
+			int totalCount = mapper.listCount(mapper);
+			paging = new PagingInfo(pageSize, totalCount, currentPage);
+			
+			Param param = new Param();
+			param.setStartNo(paging.getStartNo());
+			param.setEndNo(paging.getEndNo());
+			
+			paging.setList(mapper.selectApprovalList(param));
+			
+		} else {
+			
+			Param param = new Param();
+			param.setSearchobj(searchobj);
+			param.setSearchcategory(searchcategory);
+			
+			int totalCount = mapper.AselecCountMulti(param);
+			
+			paging = new PagingInfo(pageSize, totalCount, currentPage);
+			param.setStartNo(paging.getStartNo());
+			param.setEndNo(paging.getEndNo());
+			
+			paging.setList(mapper.AselectListMulti(param));
+			
+//			System.out.println(searchobj);
+//			System.out.println(searchcategory);
+			
+		}
 		
 //		for(ApprovalVO item : paging.getList()) {
-//			System.out.println("vo ********");
+//			System.out.println("vo");
 //			System.out.println(item);
 //		}
 		
@@ -234,11 +277,6 @@ public class ApprovalController {
 	// 휴가 신청서 작성 폼
 	@RequestMapping("/leaveApplication")
 	public String leaveApplication(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		
-		EmpVO empvo = (EmpVO) session.getAttribute("EmpVO");
-		int empno = empvo.getEmpno();
-		
 		return "/approval/leaveApplication";
 	}
 	
@@ -273,7 +311,7 @@ public class ApprovalController {
 			
 			if (result > 0 && result2 > 0 && result3 > 0) {
 				model.addObject("msg", "휴가 신청서가 정상 등록 되었습니다.");
-				model.addObject("location", "/approval/approvalList");
+				model.addObject("location", "/approval/leaveApplication");
 				System.out.println("성공");
 			} else {
 				model.addObject("msg", "휴가 신청서 등록 실패");
@@ -282,7 +320,7 @@ public class ApprovalController {
 			}
 		}
 		model.addObject("includes/msg");
-		model.setViewName("approval/approvalList");
+		model.setViewName("approval/leaveApplication");
 
 		return model;
 	}
@@ -476,10 +514,9 @@ public class ApprovalController {
 //		Map<String, String> data = new HashMap<String, String>();
 //		data.put("name", "abc");
 //		data.put("age", "11");
-		
+//		
 //		return data;
-		
+//		
 // 	}
-//	
-
-}
+//
+	}

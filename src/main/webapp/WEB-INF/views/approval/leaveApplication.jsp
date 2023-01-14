@@ -79,7 +79,7 @@
 							<tr>
 								<td
 									style="height: 70px; width: 80px; font-size: 15px;">성명</td>
-								<td><input type="text" name="writerName" value="${EmpVO.name}" readonly></td>
+								<td><input type="text" name="writeName" value="${EmpVO.name}" readonly></td>
 								<td	style="width: 80px; font-size: 15px;">부서</td>
 								<td><input type="text" value="${deptname}" readonly></td>
 								<td	style="width: 80px; font-size: 15px;">직급</td>
@@ -170,12 +170,12 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="8"
-									style="text-align: right; height: 100px; padding-right: 50px;">
-									<input type="button" name="proposer" id="proposer"
-									style="font-size: 15px; width: 70px; height: 30px; border: none; text-align: center; border-radius: 20px; margin-right: 10px"
-									value="서명" /> 신청자 : ${EmpVO.name} (인)
-								</td>
+			                    <td colspan="8" style="text-align: right; height: 100px; padding-right: 50px;">
+			                        <input type="button" name="proposer" id="proposer" style="font-size:15px; width:70px; height:30px; border: none; text-align: center; border-radius:20px; margin-right:10px" value="서명" />
+			                        신청자 : 
+			                        <textArea name="proposerText" id="proposerText" style="width:130px; border: none; text-align: center; resize: none; font-size:24px; margin-bottom:-42px"></textArea>
+			                        (인)
+			                    </td>
 							</tr>
 						</table>
 					</div>
@@ -189,37 +189,23 @@
 			</form>
 		</div>
 
-		<!-- 필수 입력 스크립트 -->
-		<!-- 
-<script>
-      function check_onclick() {
-          var leaveWriteForm = document.leaveWriteForm;
-          if(leaveWriteForm.leaveClassify.value=="" || leaveWriteForm.leaveDetail.value==""){
-              
-              Swal.fire({
-     			   icon: 'error',
-     			   title: '상세내용 또는 \n제목란이 비어있습니다.',
-     			   text: '확인 후 등록하세요!'
-     		})
-              
-              return false;
-          } else if(leaveWriteForm.proposerText.value=="") {
-        	  Swal.fire({
-				  icon: 'error',
-				  title: '서명 후 등록을 완료해주세요.',
-				  text: '확인 후 등록하세요!'
-			})
-             
-             return false;
-         } else {
-            return true;
-         }
-          
-      }
+	<script>
+		function check_onclick() {
+			
+		    if($('#leaveClassify').val() == "" || $('#leaveDetail').val() == ""){
+		        alert('상세내용 또는 제목란이 비어있습니다.'); 
+		        return false;
+		        
+		    } if ($('#proposerText').val() == "") {
+		  	    alert('서명 후 등록을 완료해주세요.');
+	   	        return false;
+		   } else {
+		      return true;
+		   }
+		}
    </script>
-		 -->
 
-<!-- 서명 클릭 스크립트  -->
+	<!-- 서명 클릭 스크립트  -->
 	<script>
        $("#proposer").one("click",function(){
            var proposerValue = $("input[name='writeName']").val();
@@ -234,10 +220,13 @@
 
 	<!-- 수신참조자 modal/script/ajax -->
 	<%@ include file="../approval/selectReferList.jsp"%>
+	
 	<!-- 자동완성 Ajax & script -->
 <%-- 	<%@ include file="appAutocomplete.jsp"%> --%>
+	
 	<!-- footer -->
 	<%@ include file="../includes/footer.jsp"%>
+	
 	<!-- 일정 등록 Modal -->
 	<%@ include file="../includes/todoModal.jsp"%>
 </body>

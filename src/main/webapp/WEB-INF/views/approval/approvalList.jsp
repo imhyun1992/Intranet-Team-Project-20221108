@@ -34,8 +34,17 @@
 			<c:set var="view" value="${paging.list}"/>
 
 			<div class="content">
-				<div align="right" style="margin-bottom: 15px">
-				</div>
+                <div align="right" style="margin-bottom: 15px">
+               		<form action="">
+						<select id="searchcategory" name="searchcategory" style="width:150px;">
+	                        <option>결재 작성자</option>
+	                        <option>문서 종류</option>
+	                        <option>결재 상태</option>
+                   		</select>
+               			<input id="searchobj" type="text" name="searchobj" style="width: 250px" placeholder="결재리스트 검색"/>
+               			<input type="submit" value="검색" />
+               		</form>
+                </div>
 				<!-- 반복문 -->
 				<div class="list_view">
 					<table style="width: 900px; margin: auto; height: 30px;">

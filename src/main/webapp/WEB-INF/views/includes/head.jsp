@@ -29,6 +29,7 @@
 <script src="${path}/js/tjeoun_menu.js" defer="defer"></script>
 <script src="${path}/js/todo.js" defer="defer"></script>
 <script src="${path}/js/commentService.js" defer="defer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	
 </head>
 

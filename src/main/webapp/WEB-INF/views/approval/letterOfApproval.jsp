@@ -114,12 +114,12 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="8"
-									style="text-align: right; height: 100px; padding-right: 50px;">
-									<input type="text" name="proposer" id="proposer"
-									style="font-size: 15px; width: 70px; height: 30px; border: none; text-align: center; border-radius: 20px; margin-right: 10px"
-									value="서명" /> 신청자 : ${EmpVO.name} (인)
-								</td>
+			                    <td colspan="8" style="text-align: right; height: 100px; padding-right: 50px;">
+			                        <input type="button" name="proposer" id="proposer" style="font-size:15px; width:70px; height:30px; border: none; text-align: center; border-radius:20px; margin-right:10px" value="서명" />
+			                        신청자 : 
+			                        <textArea name="proposerText" id="proposerText" style="width:130px; border: none; text-align: center; resize: none; font-size:24px; margin-bottom:-42px"></textArea>
+			                        (인)
+			                    </td>
 							</tr>
 						</table>
 					</div>
@@ -131,32 +131,24 @@
 					</div>
 				</div>
 			</form>
-
 		</div>
-<!-- 		
+		
 	<script>
 		function check_onclick() {
-			let loaWriteForm = $('#loaWriteForm').val();
-			let loaTitle = $('#loaTitle').val();
-			console.log(loaWriteForm);
-			console.log("제목", loaTitle);
-			
-			if (loaWriteForm.loaContent.value == "" || loaWriteForm.loaTitle.value == "") {
+
+			if ($('#loaContent').val() == "" || $('#loaTitle').val() == "") {
 				alert('상세내용 또는 제목란이 비어있습니다. 확인 후 등록하세요.');
 				return false;
-	
-			} else if (loaWriteForm.proposerText.value == "") {
+
+			} if ($('#proposer').val() == "") {
 				alert('결재서명 후 \n결재를 진행해주세요.');
 				return false;
-				
-			} else {
-				return true;
 			}
-	
+			return true;
 		}
 	</script>	
-		 -->
-		
+	
+	<!-- 서명 클릭 스크립트  -->
 	<script>
        $("#proposer").one("click",function(){
            var proposerValue = $("input[name='writeName']").val();
@@ -168,9 +160,13 @@
 		<!-- right -->
 		<%@ include file="../includes/con_right.jsp"%>
 	</div>
+	
+	<!-- 수신참조자 modal/script/ajax -->
+	<%@ include file="../approval/selectReferList.jsp"%> 
 
-<%@ include file="../approval/selectReferList.jsp"%> 
-<%@ include file="../approval/appAutocomplete.jsp"%>
+	<!-- 자동완성 Ajax & script -->
+<%-- 	<%@ include file="appAutocomplete.jsp"%> --%>
+
 	<!-- footer -->
 	<%@ include file="../includes/footer.jsp"%>
 
