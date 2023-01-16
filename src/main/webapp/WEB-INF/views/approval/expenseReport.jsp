@@ -47,18 +47,21 @@
 								<td style="width: 100px;">최종승인자</td>
 							</tr>
 							<tr>
-								<td style=""><input type="text" value="" id="firstApprover"
-									name="firstApprover" readonly="readonly" class="nameView">
-									<input type="button" value="검색" class="searchMember"
-									id="firstBtn" name="firstApprover"></td>
-								<td><input type="text" value="" id="interimName"
-									name="interimApprover" readonly="readonly" class="nameView">
-									<input type="button" value="검색" class="searchMember"
-									id="secondBtn" name="interimApprover"></td>
-								<td><input type="text" value="" id="finalApprover"
-									name="finalApprover" readonly="readonly" class="nameView">
-									<input type="button" value="검색" class="searchMember"
-									id="thirdBtn" name="finalApprover"></td>
+								<td style="">
+									<input type="hidden" value="" id="firstApprover" name="firstApprover" readonly="readonly" class="nameView">
+									<input type="text" value="" id="firstApproverName" name="firstApproverName" readonly="readonly" class="nameView">
+									<input type="button" value="검색" class="searchMember" id="firstBtn" name="firstApprover" onclick="showEmployeeSearchForm(this)">
+								</td>
+								<td>
+									<input type="hidden" value="" id="interimApprover" name="interimApprover" readonly="readonly" class="nameView">
+									<input type="text" value="" id="interimApproverName" name="interimApproverName" readonly="readonly" class="nameView">
+									<input type="button" value="검색" class="searchMember" id="secondBtn" name="interimApprover" onclick="showEmployeeSearchForm(this)">
+								</td>
+								<td>
+									<input type="hidden" value="" id="finalApprover" name="finalApprover" readonly="readonly" class="nameView">
+									<input type="text" value="" id="finalApproverName" name="finalApproverName" readonly="readonly" class="nameView">
+									<input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="showEmployeeSearchForm(this)">
+								</td>
 							</tr>
 							<tr>
 								<td colspan="2" style="height: 70px;">
@@ -247,6 +250,9 @@ function check_onclick() {
 
 	<!-- 수신참조자 modal/script/ajax -->
 	<%@ include file="../approval/selectReferList.jsp"%>
+
+	<!-- 사원 검색  -->
+	<%@ include file="../approval/searchEmployee.jsp"%>
 
  	<!-- footer -->
 	<%@ include file="../includes/footer.jsp"%>

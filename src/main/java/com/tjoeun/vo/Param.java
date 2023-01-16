@@ -11,6 +11,7 @@ public class Param {
 	
 	// approval 
 	private String approval_search;
+	private String approval_status;
 	private String userName;
 	private int userNo;
 	
@@ -67,6 +68,14 @@ public class Param {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getApproval_status() {
+		return approval_status;
+	}
+
+	public void setApproval_status(String approval_status) {
+		this.approval_status = approval_status;
 	}
 
 	public int getUserNo() {

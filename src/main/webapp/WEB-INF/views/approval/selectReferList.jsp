@@ -5,12 +5,14 @@
 <div class="modal hidden">
 	<div class="bg"></div>
 	<div class="modalBox">
+<!-- 		
 		<div style="margin: 40px 0px 0px 60px;">
 			<input type="text" name="searchData" id="searchData"
 				style="width: 250px; height: 30px; border-radius: 10px; font-size: 20px; text-align: center;"
 				maxlength="4">
 			<button type="button" id="search1">검색</button>
 		</div>
+ -->
 
 		<c:set var="Elists" value="${empList}" />
 		<div

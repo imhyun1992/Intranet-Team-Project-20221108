@@ -144,79 +144,64 @@
 							</tr>
 							<tr style="height: 30px;">
 								<c:choose>
-									<c:when test="${!empty approval.appReason}">
-										<td><input type="button" name="Approver1" id="Approver1"
-											style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-											value="결재서명" disabled /></td>
-										<td><input type="button" name="Approver2" id="Approver2"
-											style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-											value="결재서명" disabled /></td>
-										<td><input type="button" name="Approver3" id="Approver3"
-											style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-											value="결재서명" disabled /></td>
+									<c:when
+											test="${empVO.empno eq approval.firstApprover && approval.appPresent eq 'A'}">
+										<td><input type="button" name="Approver1"
+												   id="Approver1"
+												   style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+												   value="결재서명" /></td>
+										<td><input type="button" name="Approver2"
+												   id="Approver2"
+												   style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+												   value="결재서명" disabled /></td>
+										<td><input type="button" name="Approver3"
+												   id="Approver3"
+												   style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+												   value="결재서명" disabled /></td>
+									</c:when>
+									<c:when
+											test="${empVO.empno eq approval.interimApprover && approval.appPresent eq 'B'}">
+										<td><input type="button" name="Approver1"
+												   id="Approver1"
+												   style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+												   value="결재서명" disabled /></td>
+										<td><input type="button" name="Approver2"
+												   id="Approver2"
+												   style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+												   value="결재서명" /></td>
+										<td><input type="button" name="Approver3"
+												   id="Approver3"
+												   style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+												   value="결재서명" disabled /></td>
+									</c:when>
+									<c:when
+											test="${empVO.empno eq approval.finalApprover && approval.appPresent eq 'C'}">
+										<td><input type="button" name="Approver1"
+												   id="Approver1"
+												   style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+												   value="결재서명" disabled /></td>
+										<td><input type="button" name="Approver2"
+												   id="Approver2"
+												   style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+												   value="결재서명" disabled /></td>
+										<td><input type="button" name="Approver3"
+												   id="Approver3"
+												   style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+												   value="결재서명" /></td>
 									</c:when>
 									<c:otherwise>
-										<c:choose>
-											<c:when
-												test="${EmpVO.name eq approval.firstApprover && approval.appPresent eq 'A'}">
-												<td><input type="button" name="Approver1"
-													id="Approver1"
-													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-													value="결재서명" /></td>
-												<td><input type="button" name="Approver2"
-													id="Approver2"
-													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-													value="결재서명" disabled /></td>
-												<td><input type="button" name="Approver3"
-													id="Approver3"
-													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-													value="결재서명" disabled /></td>
-											</c:when>
-											<c:when
-												test="${EmpVO.name eq approval.interimApprover && approval.appPresent eq 'B'}">
-												<td><input type="button" name="Approver1"
-													id="Approver1"
-													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-													value="결재서명" disabled /></td>
-												<td><input type="button" name="Approver2"
-													id="Approver2"
-													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-													value="결재서명" /></td>
-												<td><input type="button" name="Approver3"
-													id="Approver3"
-													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-													value="결재서명" disabled /></td>
-											</c:when>
-											<c:when
-												test="${EmpVO.name eq approval.finalApprover && approval.appPresent eq 'C'}">
-												<td><input type="button" name="Approver1"
-													id="Approver1"
-													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-													value="결재서명" disabled /></td>
-												<td><input type="button" name="Approver2"
-													id="Approver2"
-													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-													value="결재서명" disabled /></td>
-												<td><input type="button" name="Approver3"
-													id="Approver3"
-													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-													value="결재서명" /></td>
-											</c:when>
-											<c:otherwise>
-												<td><input type="button" name="Approver1"
-													id="Approver1"
-													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-													value="결재서명" disabled /></td>
-												<td><input type="button" name="Approver2"
-													id="Approver2"
-													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-													value="결재서명" disabled /></td>
-												<td><input type="button" name="Approver3"
-													id="Approver3"
-													style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
-													value="결재서명" disabled /></td>
-											</c:otherwise>
-										</c:choose>
+										<td><input type="button" name="Approver1"
+												   id="Approver1"
+												   style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+												   value="결재서명" disabled /></td>
+										<td><input type="button" name="Approver2"
+												   id="Approver2"
+												   style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+												   value="결재서명" disabled /></td>
+										<td><input type="button" name="Approver3"
+												   id="Approver3"
+												   style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
+												   value="결재서명" disabled /></td>
 									</c:otherwise>
 								</c:choose>
 							</tr>
@@ -279,7 +264,7 @@
 							<tr>
 								<td colspan="8"
 									style="text-align: center; height: 100px; border-bottom: none;">위와
-									같이 휴가를 신청하오니 허락하여 주시기 바랍니다.</td>
+									같이 휴가를 신청하오니 결재 바랍니다.</td>
 							</tr>
 							<tr style="border: white;">
 								<td colspan="8" style="text-align: center; height: 100px;">
@@ -304,32 +289,23 @@
 
 
 			<div id="button">
-				<input type="hidden" name="appNo" value="${approval.appNo}" />
-
-				<%-- <c:if test="${loginMember.user_name eq approval.firstApprover || approval.interimApprover || approval.finalApprover}">
-                 --%>
-						<c:choose>
-							<c:when
-								test="${(EmpVO.name eq approval.firstApprover && approval.appPresent eq 'A') || 
-                                (EmpVO.name eq approval.interimApprover && approval.appPresent eq 'B') ||
-                                (EmpVO.name eq approval.finalApprover && approval.appPresent eq 'C')}">
-								<button type="button" id="approveddone">결재</button>
-								<input type="text" style="border: none; width: 40px;" disabled>
-								<button type="button" style="color: red" id="openRejection">반려</button>
-								<input type="text" style="border: none; width: 40px;" disabled>
-							</c:when>
-							<c:otherwise>
-								<button type="button" id="approveddone" disabled>결재</button>
-								<input type="text" style="border: none; width: 40px;" disabled>
-								<button type="button" id="openRejection" disabled>반려</button>
-								<input type="text" style="border: none; width: 40px;" disabled>
-							</c:otherwise>
-						</c:choose>
+				<input type="hidden" name="appNo" value = "${approval.appNo}"/>
+				<c:choose>
+					<c:when test="${(empVO.empno eq approval.firstApprover && approval.appPresent eq 'A') ||
+	        						(empVO.empno eq approval.interimApprover && approval.appPresent eq 'B')}">
+						<button type="submit" id="approveddone">결재</button>
+						<button type="submit" id="canceldone" onclick="showCancelForm(${approval.appNo})">반려</button>
+						<input type="text" style="border: none; width: 40px;"disabled >
+					</c:when>
+					<c:otherwise>
+						<button type="submit" id="approveddone" disabled>결재</button>
+						<button type="submit" id="canceldone" disabled>반려</button>
+						<input type="text" style="border: none; width: 40px;"disabled >
+					</c:otherwise>
+				</c:choose>
 				<%-- </c:if> --%>
 
-				<button>
-					<a href="${path}/approval/approvalMain" style="color: black">취소</a>
-				</button>
+				<button><a href="${path}/approval/approvalMain" style="color:black">취소</a></button>
 			</div>
 		</div>
 
@@ -428,6 +404,8 @@
 	<!-- right -->
 	<%@ include file="../includes/con_right.jsp"%>
 	</div>
+
+	<%@ include file="../approval/cancel.jsp"%>
 
 	<!-- footer -->
 	<%@ include file="../includes/footer.jsp"%>

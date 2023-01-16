@@ -92,7 +92,7 @@
 						<tr style="height: 30px;">
 							<c:choose>
 								<c:when
-									test="${EmpVO.name eq approval.firstApprover && approval.appPresent eq 'A'}">
+									test="${empVO.empno eq approval.firstApprover && approval.appPresent eq 'A'}">
 									<td><input type="button" name="Approver1" id="Approver1"
 										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
 										value="결재서명" /></td>
@@ -104,7 +104,7 @@
 										value="결재서명" disabled /></td>
 								</c:when>
 								<c:when
-									test="${EmpVO.name eq approval.interimApprover && approval.appPresent eq 'B'}">
+									test="${empVO.empno eq approval.interimApprover && approval.appPresent eq 'B'}">
 									<td><input type="button" name="Approver1" id="Approver1"
 										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
 										value="결재서명" disabled /></td>
@@ -116,7 +116,7 @@
 										value="결재서명" disabled /></td>
 								</c:when>
 								<c:when
-									test="${EmpVO.name eq approval.finalApprover && approval.appPresent eq 'C'}">
+									test="${empVO.empno eq approval.finalApprover && approval.appPresent eq 'C'}">
 									<td><input type="button" name="Approver1" id="Approver1"
 										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
 										value="결재서명" disabled /></td>
@@ -233,14 +233,16 @@
 
 						<c:choose>
 							<c:when
-								test="${(EmpVO.name eq approval.firstApprover && approval.appPresent eq 'A') || 
-	        						(EmpVO.name eq approval.interimApprover && approval.appPresent eq 'B') ||
-	        						(EmpVO.name eq approval.finalApprover && approval.appPresent eq 'C')}">
+								test="${(empVO.empno eq approval.firstApprover && approval.appPresent eq 'A') ||
+	        						(empVO.empno eq approval.interimApprover && approval.appPresent eq 'B') ||
+	        						(empVO.empno eq approval.finalApprover && approval.appPresent eq 'C')}">
 								<button type="submit" id="approveddone">결재</button>
+								<button type="submit" id="canceldone" onclick="showCancelForm(${approval.appNo})">반려</button>
 								<input type="text" style="border: none; width: 40px;" disabled>
 							</c:when>
 							<c:otherwise>
 								<button type="submit" id="approveddone" disabled>결재</button>
+								<button type="submit" id="canceldone" disabled>반려</button>
 								<input type="text" style="border: none; width: 40px;" disabled>
 							</c:otherwise>
 						</c:choose>
@@ -334,6 +336,7 @@
 		<%@ include file="../includes/con_right.jsp"%>
 	</div>
 	<!-- contents end -->
+	<%@ include file="../approval/cancel.jsp"%>
 
 	<!-- footer -->
 	<%@ include file="../includes/footer.jsp"%>

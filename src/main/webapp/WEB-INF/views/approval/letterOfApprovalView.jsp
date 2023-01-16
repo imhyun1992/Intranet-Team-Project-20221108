@@ -55,30 +55,30 @@
 								</c:when>
 								<c:when test="${approval.appPresent eq 'B'}">
 									<td name="firstA" id="firstA">${approval.firstApprover}<img
-										src="${path}/images/approved.png"
-										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
+											src="${path}/images/approved.png"
+											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 									<td name="interimA" id="interimA">${approval.interimApprover}</td>
 									<td name="finalA" id="finalA">${approval.finalApprover}</td>
 								</c:when>
 								<c:when test="${approval.appPresent eq 'C'}">
 									<td name="firstA" id="firstA">${approval.firstApprover}<img
-										src="${path}/images/approved.png"
-										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
+											src="${path}/images/approved.png"
+											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 									<td name="interimA" id="interimA">${approval.interimApprover}<img
-										src="${path}/images/approved.png"
-										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
+											src="${path}/images/approved.png"
+											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 									<td name="finalA" id="finalA">${approval.finalApprover}</td>
 								</c:when>
 								<c:when test="${approval.appPresent eq 'D'}">
 									<td name="firstA" id="firstA">${approval.firstApprover}<img
-										src="${path}/images/approved.png"
-										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
+											src="${path}/images/approved.png"
+											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 									<td name="interimA" id="interimA">${approval.interimApprover}<img
-										src="${path}/images/approved.png"
-										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
+											src="${path}/images/approved.png"
+											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 									<td name="finalA" id="finalA">${approval.finalApprover}<img
-										src="${path}/images/approved.png"
-										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
+											src="${path}/images/approved.png"
+											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 								</c:when>
 								<c:otherwise>
 									<td name="firstA" id="firstA">${approval.firstApprover}</td>
@@ -90,7 +90,7 @@
 						<tr style="height: 30px;">
 							<c:choose>
 								<c:when
-									test="${approval.userName eq approval.firstApprover && approval.appPresent eq 'A'}">
+									test="${empVO.empno eq approval.firstApprover && approval.appPresent eq 'A'}">
 									<td><input type="button" name="Approver1"
 										id="Approver1"
 										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
@@ -105,7 +105,7 @@
 										value="결재서명" disabled /></td>
 								</c:when>
 								<c:when
-									test="${approval.userName eq approval.firstApprover && approval.appPresent eq 'B'}">
+									test="${empVO.empno eq approval.interimApprover && approval.appPresent eq 'B'}">
 									<td><input type="button" name="Approver1"
 										id="Approver1"
 										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
@@ -120,7 +120,7 @@
 										value="결재서명" disabled /></td>
 								</c:when>
 								<c:when
-									test="${approval.userName eq approval.firstApprover && approval.appPresent eq 'C'}">
+									test="${empVO.empno eq approval.finalApprover && approval.appPresent eq 'C'}">
 									<td><input type="button" name="Approver1"
 										id="Approver1"
 										style="font-size: 15px; width: 70px; height: 25px; border: none; text-align: center; border-radius: 20px;"
@@ -179,24 +179,22 @@
                    <td colspan="6" style="height: 70px;">
                    	<span id="referList"><i class="far fa-save" style="color: #5b18ff;"></i></span>
                    	
-                   	<c:if test="${ !empty approval.appOriginalFileName }">
-						<a href="javascript:fileDownload('${approval.appOriginalFileName}', '${approval.appRenameFileName}');" style="color: #5b18ff;">		
-							<%-- <img src="${path}/images/file.png" width="20" height="20"> --%>
-							<c:out value="${approval.appOriginalFileName}" />
-						</a>
-						<script>
-							function fileDownload(oriname, rename) {
-								const url="${path}/approval/appFileDown";
-								
-								let oName = encodeURIComponent(oriname);
-								let rName = encodeURIComponent(rename);
-								
-								location.assign(url + "?oriname=" + oName + "&rename=" + rName);
-							}
-						</script>
+                   	<!-- ori 파일 이름이 존재하고 수정 파일 이름이 존재하지 않을 경우 ori 파일 다운 -->
+                   	<c:if test="${ !empty approval.appOriginalFileName and empty approval.appRenameFileName }">
+			 		<a href="${path}/resources/upload/${approval.appOriginalFileName}" download="" style="color: #5b18ff;">
+						<c:out value="${approval.appOriginalFileName}" />
+					</a>
 					</c:if>
-					<c:if test="${ empty approval.appOriginalFileName }">			
-						<span style="color: gray;"> - </span>
+					         	
+                   	<!-- ori 파일 이름이 존재하고 수정 파일 이름 모두 존재할 경우 수정파일 다운 -->
+					<c:if test="${ !empty approval.appOriginalFileName and !empty approval.appRenameFileName }">
+							<a href="${path}/resources/upload/${approval.appRenameFileName}" download="" style="color: #5b18ff;">		
+									<c:out value="${approval.appRenameFileName}" />
+							</a>
+					</c:if>
+					
+					<c:if test="${ empty approval.appOriginalFileName and empty approval.appRenameFileName }">			
+							<span style="color: gray;"> - </span>
 					</c:if>
 					
                    </td>
@@ -227,15 +225,16 @@
 
        <div id="button">
        	<input type="hidden" name="appNo" value = "${approval.appNo}"/>
-        	
         			<c:choose>
-	        			<c:when test="${(approval.userName eq approval.firstApprover && approval.appPresent eq 'A') || 
-	        						(approval.userName eq approval.interimApprover && approval.appPresent eq 'B')}">
-		        			<button type="submit" id="approveddone">결재</button>
-	       					<input type="text" style="border: none; width: 40px;"disabled >
+	        			<c:when test="${(empVO.empno eq approval.firstApprover && approval.appPresent eq 'A') ||
+	        						(empVO.empno eq approval.interimApprover && approval.appPresent eq 'B')}">
+							<button type="submit" id="approveddone">결재</button>
+							<button type="submit" id="canceldone" onclick="showCancelForm(${approval.appNo})">반려</button>
+							<input type="text" style="border: none; width: 40px;"disabled >
         				</c:when>
        					<c:otherwise>
        						<button type="submit" id="approveddone" disabled>결재</button>
+							<button type="submit" id="canceldone" disabled>반려</button>
        						<input type="text" style="border: none; width: 40px;"disabled >
        					</c:otherwise>
        				</c:choose>
@@ -314,6 +313,8 @@
 	<!-- right -->
 	<%@ include file="../includes/con_right.jsp"%>
 </div>
+
+	<%@ include file="../approval/cancel.jsp"%>
 
 <!-- footer -->
 <%@ include file="../includes/footer.jsp"%>

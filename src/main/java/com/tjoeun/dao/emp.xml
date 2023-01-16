@@ -47,11 +47,20 @@
 	<update id="account_approval" parameterType="empvo">
 		update emp set position=#{position}, deptno=#{deptno}, incnum=#{incnum}, hiredate=#{hiredate}, permission=#{permission} where empno=#{empno}
 	</update>
-	
+
 	<select id ="selectMemberAllForApproval" parameterType="int" resultType="empvo">
 		select empno, name, position, deptno from emp where empno != #{empno}
 	</select>
-	
+
+	<select id ="selectMemberByName" parameterType="String" resultType="empvo">
+		select empno, name, position, deptno from emp
+		<where>
+			<if test="value != null and value != ''">
+				name like CONCAT(CONCAT('%',#{value}),'%')
+			</if>
+		</where>
+	</select>
+
 </mapper>
 
 

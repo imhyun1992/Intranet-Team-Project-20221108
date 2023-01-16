@@ -6,6 +6,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +48,7 @@
 						<div class="card">
 							<div class="card-body">
 								<button type="button" class="btn btn-info position-relative"
-									onclick="location.href='${path}/approval/approvalList?">결재대기</button>
+									onclick="location.href='${path}/approval/approvalList?approvalStatus=결재대기&userNo=${EmpVO.empno}'">결재대기</button>
 								<p class="card-text">${countYet}건</p>
 							</div>
 						</div>
@@ -55,7 +57,7 @@
 						<div class="card">
 							<div class="card-body">
 								<button type="button" class="btn btn-danger position-relative"
-									onclick="location.href='${path}/approval/approvalList?">결재중</button>
+									onclick="location.href='${path}/approval/approvalList?approvalStatus=결재중&userNo=${EmpVO.empno}'">결재중</button>
 								<p class="card-text">${countUnder}건</p>
 							</div>
 						</div>
@@ -64,14 +66,13 @@
 						<div class="card">
 							<div class="card-body">
 								<button type="button" class="btn btn-success position-relative"
-									onclick="location.href='${path}/approval/approvalList?">결재완료</button>
+									onclick="location.href='${path}/approval/approvalList?approvalStatus=결재완료&userNo=${EmpVO.empno}'">결재완료</button>
 								<p class="card-text">${countDone}건</p>
 							</div>
 						</div>
 					</div>
 				</div>
 				<hr />
-
 				<!-- 목록view -->
 				<div style="text-align: left; height: auto;">
 					<h6	style="float: right;">
@@ -79,10 +80,8 @@
 					</h6>
 					<h4>결재 수신목록</h4>
 				</div>
-
 				<form action="">
 					<table>
-
 						<c:if test="${empty mainList}">
 						</table>
 							<tr><td colspan="4"><marquee>조회된 결재목록이 없습니다.</marquee></td></tr>
@@ -130,6 +129,59 @@
 						</c:if>
 					</table>
 				</form>
+
+				<hr/>
+
+				<div class="myDraftDocumentArea">
+					<h4>내가 작성한 결재 목록</h4>
+					<table>
+						<c:if test="${empty mainList1}">
+					</table>
+					<tr><td colspan="4"><marquee>조회된 결재목록이 없습니다.</marquee></td></tr>
+					</c:if>
+
+					<c:if test="${mainList1 != null}">
+						<c:forEach var="list" items="${mainList1}">
+							<tr>
+								<td>${list.rowNum}</td>
+								<c:choose>
+									<c:when test="${list.appKinds eq '품의서'}">
+										<td><a style="color: black"
+											   href="${path}/approval/letterOfApprovalView?appNo=${list.appNo}">${list.appKinds}</a></td>
+									</c:when>
+									<c:when test="${list.appKinds eq '휴가신청서'}">
+										<td><a style="color: black"
+											   href="${path}/approval/leaveApplicationView?appNo=${list.appNo}">${list.appKinds}</a></td>
+									</c:when>
+									<c:when test="${list.appKinds eq '지출결의서'}">
+										<td><a style="color: black"
+											   href="${path}/approval/expenseReportView?appNo=${list.appNo}">${list.appKinds}</a></td>
+									</c:when>
+								</c:choose>
+								<c:choose>
+									<c:when test="${list.appKinds eq '품의서'}">
+										<td><a style="color: black"
+											   href="${path}/approval/letterOfApprovalView?appNo=${list.appNo}">${list.loaTitle}</a></td>
+									</c:when>
+									<c:when test="${list.appKinds eq '휴가신청서'}">
+										<td><a style="color: black"
+											   href="${path}/approval/leaveApplicationView?appNo=${list.appNo}">${list.leaveClassify}</a></td>
+									</c:when>
+									<c:when test="${list.appKinds eq '지출결의서'}">
+										<td><a style="color: black"
+											   href="${path}/approval/expenseReportView?appNo=${list.appNo}">${list.erTitle}</a></td>
+									</c:when>
+								</c:choose>
+								<td>${list.userName}</td>
+								<td>${list.deptName}</td>
+								<td><fmt:formatDate value="${list.appWriteDate}" pattern="yyyy/MM/dd" /></td>
+								<td>${list.appCheckProgress}</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+					</table>
+				</div>
+
 			</div>
 		</div>
 		<!-- right -->

@@ -26,7 +26,7 @@ public class ApprovalVO {
 	private String appCheckProgress; // '대기', '진행', '완료'
 	private String appKinds;
 	private String appPresent;
-	private String appReason; // 반려 (추후)
+	private String appReason;
 	private int deptName;
 	private String userName;
 	private int rowNum;

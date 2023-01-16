@@ -105,7 +105,7 @@ public interface MyBatisDAO {
 	int insertLetterOfApproval3(ApprovalVO vo);
 	ApprovalVO selectApprovalListDetail(int appNo);
 	
-	int listCount(MyBatisDAO mapper);
+	int listCount(Param param);
 	ArrayList<ApprovalVO> selectApprovalList(Param param);
 	
 	List<EmpVO> selectSearchedMemberForApproval(String searchData, EmpVO empvo);
@@ -127,8 +127,7 @@ public interface MyBatisDAO {
 	// 검색
 	int AselecCountMulti(Param param);
 	ArrayList<ApprovalVO> AselectListMulti(Param param);
-	
+	List<EmpVO> selectMemberByName(String searchName);
 
-	
-	
+	int updateApprovalFromCancel(Map<String, Object> bodyMap);
 }

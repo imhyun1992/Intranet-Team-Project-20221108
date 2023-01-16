@@ -3,3 +3,7 @@ target/
 .classpath
 .project
 .springBeans
+.idea
+src/main/webapp/WEB-INF/classes
+src/main/webapp/WEB-INF/lib
+src/main/webapp/META-INF

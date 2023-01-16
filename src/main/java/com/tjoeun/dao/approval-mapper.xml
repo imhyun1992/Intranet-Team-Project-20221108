@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tjoeun.dao.MyBatisDAO"> <!-- mapper 역할을 하는 인터페이스 -->
 
-	<resultMap type="com.tjoeun.vo.ApprovalVO"
-		id="approvalResultMap">
+	<resultMap id="approvalResultMap" type="com.tjoeun.vo.ApprovalVO">
 		<id property="appNo" column="APP_SEQ" />
 		<!-- APPROVAL -->
 		<result property="appWriteDate" column="APP_WRITE_SYS" />
@@ -17,6 +16,7 @@
 		<result property="appWriteNo" column="APP_WRITE_NO" />
 		<result property="appKinds" column="APPROVAL_KINDS" />
 		<result property="appPresent" column="APP_PRESENT" />
+		<result property="appReason" column="APP_REASON" />
 
 		<result property="deptName" column="DEPTNO" />
 		<result property="userName" column="NAME" />
@@ -109,34 +109,33 @@
 		<result property="moneytaryUnit" column="ER_MONEYTARYUNIT" />
 	</resultMap>
 
-	<select id="approvalCount_YET" parameterType="hash"
-		resultType="_int">
+	<select id="approvalCount_YET" parameterType="hash" resultType="_int">
 		SELECT COUNT(*)
 		FROM APPROVAL A
-		LEFT JOIN APP_RECEIVE_REF arr
-		ON (A.APP_SEQ = arr.RECEIVE_REF_APP_SEQ)
-		WHERE APP_CHECK_PROGRESS =
-		'결재대기'
+		JOIN EMP E ON (A.APP_WRITE_NO = E.EMPNO)
+		WHERE
+		    A.APP_CHECK_PROGRESS = '결재대기'
+				AND E.EMPNO = #{empno}
 	</select>
 
 	<select id="approvalCount_UNDER" parameterType="hash"
 		resultType="_int">
 		SELECT COUNT(*)
 		FROM APPROVAL A
-		LEFT JOIN APP_RECEIVE_REF arr
-		ON (A.APP_SEQ = arr.RECEIVE_REF_APP_SEQ)
-		WHERE APP_CHECK_PROGRESS =
-		'결재중'
+	  JOIN EMP E ON (A.APP_WRITE_NO = E.EMPNO)
+		WHERE
+			A.APP_CHECK_PROGRESS = '결재중'
+			AND E.EMPNO = #{empno}
 	</select>
 
 	<select id="approvalCount_DONE" parameterType="hash"
 		resultType="_int">
 		SELECT COUNT(*)
 		FROM APPROVAL A
-		LEFT JOIN APP_RECEIVE_REF arr
-		ON (A.APP_SEQ = arr.RECEIVE_REF_APP_SEQ)
-		WHERE APP_CHECK_PROGRESS =
-		'결재완료'
+		JOIN EMP E ON (A.APP_WRITE_NO = E.EMPNO)
+		WHERE
+			A.APP_CHECK_PROGRESS = '결재완료'
+			AND E.EMPNO = #{empno}
 	</select>
 
 	<select id="selectRecentList" parameterType="param"
@@ -171,16 +170,15 @@
 		LEFT JOIN
 		APP_ER ER ON (A.APP_SEQ =
 		ER.ER_APP_SEQ)
-		WHERE ROWNUM <![CDATA[ < ]]>=
-		6 AND ((#{userName} = A.FIRST_TIME_APPROVER) OR
-		(#{userName} =
+		WHERE ((#{userNo} = A.FIRST_TIME_APPROVER) OR
+		(#{userNo} =
 		A.INTERIM_APPROVER) OR
-		(#{userName} = A.FINAL_APPROVER))
+		(#{userNo} = A.FINAL_APPROVER))
 		ORDER BY
 		A.APP_SEQ DESC) B
+		WHERE ROWNUM <![CDATA[ < ]]>= 6
 		ORDER BY ROWNUM
 	</select>
-<!-- 
 	<select id="selectRecentList1" parameterType="param"
 		resultMap="approvalResultMap">
 		SELECT ROWNUM, B.* FROM (SELECT A.APP_SEQ,
@@ -215,8 +213,7 @@
 		ORDER BY
 		ROWNUM
 	</select>
--->
-<!-- 
+<!--
 	<select id="selectRecentList2" parameterType="param"
 		resultMap="approvalResultMap">
 		SELECT ROWNUM, B.* FROM (SELECT A.APP_SEQ,
@@ -296,16 +293,23 @@
 		SELECT COUNT(*)
 		FROM APPROVAL A
 		JOIN EMP E ON (A.APP_WRITE_NO = E.EMPNO)
+		<where>
+			<if test="approval_status != null and approval_status != ''">
+				AND APP_CHECK_PROGRESS = #{approval_status}
+			</if>
+			<if test="userNo != null and userNo != ''">
+				AND APP_WRITE_NO = #{userNo}
+			</if>
+		</where>
 		<!-- WHERE CATEGORY = #{category} -->
 	</select>
 
 	<select id="selectApprovalList" parameterType="param"
 		resultMap="approvalResultMap">
 	<![CDATA[
-		SELECT * FROM (
-			SELECT ROWNUM RNUM, B.* FROM
-				(
-					SELECT A.APP_SEQ,
+	SELECT * FROM (
+		select ROWNUM AS RNUM, A.* from (
+					SELECT  A.APP_SEQ,
 					     A.APP_WRITE_NO,
 					     A.APP_WRITE_SYS,
 					     A.FIRST_TIME_APPROVER,
@@ -328,13 +332,27 @@
 						LEFT JOIN APP_LEAVE LEA ON (A.APP_SEQ = LEA.LEAVE_APP_SEQ)
 						LEFT JOIN APP_RECEIVE_REF arr ON (A.APP_SEQ = arr.RECEIVE_REF_APP_SEQ)
 						LEFT JOIN APP_ER ER ON (A.APP_SEQ = ER.ER_APP_SEQ)
-					ORDER BY A.APP_WRITE_SYS DESC
-				) B WHERE ROWNUM <= #{endNo}
-		       ) WHERE RNUM >= #{startNo}
 	        ]]>
+		<where>
+			<if test="approval_status != null and approval_status != ''">
+				AND APP_CHECK_PROGRESS = #{approval_status}
+			</if>
+			<if test="userNo != null and userNo != ''">
+				AND APP_WRITE_NO = #{userNo}
+			</if>
+		</where>
+		ORDER BY APP_SEQ DESC
+			) A
+		<![CDATA[
+			WHERE ROWNUM <= #{endNo}
+			)
+		WHERE #{startNo} <= RNUM
+		]]>
+
+
 	</select>
 
-	<select id="viewAppLeaveList" parameterType="_int"
+	<select id="viewAppLeaveList" parameterType="int"
 		resultMap="approvalResultMap">
 		SELECT A.APP_SEQ,
 		A.APP_WRITE_NO,
@@ -399,12 +417,11 @@
 		WHERE A.APP_SEQ = #{appNo}
 	</select>
 
-	<insert id="insertLetterOfApproval" parameterType="approvalvo"
-		useGeneratedKeys="true" keyProperty="appNo" keyColumn="APP_SEQ">
+	<insert id="insertLetterOfApproval" parameterType="approvalvo">
 
 		<selectKey keyProperty="appNo" resultType="int"
 			order="BEFORE">
-			select max(app_seq) from approval
+			select max(app_seq) + 1 from approval
 		</selectKey>
 
 		INSERT INTO APPROVAL(
@@ -423,7 +440,7 @@
 		USER_NAME
 		)
 		VALUES(
-		APP_SEQ_SEQ.NEXTVAL,
+		#{appNo},
 		SYSDATE,
 		#{firstApprover},
 		#{interimApprover},
@@ -695,36 +712,63 @@
 	
 		<!-- 검색 -->
 	<select id="AselecCountMulti" parameterType="param" resultType="int">
-		SELECT COUNT(*) FROM approval where
-			<if test='searchcategory =="결재 작성자"'>
-				user_Name like '%'||#{searchobj}||'%'
+		SELECT COUNT(*) FROM approval
+		<where>
+			<if test="searchobj != null and searchobj != ''">
+				<choose>
+					<when test="searchcategory != null and searchcategory != '' and searchcategory == 'category'">
+						APPROVAL_KINDS = #{searchobj}
+					</when>
+					<when test="searchcategory != null and searchcategory != '' and searchcategory == 'writer'">
+						USER_NAME = #{searchobj}
+					</when>
+					<when test="searchcategory != null and searchcategory != '' and searchcategory == 'status'">
+						APP_CHECK_PROGRESS = #{searchobj}
+					</when>
+				</choose>
 			</if>
-			<if test='searchcategory =="문서 종류"'>
-				APPROVAL_KINDS like '%'||#{searchobj}||'%'
-			</if>
-			<if test='searchcategory =="결재 상태"'>
-				APP_CHECK_PROGRESS like '%'||#{searchobj}||'%'
-			</if>
+		</where>
 	</select>
 	
-	<select id="AselectListMulti" parameterType="param" resultType="approvalvo">
-			select * from (   
+	<select id="AselectListMulti" parameterType="param" resultMap="approvalResultMap">
+			select a.*, b.loa_title, c.leave_classify, d.er_title, e.deptno from (
 				select rownum rnum, TT.* from (
-					select * from approval where
-						<if test='searchcategory =="결재 작성자"'>
-							user_Name like '%'||#{searchobj}||'%'
+					select * from approval
+					<where>
+						<if test="searchobj != null and searchobj != ''">
+							<choose>
+								<when test="searchcategory != null and searchcategory != '' and searchcategory == 'category'">
+									APPROVAL_KINDS = #{searchobj}
+								</when>
+								<when test="searchcategory != null and searchcategory != '' and searchcategory == 'writer'">
+									USER_NAME = #{searchobj}
+								</when>
+								<when test="searchcategory != null and searchcategory != '' and searchcategory == 'status'">
+									APP_CHECK_PROGRESS = #{searchobj}
+								</when>
+							</choose>
 						</if>
-						<if test='searchcategory =="문서 종류"'>
-							APPROVAL_KINDS like '%'||#{searchobj}||'%'
-						</if>
-						<if test='searchcategory =="결재 상태"'>
-							APP_CHECK_PROGRESS like '%'||#{searchobj}||'%'
-						</if>
+					</where>
 					<![CDATA[
 				) TT where rownum <= #{endNo}
-			) where rnum >= #{startNo}
+			) a
+				left outer join APP_LOA b on a.APP_SEQ = b.LOA_APP_SEQ
+				left outer join APP_LEAVE c on a.APP_SEQ = c.LEAVE_APP_SEQ
+				left outer join APP_ER d on a.APP_SEQ = d.ER_APP_SEQ
+				join EMP e on e.EMPNO = a.APP_WRITE_NO
+
+				where a.rnum >= #{startNo}
+				order by APP_SEQ desc
 		]]>
 	</select>
+
+	<update id="updateApprovalFromCancel" parameterType="hash">
+		update approval set
+		    APP_CHECK_PROGRESS = '반려',
+		    APP_REASON = #{reason}
+		where
+			APP_SEQ = #{seq}
+	</update>
 
 </mapper>
 

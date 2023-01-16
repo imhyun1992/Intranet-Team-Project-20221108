@@ -26,7 +26,7 @@
 					<li><a href="${path}/approval/approvalMain"><img
 							src="../images/home.png" alt="home" width="18px"></a>&#62;</li>
 					<li><a href="${path}/approval/approvalMain">전자결재</a>&#62;</li>
-					<li><a href="${path}/approval/paging">결재목록</a></li>
+					<li><a href="${path}/approval/approvalList">결재목록</a></li>
 				</ul>
 			</div>
 			<!-- =================================contents================================================= -->
@@ -35,11 +35,11 @@
 
 			<div class="content">
                 <div align="right" style="margin-bottom: 15px">
-               		<form action="">
+               		<form action="${path}/approval/approvalList">
 						<select id="searchcategory" name="searchcategory" style="width:150px;">
-	                        <option>결재 작성자</option>
-	                        <option>문서 종류</option>
-	                        <option>결재 상태</option>
+	                        <option label="결재 작성자" value="writer"></option>
+	                        <option label="문서 종류" value="category"></option>
+	                        <option label="결재 상태" value="status"></option>
                    		</select>
                			<input id="searchobj" type="text" name="searchobj" style="width: 250px" placeholder="결재리스트 검색"/>
                			<input type="submit" value="검색" />
@@ -109,7 +109,7 @@
 											</c:when>
 										</c:choose>
 										<td>${item.userName}</td>
-										<td>${dname}</td>
+										<td>${item.deptName}</td>
 										<td><fmt:formatDate value="${item.appWriteDate}"
 												pattern="yyyy/MM/dd" /></td>
 										<td>${item.appCheckProgress}</td>
@@ -161,13 +161,13 @@
 							</c:if>
 							<c:if test="${i != paging.currentPage}">
 								<td class='tda' width='30' align='center'><a
-									href='/approval/approvalList?currentPage=${i}'>${i}</a></td>
+									href='${path}/approval/approvalList?currentPage=${i}&approvalStatus=${approvalStatus}&userNo=${userNo}'>${i}</a></td>
 							</c:if>
 						</c:forEach>
 
 						<c:if test="${paging.currentPage < paging.totalPage}">
 							<td><button type="button" title="다음 페이지로"
-									onclick="location.href='?currentPage=${paging.currentPage+1}'">
+									onclick="location.href='${path}/approval/approvalList?currentPage=${paging.currentPage+1}&approvalStatus=${approvalStatus}&userNo=${userNo}'">
 									></button></td>
 						</c:if>
 						<c:if test="${paging.currentPage >= paging.totalPage}">
@@ -176,7 +176,7 @@
 						</c:if>
 						<c:if test="${paging.endPage < paging.totalPage}">
 							<td><button type="button" title="10페이지 이동"
-									onclick="location.href='?currentPage=${paging.currentPage + 10}'">
+									onclick="location.href='${path}/approval/approvalList?currentPage=${paging.currentPage + 10}&approvalStatus=${approvalStatus}&userNo=${userNo}'">
 									>></button></td>
 						</c:if>
 						<c:if test="${paging.endPage >= paging.totalPage}">
@@ -185,7 +185,7 @@
 						</c:if>
 						<c:if test="${paging.currentPage < paging.totalPage}">
 							<td><button type="button" title="마지막 페이지로"
-									onclick="location.href='?currentPage=${paging.totalPage}'">
+									onclick="location.href='${path}/approval/approvalList?currentPage=${paging.totalPage}&approvalStatus=${approvalStatus}&userNo=${userNo}'">
 									끝</button></td>
 						</c:if>
 						<c:if test="${paging.currentPage >= paging.totalPage}">
