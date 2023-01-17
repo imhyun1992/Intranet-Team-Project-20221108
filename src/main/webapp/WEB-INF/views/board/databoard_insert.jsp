@@ -48,7 +48,7 @@
 							</tr>
 							<tr>
 								<th>첨부</th>
-								<td><input type="file" name="attachedfile" /></td>
+								<td><input type="file" name="filename" /></td>
 							</tr>
 							<tr>
 								<td colspan="2" align="right">
@@ -61,6 +61,8 @@
 							<input id="empno" type="hidden" name="empno" value="${EmpVO.empno}" /> 
 							<input id="deptno" type="hidden" name="deptno" value="${EmpVO.deptno}" /> 
 							<input id="category" type="hidden" name="category" value="자료실" />
+							<input id="attachedfile" type="hidden" name="attachedfile" value=""/>
+							<input id="realfilename" type="hidden" name="realfilename" value=""/>
 						</form>
 					</table>
 				</div>
@@ -87,7 +89,7 @@
 	<%@ include file="../includes/footer.jsp"%>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp"%>
+	<%@ include file="../includes/insertTodoModal.jsp"%>
 
 </body>
 

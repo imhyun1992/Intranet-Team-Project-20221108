@@ -23,3 +23,24 @@ function commentService(idx, mode, title, cocontent, gup) {
 	cf.content.focus();
 	
 }
+
+function commentDelete(idx) {
+	
+	let cf = $('#comment_'+idx);
+	
+	if (!confirm("정말 삭제하시겠습니까?")) {
+        return;
+    } else {
+		$.ajax({
+			type: 'POST',
+			url: '../board/comment_delete',
+			data: {
+				idx:idx
+			},
+			success: res => {		
+				cf.remove();
+			},
+			error: err => alert('댓글 삭제 실패')
+		}); 		
+    }
+}

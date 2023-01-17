@@ -61,7 +61,7 @@
 								</c:when>
 								<c:when test="${approval.appPresent eq 'B'}">
 									<td name="firstA" id="firstA">${approval.firstApprover}<img
-										src="${path}/images/approved.png"
+										src="${path}/images/${signImg}"
 										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 									<td name="interimA" id="interimA">${approval.interimApprover}</td>
 									<td name="finalA" id="finalA">${approval.finalApprover}</td>
@@ -71,7 +71,7 @@
 										src="${path}/images/approved.png"
 										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 									<td name="interimA" id="interimA">${approval.interimApprover}<img
-										src="${path}/images/approved.png"
+										src="${path}/images/${signImg}"
 										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 									<td name="finalA" id="finalA">${approval.finalApprover}</td>
 								</c:when>
@@ -83,7 +83,7 @@
 										src="${path}/images/approved.png"
 										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 									<td name="finalA" id="finalA">${approval.finalApprover}<img
-										src="${path}/images/approved.png"
+										src="${path}/images/${signImg}"
 										style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 								</c:when>
 								<c:otherwise>
@@ -241,7 +241,7 @@
 	        						(empVO.empno eq approval.interimApprover && approval.appPresent eq 'B') ||
 	        						(empVO.empno eq approval.finalApprover && approval.appPresent eq 'C')}">
 								<button type="submit" id="approveddone">결재</button>
-						 		<button type="submit" id="canceldone" onclick="showCancelForm(${approval.appNo})">반려</button>
+								<button type="submit" id="canceldone" onclick="showCancelForm(${approval.appNo}, '${approval.appPresent}')">반려</button>
 								<input type="text" style="border: none; width: 40px;" disabled>
 							</c:when>
 							<c:otherwise>
@@ -256,21 +256,10 @@
 				</div>
 			</div> 
 
-			<!-- 모달 스크립트 -->
 <script>
-    	const open = () => {
-	    	document.querySelector(".modal1").classList.remove("hidden");
-	    }
-	
-	    const close = () => {
-	        document.querySelector(".modal1").classList.add("hidden");
-	    }
-	
-	    document.querySelector("#openRejection").addEventListener("click", open);
-	    document.querySelector(".rejModalNo1").addEventListener("click", close);
-	<!-- 결재승인버튼 스크립트 --> 
+	<!-- 결재승인버튼 스크립트 -->
    	$("#Approver1").one("click",function(){
-   		
+   		console.assert(false, 'debug...');
    		$.ajax({
                type: "post",
                url: "${path}/approval/loaApproved1?appNo="+${approval.appNo},

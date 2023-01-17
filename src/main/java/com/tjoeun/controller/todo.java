@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tjoeun.dao.MyBatisDAO;
+import com.tjoeun.vo.EmpVO;
 import com.tjoeun.vo.TodoList;
 import com.tjoeun.vo.TodoVO;
 
 @Controller
+@RequestMapping("/todo")
 public class todo {
 
 	private static final Logger logger = LoggerFactory.getLogger(todo.class);
@@ -31,7 +33,8 @@ public class todo {
 	private SqlSession sqlSession;
 	
 	private Date date = new Date();
-	private String setdate = (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+	SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+	private String setdate = sdf.format(date);
 	
 	AbstractApplicationContext CTX = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
 	TodoList todolist = CTX.getBean("todolist",TodoList.class);
@@ -46,8 +49,8 @@ public class todo {
 		String writedate = request.getParameter("dateinfo");
 		vo.setWritedate(sdf.parse(writedate));
 		
-		int todocount = mapper.todocount(vo); //날짜별 todo 총 개수	
-		vo.setIdx(todocount + 1);
+		int maxidx = mapper.maxidx(vo); //idx 설정을 위한 idx 최대 값 얻어오기
+		vo.setIdx(maxidx + 1); 
 		
 		mapper.todoinsert(vo);
 
@@ -77,5 +80,43 @@ public class todo {
 		session.setAttribute("todoList", null);
 		session.setAttribute("todoList", todolist);
 	}	
+	
+	@ResponseBody
+	@RequestMapping("/todo_delete")
+	public void todo_delete(HttpServletRequest request, Model model, TodoVO vo) {
+		
+		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);
+		HttpSession session = request.getSession();
+		
+		vo.setSetdate(setdate);
+		int empno = ((EmpVO)session.getAttribute("EmpVO")).getEmpno();
+		vo.setEmpno(empno);
+		mapper.tododelete(vo);	
+
+		todolist.setList(mapper.todolist(vo));	
+		
+		session.setAttribute("todoList", null);
+		session.setAttribute("todoList", todolist);
+	}	
+	
+	@ResponseBody
+	@RequestMapping("/todo_update")
+	public void todo_update(HttpServletRequest request, Model model, TodoVO vo) {
+		
+		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);
+		HttpSession session = request.getSession();
+		
+		vo.setSetdate(setdate);
+		int empno = ((EmpVO)session.getAttribute("EmpVO")).getEmpno();
+		vo.setEmpno(empno);
+		mapper.todoupdate(vo);	
+		
+		todolist.setList(mapper.todolist(vo));	
+		
+		session.setAttribute("todoList", null);
+		session.setAttribute("todoList", todolist);
+	}	
+	
+	
 
 }

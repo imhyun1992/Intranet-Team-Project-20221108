@@ -31,26 +31,47 @@
 			<c:set var="vo" value="${ReportVO}"></c:set>
 
 			<c:set var="content" value="${fn:replace(vo.content, '<', '&lt;') }"></c:set>
-			<c:set var="content" value="${fn:replace(vo.content, '>', '&gt;') }"></c:set>
-			<c:set var="content" value="${fn:replace(vo.content, enter, '<br/>') }"></c:set>
+			<c:set var="content" value="${fn:replace(content, '>', '&gt;') }"></c:set>
+			<c:set var="content" value="${fn:replace(content, enter, '<br/>') }"></c:set>
 
-			<div class="content">
+			<div class="content_view">
 
 				<h1>${vo.title}</h1>
-				<h5> <fmt:formatDate value="${vo.writedate}" pattern="yyyy-MM-dd(E), aa h시 mm분" /> </h5>
-				<hr />
-				<p style="width: 100%; height: 500px">${vo.content}</p>
-				<td>첨부파일 : <a href="Downloard?filename=${vo.attachedfile}">${vo.attachedfile}</a>
-				</td> <hr />
-
-				<div align="right">
-					
-					<c:if test="${vo.name == EmpVO.name}">
-						<input type="button" value="수정" onclick="location.href='report_service?mode=2&idx=${vo.idx}&currentPage=${currentPage}'" />
-						<input type="button" value="삭제" onclick="location.href='report_service?mode=3&idx=${vo.idx}'" />
-					</c:if>
-					<input type="button" value="돌아가기" onclick="location.href='report_list?currentPage=${currentPage}'" />
+				<h3>${vo.type}</h3>
+				<div style="display: flex; line-height: 20px">
+					<h5 style="width: 95%"> <fmt:formatDate value="${vo.writedate}" pattern="yyyy-MM-dd(E), aa h시 mm분" /> </h5>
+					<div style="display: flex ">
+						<img src="${path}/images/thums.png" alt="thums" width="14px" height="14px" style="padding: 3px">
+						<h5>${vo.hit}</h5>
+					</div>
 				</div>
+				<hr/>
+				<div style="height: 35%"><p>${content}</p></div>
+				
+				<c:if test="${vo.attachedfile != null}">
+					<div class="attach">
+						<img alt="" src="${path}/images/clip.png" width="15x" style="margin: 4px 1px">
+						<a href="${path}/Download?filename=${vo.realfilename}">${vo.attachedfile}</a>
+					</div>					
+				</c:if>
+					
+				
+				<div style="height: 290px">
+					<tr>
+						<c:if test="${vo.name == EmpVO.name}">
+						<div align="right">
+							<td>
+								<input type="button" value="수정" onclick="location.href='report_service?mode=2&idx=${vo.idx}&currentPage=${currentPage}'" />
+								<input type="button" value="삭제" onclick="location.href='report_service?mode=3&idx=${vo.idx}'" />
+							</td>
+						</div>
+						</c:if>
+					</tr>
+				<hr/>
+				</div>
+				<div align="right">
+					<input type="button" value="돌아가기" onclick="location.href='report_list?currentPage=${currentPage}&'"/>
+                </div>
 			</div>
 			<!-- =================================contents================================================= -->
 		
@@ -67,7 +88,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 

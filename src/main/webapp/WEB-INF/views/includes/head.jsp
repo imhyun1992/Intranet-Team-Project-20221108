@@ -10,8 +10,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}">
-<script type="text/javascript" src="${pageContext.request.contextPath}"></script>
 
 <meta charset="UTF-8">
 <title>1조 팀프로젝트</title>
@@ -28,9 +26,10 @@
 <script src="${path}/js/jquery-3.6.1.js"></script>
 <script src="${path}/js/tjeoun_menu.js" defer="defer"></script>
 <script src="${path}/js/todo.js" defer="defer"></script>
+<script src="${path}/js/pm.js" defer="defer"></script>
 <script src="${path}/js/commentService.js" defer="defer"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-	
+
 </head>
 
 </html>

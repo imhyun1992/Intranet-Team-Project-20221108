@@ -35,13 +35,12 @@
             		<tbody>
             			<c:forEach var="li103" items="${list103.list}">
             				<tr>
-            				
             					<c:if test="${li103.deptno == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
 								<c:if test="${li103.deptno == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
 								<c:if test="${li103.deptno == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
 								<c:if test="${li103.deptno == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
 								<c:if test="${li103.deptno == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
-            					<td style="border-bottom: 2px solid #D8D2CB;">
+            					<td style="border-bottom: 2px solid #D8D2CB; height: 55px">
 									<div style="display: flex;">
 										<div style="line-height: 50px; width: 55%">${dname}</div>
 										<div  style="line-height: 25px; width: 45%">
@@ -53,7 +52,7 @@
             				</tr>
             			</c:forEach>	
             			<c:forEach begin="1" end="${5 - list103.list.size()}">	
-            				<tr><td style="border-bottom: 2px solid #D8D2CB;"></td></tr>
+	            				<tr><td style="border-bottom: 2px solid #D8D2CB; height: 55px"></td></tr>
             			</c:forEach>
             		</tbody>
             		<tfoot>
@@ -72,13 +71,12 @@
             		<tbody>
             			<c:forEach var="li222" items="${list222.list}">
             				<tr>
-            				
             					<c:if test="${li222.deptno == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
 								<c:if test="${li222.deptno == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
 								<c:if test="${li222.deptno == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
 								<c:if test="${li222.deptno == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
 								<c:if test="${li222.deptno == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
-            					<td>
+            					<td style="border-bottom: 2px solid #D8D2CB; height: 55px">
 									<div style="display: flex;">
 										<div style="line-height: 50px; width: 55%">${dname}</div>
 										<div  style="line-height: 25px; width: 45%">
@@ -90,7 +88,7 @@
             				</tr>
             			</c:forEach>	
             			<c:forEach begin="1" end="${5 - list222.list.size()}">	
-            				<tr><td></td></tr>
+	            				<tr><td style="border-bottom: 2px solid #D8D2CB; height: 55px"></td></tr>
             			</c:forEach>	
             		</tbody>
             		<tfoot>
@@ -109,13 +107,12 @@
             		<tbody>
             			<c:forEach var="li503" items="${list503.list}">
             				<tr>
-            				
             					<c:if test="${li503.deptno == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
 								<c:if test="${li503.deptno == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
 								<c:if test="${li503.deptno == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
 								<c:if test="${li503.deptno == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
 								<c:if test="${li503.deptno == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
-								<td>
+								<td style="border-bottom: 2px solid #D8D2CB; height: 55px">
 									<div style="display: flex;">
 										<div style="line-height: 50px; width: 55%">${dname}</div>
 										<div  style="line-height: 25px; width: 45%">
@@ -127,7 +124,7 @@
             				</tr>
             			</c:forEach>
             			<c:forEach begin="1" end="${5 - list503.list.size()}">	
-            				<tr><td></td></tr>
+	            				<tr><td style="border-bottom: 2px solid #D8D2CB; height: 55px"></td></tr>
             			</c:forEach>		
             		</tbody>
             		<tfoot>
@@ -145,14 +142,13 @@
             		</thead>
             		<tbody>
             			<c:forEach var="li710" items="${list710.list}">
-            				<tr>
-            				
+            				<tr>        				
             					<c:if test="${li710.deptno == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
 								<c:if test="${li710.deptno == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
 								<c:if test="${li710.deptno == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
 								<c:if test="${li710.deptno == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
 								<c:if test="${li710.deptno == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
-            					<td>
+            					<td style="border-bottom: 2px solid #D8D2CB; height: 55px">
 									<div style="display: flex;">
 										<div style="line-height: 50px; width: 55%">${dname}</div>
 										<div  style="line-height: 25px; width: 45%">
@@ -164,7 +160,7 @@
             				</tr>
             			</c:forEach>	
             			<c:forEach begin="1" end="${5 - list710.list.size()}">	
-            				<tr><td></td></tr>
+	            				<tr><td style="border-bottom: 2px solid #D8D2CB; height: 55px"></td></tr>
             			</c:forEach>	
             		</tbody>
             		<tfoot>
@@ -189,10 +185,10 @@
 								<c:if test="${li901.deptno == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
 								<c:if test="${li901.deptno == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
 								<c:if test="${li901.deptno == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
-            					<td>
+            					<td style="border-bottom: 2px solid #D8D2CB; height: 55px">
 									<div style="display: flex;">
 										<div style="line-height: 50px; width: 55%">${dname}</div>
-										<div  style="line-height: 25px; width: 45%">
+										<div style="line-height: 25px; width: 45%">
 											<div>${li901.starttime}</div>
 											<div>${li901.endtime}</div>
 										</div>
@@ -201,7 +197,7 @@
             				</tr>
             			</c:forEach>
             			<c:forEach begin="1" end="${5 - list901.list.size()}">	
-            				<tr><td></td></tr>
+	            				<tr><td style="border-bottom: 2px solid #D8D2CB; height: 55px"></td></tr>
             			</c:forEach>		
             		</tbody>
             		<tfoot>
@@ -228,7 +224,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 

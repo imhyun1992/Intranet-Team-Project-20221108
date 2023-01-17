@@ -31,7 +31,7 @@
             <c:set var="vo" value="${BoardVO}"></c:set>
             
         	<c:set var="content" value="${fn:replace(vo.content, '<', '&lt;') }"></c:set>
-			<c:set var="content" value="${fn:replace(vo.content, '>', '&gt;') }"></c:set>			
+			<c:set var="content" value="${fn:replace(content, '>', '&gt;') }"></c:set>			
 			
             <div class="content_view">
 	         	<h1>${vo.title}</h1>
@@ -72,7 +72,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 

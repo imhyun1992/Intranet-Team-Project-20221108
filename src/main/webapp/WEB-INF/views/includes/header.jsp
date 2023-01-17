@@ -8,7 +8,7 @@
 
 	<header>
 	
-		<c:if test="${EmpVO.empno == null}"><c:redirect url="../login"></c:redirect> </c:if>
+		<c:if test="${EmpVO.empno == null}"><c:redirect url="${path}/login"></c:redirect> </c:if>
 		<c:if test="${EmpVO.deptno == 500}"><c:set var="deptname" value="경영지원부"></c:set></c:if>
 		<c:if test="${EmpVO.deptno == 400}"><c:set var="deptname" value="IT부"></c:set></c:if>
 		<c:if test="${EmpVO.deptno == 300}"><c:set var="deptname" value="상품개발부"></c:set></c:if>
@@ -19,9 +19,10 @@
 		</h1>
 		<ul>
 			<li>
-				${deptname} / ${EmpVO.name}&lpar;${EmpVO.deptno}&rpar; <a href="${path}/logout"> 로그아웃</a><a href="#"> 시간연장</a>
+				${deptname} / ${EmpVO.name}&lpar;${EmpVO.empno}&rpar;
 			</li>
 		</ul>
+		
 	</header>
 
 </body>

@@ -9,12 +9,13 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.tjoeun.dao.MyBatisDAO;
 import com.tjoeun.vo.DateData;
+import com.tjoeun.vo.TodoVO;
 
 public class getCalendar {
 	
 
 	// 한달 필드를 생성하는 메소드
-	public static List<DateData> month_info(DateData date, SqlSession sqlSession) {
+	public static List<DateData> month_info(DateData date, SqlSession sqlSession, TodoVO todo) {
 		
 		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);
 		
@@ -76,10 +77,14 @@ public class getCalendar {
 			if (i < 10) {
 				setdate = date.getYear() + "-0" + month + "-0" + i;
 			}
-
-			calendarData.setTodolist(mapper.caltodolist(setdate));
-			// System.out.println(calendarData);
 			
+			todo.setSetdate(setdate);
+
+			if (todo.getShareset() == null || todo.getShareset().trim().length() == 0) {
+				calendarData.setTodolist(mapper.caltodolist(setdate));
+			} else {
+				calendarData.setTodolist(mapper.caltodolistShareset(todo));
+			}
 			dateList.add(calendarData);
 		}
 

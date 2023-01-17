@@ -26,11 +26,10 @@
             </div>
             <!-- =================================contents================================================= -->
             <fmt:requestEncoding value="UTF-8"/>			
-            <div class="content" style="background-image:url('./images/line.png')">
-                
-                <div align="center" style="margin: 20px; padding: 10px">
+            <div class="content" style="background-image:url('${path}/images/line.png')">    
+                <div align="center" style="margin: 22px; padding: 10px">
                 	<div align="center" style="border: 1px solid black; width: 20%; height: 70px;">
-                		<h1 style= "line-height: 70px ">대표이사</h1>
+                		<h3 style= "line-height: 70px ">대표이사</h3>
                 	</div>
                 </div>
                 
@@ -43,55 +42,55 @@
 	                	
 	                	<div style="display: flex;">
 	                		<div align="center" style="width: 50%;">
-	                			<div class="groupmove" style="width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px "><a href="groupchart_view?deptno=100">영업부</a></h3>
+	                			<div class="groupmove" style="width: 80%; height: 40px; margin: 15px" onclick="location.href='groupchart_view?deptno=100&currentPage=1'">
+		                			<p style= "line-height: 40px ">영업부</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">팀장</h3>
+		                			<p style= "line-height: 40px ">팀장</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">차장</h3>
+		                			<p style= "line-height: 40px ">차장</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">과장</h3>
+		                			<p style= "line-height: 40px ">과장</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">대리</h3>
+		                			<p style= "line-height: 40px ">대리</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">사원</h3>
+		                			<p style= "line-height: 40px ">사원</p>
 		                		</div>
 		                		
 		                	</div> 
 
 		                	<div align="center" style="width: 50%; ">
-	                			<div class="groupmove" style="width: 80%; margin: 15px">
-		                			<h3 style= "line-height: 40px "><a href="groupchart_view?deptno=200">마케팅부</a></h3>
+	                			<div class="groupmove" style="width: 80%; height: 40px;	margin: 15px" onclick="location.href='groupchart_view?deptno=200&currentPage=1'">
+		                			<p style= "line-height: 40px ">마케팅부</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">팀장</h3>
+		                			<p style= "line-height: 40px ">팀장</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">차장</h3>
+		                			<p style= "line-height: 40px ">차장</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">과장</h3>
+		                			<p style= "line-height: 40px ">과장</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">대리</h3>
+		                			<p style= "line-height: 40px ">대리</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">사원</h3>
+		                			<p style= "line-height: 40px ">사원</p>
 		                		</div>
 		                		
 		                	</div> 
@@ -101,60 +100,60 @@
                 	
                 	<div align="center" style="width: 33%; margin: 20px;">             		
                         <div align="center" style="border: 1px solid black; width: 60%; height: 40px; margin: 20px;">
-	                		<h3 style="line-height: 40px ">부장</h3>
+	                		<h4 style="line-height: 40px ">부장</h4>
 	                	</div> 
 	                	
 	                	<div style="display: flex;">
 	                		<div align="center" style="width: 50%;">
-	                			<div class="groupmove" style="width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px "><a href="groupchart_view?deptno=300">상품개발부</a></h3>
+	                			<div class="groupmove" style="width: 80%; height: 40px; margin: 15px" onclick="location.href='groupchart_view?deptno=300&currentPage=1'">
+		                			<p style= "line-height: 40px ">상품개발부</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">팀장</h3>
+		                			<p style= "line-height: 40px ">팀장</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">차장</h3>
+		                			<p style= "line-height: 40px ">차장</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">과장</h3>
+		                			<p style= "line-height: 40px ">과장</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">대리</h3>
+		                			<p style= "line-height: 40px ">대리</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">사원</h3>
+		                			<p style= "line-height: 40px ">사원</p>
 		                		</div>
 		                		
 		                	</div> 
 
 		                	<div align="center" style="width: 50%; ">
-	                			<div class="groupmove" style="width: 80%; margin: 15px">
-		                			<h3 style= "line-height: 40px "><a href="groupchart_view?deptno=400">IT부</a></h3>
+	                			<div class="groupmove" style="width: 80%; margin: 15px" onclick="location.href='groupchart_view?deptno=400&currentPage=1'">
+		                			<p style= "line-height: 40px ">IT부</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">팀장</h3>
+		                			<p style= "line-height: 40px ">팀장</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">차장</h3>
+		                			<p style= "line-height: 40px ">차장</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">과장</h3>
+		                			<p style= "line-height: 40px ">과장</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">대리</h3>
+		                			<p style= "line-height: 40px ">대리</p>
 		                		</div>
 		                		
 		                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-		                			<h3 style= "line-height: 40px ">사원</h3>
+		                			<p style= "line-height: 40px ">사원</p>
 		                		</div>
 		                		
 		                	</div>	                 
@@ -163,32 +162,32 @@
                 	
             	    <div align="center" style="width: 33%; margin: 20px;">
                 		<div align="center" style="border: 1px solid black; width: 60%; height: 40px; margin: 20px 20px 35px 20px;">
-	                		<h3 style="line-height: 40px ">전무</h3>
+	                		<h4 style="line-height: 40px ">전무</h4>
 	                	</div> 
 	                	
                 		<div align="center" style="width: 50%;">
-                			<div class="groupmove" style="width: 80%; height: 40px; margin: 15px">
-	                			<h3 style= "line-height: 40px "><a href="groupchart_view?deptno=500">경영지원부</a></h3>
+                			<div class="groupmove" style="width: 80%; height: 40px; margin: 15px" onclick="location.href='groupchart_view?deptno=500&currentPage=1'">
+	                			<p style= "line-height: 40px ">경영지원부</p>
 	                		</div>
 	                		
 	                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-	                			<h3 style= "line-height: 40px ">팀장</h3>
+	                			<p style= "line-height: 40px ">팀장</p>
 	                		</div>
 	                		
 	                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-	                			<h3 style= "line-height: 40px ">차장</h3>
+	                			<p style= "line-height: 40px ">차장</p>
 	                		</div>
 	                		
 	                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-	                			<h3 style= "line-height: 40px ">과장</h3>
+	                			<p style= "line-height: 40px ">과장</p>
 	                		</div>
 	                		
 	                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-	                			<h3 style= "line-height: 40px ">대리</h3>
+	                			<p style= "line-height: 40px ">대리</p>
 	                		</div>
 	                		
 	                		<div style="border: 1px solid black; width: 80%; height: 40px; margin: 15px">
-	                			<h3 style= "line-height: 40px ">사원</h3>
+	                			<p style= "line-height: 40px ">사원</p>
 	                		</div>
 	                		
 	                	</div> 	                
@@ -213,7 +212,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 

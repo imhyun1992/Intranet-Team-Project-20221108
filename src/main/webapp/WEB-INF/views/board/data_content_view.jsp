@@ -31,8 +31,8 @@
             <c:set var="vo" value="${BoardVO}"></c:set>
             
         	<c:set var="content" value="${fn:replace(vo.content, '<', '&lt;') }"></c:set>
-			<c:set var="content" value="${fn:replace(vo.content, '>', '&gt;') }"></c:set>
-			<c:set var="content" value="${fn:replace(vo.content, enter, '<br/>') }"></c:set>			
+			<c:set var="content" value="${fn:replace(content, '>', '&gt;') }"></c:set>
+			<c:set var="content" value="${fn:replace(content, enter, '<br/>') }"></c:set>			
 			
 			<c:if test="${vo.deptno == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
 			<c:if test="${vo.deptno == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
@@ -47,7 +47,7 @@
 	         	<div style="display: flex; line-height: 20px">
 					<h5 style="width: 95%">${vo.name}&lpar;${dname}&rpar;</h5>
 					<div style="display: flex ">
-						<img src="./images/thums.png" alt="thums" width="14px" height="14px" style="padding: 3px">
+						<img src="${path}/images/thums.png" alt="thums" width="14px" height="14px" style="padding: 3px">
 						<h5>${vo.hit}</h5>
 					</div>
 				</div>
@@ -59,8 +59,8 @@
 						</div>
 						<c:if test="${vo.attachedfile != null}">
 							<div class="attach">
-								<img alt="" src="./images/clip.png" width="15x" style="margin: 4px 1px">
-								<a href="downfile?category=자료실&idx=${vo.idx}&currentPage=${currentPage}">${vo.attachedfile}</a>
+								<img alt="" src="${path}/images/clip.png" width="15x" style="margin: 4px 1px">
+								<a href="${path}/Download?filename=${vo.realfilename}">${vo.attachedfile}</a>
 							</div>
 						</c:if>
 					</div>
@@ -90,7 +90,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 

@@ -16,16 +16,15 @@
     <!-- contents start -->
     <div class="tjcontainer">
     
-        <!--menu list start-->
+        <!--menu list-->
         <%@ include file="./manager_menu_bar.jsp" %>
-        <!-- menu list end -->
         
         <!-- main -->
         <div class="con_middle">
 			<div class="nav">
                 <ul>
-                    <li><a href="../main"><img src="../images/home.png" alt="home" width="18px"></a>&#62;</li>
-                    <li><a href="Manager_Menu">관리자</a>&#62;</li>
+                    <li><a href="${path}/main"><img src="${path}/images/home.png" alt="home" width="18px"></a>&#62;</li>
+                    <li><a href="Manager_Main">관리자</a>&#62;</li>
                     <li><a href="#">인명관리</a>&#62;</li>
                     <li><a href="#">계정승인</a></li>
                 </ul>
@@ -112,7 +111,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 

@@ -16,6 +16,10 @@ body{
     min-width:1430px;
 }
 
+hr {
+	margin: 7px 0px;
+}
+
 /*header*/
 header{
     width:100%;
@@ -84,6 +88,7 @@ header ul li{
     color:#398AB9;
 }
 .tjcontainer .con_left ul li a{
+	cursor: pointer;
     font:16px/32px arial;
     color:#333;
 }
@@ -135,7 +140,7 @@ header ul li{
 
 /* con_rihgt */
 .tjcontainer .con_right{ 
-    width:250px;
+    width:300px;
     height: auto;
     background-color:#fff;
     padding:20px;
@@ -146,20 +151,63 @@ header ul li{
 }
 
 .tjcontainer .con_right .todolist{
-    height:500px;
+    height:550px;
     border:1px solid #333;
     box-sizing: border-box;
     padding: 5px;
     box-shadow: 2px 3px 5px 0px;
-    margin-bottom: 40px;
+    margin-top: 20px;
+    margin-bottom: 60px;
     overflow: auto;
 }
+
 .tjcontainer .con_right .weather{
     height:152px;
     border:1px solid #333;
     box-sizing: border-box;
     padding: 5px;
     box-shadow: 2px 3px 5px 0px;
+}
+
+.todoarea{
+	box-sizing: border-box;
+	height: 82%;
+	font-size: 13px;
+	padding: 7px;
+	margin-top: 5px;
+}
+
+.todoarea div {
+	display: flex;
+	height: 25px;
+}
+
+.todoarea p {
+	margin-left: 5px;
+	line-height: 25px;	
+}
+
+.todoarea input {
+	accent-color: #BBBFCA;
+}
+
+.Session {
+	text-align: center;
+}
+
+.Session > p {
+	margin: 10px auto;
+	padding: 10px;
+	box-sizing: content-box;
+	height: 30px;
+	width: 130px;
+	font-size: 25px;
+	line-height: 30px;
+	border: 1px solid black;
+}
+
+.Session > input {
+	margin: 3px;
 }
 
 /*footer*/
@@ -286,23 +334,25 @@ button,
 		pointer-events: none;
 		opacity: 0.3;
 	}
-	
+
+/* 조직도 */	
 .groupmove {
 	border: 1px solid black; 		
 }
-
 .groupmove:hover {
 	background: rgba(28, 101, 140, 0.1);
 }
+
+/* 첨부파일 */
 .attach {
 	font-size: 15px;
 }
-
 .attach:hover {
 	text-decoration: underline;
 	
 }
 
+/* 검색 내용 굵게 */
 .list_view span {
 	font-weight: bold;
 }
@@ -330,7 +380,7 @@ button,
 }
 
 .list_view {
-	height: 80%;
+	height: 500px;
 	font-size: 13pt;
 }	
 
@@ -343,7 +393,7 @@ button,
 	}	
 	
 	.list_view td {
-		padding: 0px 20px;
+		padding: 0px 10px;
 	}	
 			
 	.list_view a:hover {
@@ -352,6 +402,7 @@ button,
 
 	.list_view tbody tr:hover {
 		background: rgba(28, 101, 140, 0.1);
+		cursor: pointer;
 	}
 	
 	.list_view table thead {
@@ -363,24 +414,34 @@ button,
 		border: none;
 		border-collapse : collapse;
 	} 
+
+/* 페이지 이동 버튼*/	
+.pagebutton {
+	margin-top: 50px;
+}
 	
 .address_view{
 	height: 570px; 
-	margin-top: 30px;
+	margin-top: 15px;
 	font-size: 13pt;
 }
+
 	.address_view table{
 		width: 100%; 
 
 	}
 	
 	.address_view tr {
-		height: 40px;
+		height: 45px;
 		text-align: center
 	}
 	
 	.address_view thead {
 		background-color: #D8D2CB;
+	}
+	
+	.address_view span {
+		font-weight: bold;
 	}
 	
 .mailDelete{
@@ -404,32 +465,10 @@ button,
 	color: green;
 }
 
-.todoarea{
-	box-sizing: border-box;
-	height: 84%;
-	font-size: 13px;
-	padding: 7px;
-	margin-top: 5px;
-}
-
-.todoarea div {
-	display: flex;
-	height: 27px;
-}
-
-.todoarea p {
-	line-height: 27px;	
-}
 
 
-.todoarea input {
-	accent-color: #BBBFCA;
-}
 
-.todoarea input {
-	accent-color: #BBBFCA;
-}
-
+/* 회의실 */
 .select_room {
 	padding: 100px 50px;
 	display: flex;
@@ -469,16 +508,183 @@ button,
 	padding: 10px 30px;
 }
 
+/* 매니저 - 계정 승인 */
 .acc_approv_list {
 	width: 100%;
 	height: 100%;
 	text-align: center;
 }
 
-.acc_approv_list thead th {
+.acc_approv_list thead{
 	font-size: 15px;
+	height: 50px;
+	border-bottom: 2px solid #D8D2CB;
+}
+
+.acc_approv_list tbody td{
+	padding-top: 10px;
+}
+
+/* 쪽지 이미지 동작 */
+.imghover {
+	position: relative; 
+}
+
+.imghover img{
+	width:30px;
+	margin-top: 10px;
+	position: absolute;
+	left:5px; 
+	top: 5px; 
+}
+
+.imghover img:nth-child(1) {
+	z-index: 2;
+}
+
+.imghover img:nth-child(2) {
+	z-index: 1;
+}
+
+.imghover img:nth-child(1):hover {
+	opacity: 0
+}
+
+/* 글씨에 파란 배경 */
+.Marking {
+	padding: 0px 5px;
+	background-color: rgba(130, 170, 227, 0.3);
+	cursor: pointer;
+}
+
+/* 매니저 - 메인 화면 */
+.Manager_Main {
+	height: 100%;
+}
+
+
+.Manager_Main > div {
+	height: 240px;
+	border: 1px solid #808080;
+	border-radius: 15px;
+	margin: 10px;
+	padding: 10px 15px 10px 15px;
+	box-shadow: 3px 3px 5px -3px gray;
 }
 		
-			
+.Manager_Main > div:hover {
+	background-color: rgba(211,211,211,0.2);
+	border: 2px solid #808080;
+}
+
+.Manager_Main > div > div {
+	text-align:left;
+}
+
+.Manager_Main > div > div:nth-child(1) {
+	height: 30px;
+	margin-bottom: 8px;
+	display: flex;
+}
+
+.Manager_Main > div > div:nth-child(1) > span{
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 30px;
+	height:30px;
+}
+
+.Manager_Main > div > div:nth-child(1) {
+	position: relative;
+}
+
+.Manager_Main > div > div:nth-child(1) > p{
+	position:absolute;
+	right: 0px;
+	font-size: 15px;
+	font-weight: 500;
+	background-color: rgba(240, 153, 125, 0.5);
+	border-radius: 50%;
+	padding: 5px;
+}
+
+.Manager_Main > div > div:nth-child(2) {
+	margin-top:0px;
+	height: 198px;
+}
+
+.Manager_Main > div > div:nth-child(2) tr{
+	height: 31px;
+	border-bottom: 1px solid rgba(211,211,211,0.3);
+	cursor: pointer;
+	text-align: center;
+}
+
+.Manager_Main > div > div:nth-child(2) tr:hover{
+	background-color: rgba(211,211,211,0.4);
+}
+
+/* 오늘 할 일 */
+.todo_view {
+	border: 2px solid #1C658C;
+	border-radius: 20px;
+	margin: 50px 170px;
+	height: 585px;
+}
+
+.todo_view > div:nth-child(1) {
+	padding: 10px;
+	text-align: center;
+	font-style: italic;
+	color: #505050;
+}
+
+.todo_view > div:nth-child(2) > div {
+	padding: 10px 20px;
+	display: flex;
+}
+
+.todo_view .imghover img {
+	margin: 0px;
+	width: 25px;
+	height: 25px;
+}
+
+.todo_view input {
+	width: 20px;
+	margin-right: 20px;
+	accent-color: #BBBFCA;
+}
+
+.todo_view h5 {
+	border-radius: 4px;
+	height: 33px;
+	line-height: 33px;
+	padding: 0px 10px;
+}
+
+/* 급여명세서 */
+.payslip {
+	padding: 30px 15px;
+	height: 100%;
+}
+.payslip > table {
+	height: 450px;
+}
+
+.payslip .back {
+	background: rgba(28, 101, 140, 0.1)
+}
+
+.payslip tbody {
+	text-align: center;
+}
+
+
+
+
+
+
+
 			
 			

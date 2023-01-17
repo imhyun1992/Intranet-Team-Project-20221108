@@ -2,6 +2,9 @@ package com.tjoeun.vo;
 
 import java.util.ArrayList;
 
+import lombok.Data;
+
+@Data
 public class ReportList {
 	private ArrayList<ReportVO> list = new ArrayList<ReportVO>();
 	
@@ -33,86 +36,5 @@ public class ReportList {
 		endPage = startPage + 9;
 		endPage = endPage > totalPage ? totalPage : endPage;
 	}
-
-	public ArrayList<ReportVO> getList() {
-		return list;
-	}
-
-	public void setList(ArrayList<ReportVO> list) {
-		this.list = list;
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	public int getTotalCount() {
-		return totalCount;
-	}
-
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
-
-	public int getTotalPage() {
-		return totalPage;
-	}
-
-	public void setTotalPage(int totalPage) {
-		this.totalPage = totalPage;
-	}
-
-	public int getCurrentPage() {
-		return currentPage;
-	}
-
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
-
-	public int getStartNo() {
-		return startNo;
-	}
-
-	public void setStartNo(int startNo) {
-		this.startNo = startNo;
-	}
-
-	public int getEndNo() {
-		return endNo;
-	}
-
-	public void setEndNo(int endNo) {
-		this.endNo = endNo;
-	}
-
-	public int getStartPage() {
-		return startPage;
-	}
-
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
-	}
-
-
-	public int getEndPage() {
-		return endPage;
-	}
-
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
-	}
-
-	@Override
-	public String toString() {
-		return "BoardList [list=" + list + ", pageSize=" + pageSize + ", totalCount=" + totalCount + ", totalPage="
-				+ totalPage + ", currentPage=" + currentPage + ", startNo=" + startNo + ", endNo=" + endNo
-				+ ", startPage=" + startPage + ", endPage=" + endPage + "]";
-	}
-
 
 }

@@ -67,9 +67,9 @@
 								<fmt:formatDate value="${vo.writedate}" pattern="a h:mm:ss" var="sdf2date" />
 								<c:set var="title" value="${fn:replace(vo.title, '<', '&lt;') }"></c:set>
 								<c:set var="title" value="${fn:replace(vo.title, '>', '&gt;') }"></c:set>
-								<tr>
+								<tr onclick="location.href='mywrite_content_view?idx=${vo.idx}'">
 									<td>${vo.category}</td>
-									<td><a href="mywrite_content_view?idx=${vo.idx}">${title}</a></td>
+									<td>${title}</td>
 									<td align="right">
 										<c:if test="${today == sdf1date}">${sdf2date}</c:if> 
 	                       		 		<c:if test="${today != sdf1date}">${sdf1date}</c:if>
@@ -150,7 +150,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 </html>

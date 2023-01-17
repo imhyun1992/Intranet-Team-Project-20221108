@@ -8,22 +8,8 @@
 
 <body>
 
-	<header>
-		<c:if test="${EmpVO.empno == null}"><c:redirect url="./login"></c:redirect> </c:if>
-		<c:if test="${EmpVO.deptno == 500}"><c:set var="deptname" value="경영지원부"></c:set></c:if>
-		<c:if test="${EmpVO.deptno == 400}"><c:set var="deptname" value="IT부"></c:set></c:if>
-		<c:if test="${EmpVO.deptno == 300}"><c:set var="deptname" value="상품개발부"></c:set></c:if>
-		<c:if test="${EmpVO.deptno == 200}"><c:set var="deptname" value="마케팅부"></c:set></c:if>
-		<c:if test="${EmpVO.deptno == 100}"><c:set var="deptname" value="영업부"></c:set></c:if>
-		<h1>
-			<a href="${path}/main">TJ INTRANET</a>
-		</h1>
-		<ul>
-			<li>
-				${deptname} / ${EmpVO.name}&lpar;${EmpVO.deptno}&rpar; <a href="${path}/logout"> 로그아웃</a><a href="#"> 시간연장</a>
-			</li>
-		</ul>
-	</header>
+	<!-- haeder -->
+	<%@ include file="./includes/header.jsp" %>
 
 	<!-- contents start -->
 	<div class="tjcontainer">
@@ -36,27 +22,42 @@
 			<!-- =================================contents================================================= -->
 			<div class="con1">
 				<div class="calendar">
-
-					<!--날짜 네비게이션  -->
-					<div class="navigation">
-						<a href="?year=${datedata.year-1}&month=${datedata.month}">
-							&lt;&lt;
-						</a> 
-						<a href="?year=${datedata.year}&month=${datedata.month - 1}">
-							&lt;
-						</a> 
-						<span>
-							&nbsp;${datedata.year}. <c:if
-								test="${datedata.month + 1 <10}">0</c:if>${datedata.month + 1}
-						</span> 
-						<a href="?year=${datedata.year}&month=${datedata.month+1}">
-							&gt;
-						</a> 
-						<a href="?year=${datedata.year+1}&month=${datedata.month}">
-							&gt;&gt;
-						</a>
+					<div class="calendar_head">
+					
+						<!--날짜 네비게이션  -->
+						<div class="navigation">
+							<a href="?year=${datedata.year-1}&month=${datedata.month}">
+								&lt;&lt;
+							</a> 
+							<a href="?year=${datedata.year}&month=${datedata.month - 1}">
+								&lt;
+							</a> 
+							<span>
+								&nbsp;${datedata.year}. <c:if
+									test="${datedata.month + 1 <10}">0</c:if>${datedata.month + 1}
+							</span> 
+							<a href="?year=${datedata.year}&month=${datedata.month+1}">
+								&gt;
+							</a> 
+							<a href="?year=${datedata.year+1}&month=${datedata.month}">
+								&gt;&gt;
+							</a>
+						</div>
+						
+						<!-- 공개범위 설정 -->
+						<div>
+							<form action="main">
+								<select name="shareset" style="width: 100px;">
+									<option></option>
+									<option value="NO">비공개</option>
+									<option value="TEAM">팀공개</option>
+									<option value="ALL">전체공개</option>
+								</select>
+								<input type="submit" value="검색"/>
+							</form>
+						</div>
 					</div>
-
+					
 					<table class="calendar_body">
 
 						<thead>
@@ -78,7 +79,7 @@
 											<c:if test="${date.event == null}">
 												<td class="today" onclick="todoPop(${date.year}, ${date.month}, ${date.date})">
 													<div>${date.date}</div>
-													<div class="dolist">
+													<div class="dolist" id="area_${date.date}">
 														<c:if test="${date.todolist.size() != 0}">
 															<c:forEach var="dolist" items="${date.todolist}">
 																<p style="background: ${dolist.colorcode}">${dolist.content}</p>
@@ -90,7 +91,7 @@
 											<c:if test="${date.event != null}">
 												<td class="today sun" onclick="todoPop(${date.year}, ${date.month}, ${date.date})">
 													<div><div>${date.date}</div> <div>${date.event}</div></div>
-													<div class="dolist">	
+													<div class="dolist" id="area_${date.date}">	
 														<c:if test="${date.todolist.size() != 0}">
 															<c:forEach var="dolist" items="${date.todolist}">
 																<p style="background: ${dolist.colorcode}">${dolist.content}</p>
@@ -105,7 +106,7 @@
 											<c:if test="${date.event == null}">
 												<td class="sat" onclick="todoPop(${date.year}, ${date.month}, ${date.date})">
 													<div>${date.date}</div>
-													<div class="dolist">
+													<div class="dolist" id="area_${date.date}">
 														<c:if test="${date.todolist.size() != 0}">
 															<c:forEach var="dolist" items="${date.todolist}">
 																<p style="background: ${dolist.colorcode}">${dolist.content}</p>
@@ -117,7 +118,7 @@
 											<c:if test="${date.event != null}">
 												<td class="sun" onclick="todoPop(${date.year}, ${date.month}, ${date.date})">
 													<div><div>${date.date}</div> <div>${date.event}</div></div>
-													<div class="dolist">	
+													<div class="dolist" id="area_${date.date}">	
 														<c:if test="${date.todolist.size() != 0}">
 															<c:forEach var="dolist" items="${date.todolist}">
 																<p style="background: ${dolist.colorcode}">${dolist.content}</p>
@@ -137,7 +138,7 @@
 											<div>${date.event}</div>
 										</c:if>
 									</div>
-									<div class="dolist">
+									<div class="dolist" id="area_${date.date}">
 										<c:if test="${date.todolist.size() != 0}">
 											<c:forEach var="dolist" items="${date.todolist}">
 												<p style="background: ${dolist.colorcode}">${dolist.content}</p>
@@ -150,7 +151,7 @@
 											<c:if test="${date.event == null}">
 												<td onclick="todoPop(${date.year}, ${date.month}, ${date.date})">
 													<div>${date.date}</div>
-													<div class="dolist">
+													<div class="dolist" id="area_${date.date}">
 														<c:if test="${date.todolist.size() != 0}">
 															<c:forEach var="dolist" items="${date.todolist}">
 																<p style="background: ${dolist.colorcode}">${dolist.content}</p>
@@ -163,7 +164,7 @@
 											<c:if test="${date.event != null}">
 												<td class="sun" onclick="todoPop(${date.year}, ${date.month}, ${date.date})">
 													<div><div>${date.date}</div> <div>${date.event}</div></div>
-													<div class="dolist">
+													<div class="dolist" id="area_${date.date}">
 														<c:if test="${date.todolist.size() != 0}">
 															<c:forEach var="dolist" items="${date.todolist}">
 																<p style="background: ${dolist.colorcode}">${dolist.content}</p>
@@ -178,23 +179,30 @@
 						</tbody>
 
 					</table>
-
 				</div>
 			</div>
 			<div class="con_bottom">
 				<div class="con2">
-					<a href="#">공지사항</a>
+					<a href="${path}/board/move_board_list?category=공지사항" class="Marking">공지사항</a>
 					<table width = "100%">
-						<c:forEach var="notice" items="${noticeList.list}">
+						<c:forEach var="notice" items="${noticeList.list}" end="5">
 							<tr>
-								<td><a href='${path}/content_list?idx=${notice.idx}&category=공지사항'>${notice.title}</a></td>
+								<td><a href='${path}/board/content_list?idx=${notice.idx}&category=공지사항'>${notice.title}</a></td>
 								<td align="right"><fmt:formatDate value="${notice.writedate}" pattern = "yyyy-MM-dd(E)"/></td>
 							</tr>
 						</c:forEach>
 					</table>
 				</div>
 				<div class="con3">
-					<a href="#">회의실 현황</a>
+					<a href="${path}/board/move_board_list?category=자료실" class="Marking">자료실</a>
+					<table width = "100%">
+						<c:forEach var="data" items="${dataList.list}" end="5">
+							<tr>
+								<td><a href='${path}/board/content_list?idx=${data.idx}&category=자료실'>${data.title}</a></td>
+								<td align="right"><fmt:formatDate value="${data.writedate}" pattern = "yyyy-MM-dd(E)"/></td>
+							</tr>
+						</c:forEach>
+					</table>
 				</div>
 			</div>
 			<!-- =================================contents================================================= -->
@@ -211,7 +219,7 @@
 	<%@ include file="./includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="./includes/todoModal.jsp" %>
+	<%@ include file="./includes/insertTodoModal.jsp" %>
 
 </body>
 

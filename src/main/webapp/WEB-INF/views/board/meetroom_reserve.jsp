@@ -43,7 +43,7 @@
 									<c:if test="${room.deptno == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
 									<c:if test="${room.deptno == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
 									<c:if test="${room.deptno == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
-	            					<td>
+	            					<td style="border-bottom: 2px solid #D8D2CB; height: 55px">
 										<div style="display: flex;">
 											<div style="line-height: 50px; width: 55%">${dname}</div>
 											<div  style="line-height: 25px; width: 45%">
@@ -55,7 +55,7 @@
 	            				</tr>
 	            			</c:forEach>	
 	            			<c:forEach begin="1" end="${5 - roomlist.list.size()}">	
-	            				<tr><td></td></tr>
+	            				<tr><td style="border-bottom: 2px solid #D8D2CB; height: 55px"></td></tr>
 	            			</c:forEach>
 	            		</tbody>
 	            		<tfoot>
@@ -123,7 +123,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 

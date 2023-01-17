@@ -109,16 +109,16 @@ public class ApprovalController {
 
 		PagingInfo paging = null;
 
-		if (searchobj != null) {
-
-			session.setAttribute("searchcategory", searchcategory);
-			searchobj = searchobj.trim().length() == 0 ? "" : searchobj;
-			session.setAttribute("searchobj", searchobj);
-
-		} else { // 페이지가 이동되어도 검색 내용 유지
-			searchcategory = (String) session.getAttribute("searchcategory");
-			searchobj = (String) session.getAttribute("searchobj");
-		}
+//		if (searchobj != null) {
+//
+//			session.setAttribute("searchcategory", searchcategory);
+//			searchobj = searchobj.trim().length() == 0 ? "" : searchobj;
+//			session.setAttribute("searchobj", searchobj);
+//
+//		} else { // 페이지가 이동되어도 검색 내용 유지
+//			searchcategory = (String) session.getAttribute("searchcategory");
+//			searchobj = (String) session.getAttribute("searchobj");
+//		}
 
 		if (searchobj == null || searchobj.trim().length() == 0) {
 
@@ -206,7 +206,7 @@ public class ApprovalController {
 		String path = "";
 		
 //		if (!appLoaFileUpload.isEmpty()) {
-		if (appLoaFileUpload != null) {
+		if (!appLoaFileUpload.getOriginalFilename().isEmpty()) {
 			StringBuilder sb = new StringBuilder();
 			
 			path = request.getSession().getServletContext().getRealPath("/resources/upload/");
@@ -266,11 +266,60 @@ public class ApprovalController {
 
 		ApprovalVO vo = mapper.selectApprovalListDetail(appNo);
 
+		model.addObject("signImg", vo.getAppCheckProgress().equals("반려") ? "canceled.png" : "approved.png");
 		model.addObject("approval", vo);
 		model.addObject("empVO", session.getAttribute("EmpVO"));
 		model.setViewName("/approval/letterOfApprovalView");
 
 		return model;
+	}
+
+	@ResponseBody
+	@RequestMapping("/loacanceled1")
+	public int loacanceled1(HttpServletRequest request, ApprovalVO vo) {
+		HttpSession session = request.getSession();
+		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
+
+		int appNo = vo.getAppNo();
+		EmpVO empvo = (EmpVO) session.getAttribute("EmpVO");
+
+		int result = 0;
+		result = mapper.canceled1(appNo);
+
+		return result;
+	}
+	@ResponseBody
+	@RequestMapping("/loacanceled2")
+	public int loacanceled2(HttpServletRequest request, ApprovalVO vo) {
+		HttpSession session = request.getSession();
+		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
+
+		int appNo = vo.getAppNo();
+		EmpVO empvo = (EmpVO) session.getAttribute("EmpVO");
+		int empno = empvo.getEmpno();
+
+		int result = 0;
+		result = mapper.canceled2(appNo);
+
+		return result;
+	}
+	@ResponseBody
+	@RequestMapping("/loacanceled3")
+	public int loacanceled3(HttpServletRequest request, ApprovalVO vo) {
+		HttpSession session = request.getSession();
+		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
+
+		int appNo = vo.getAppNo();
+		EmpVO empvo = (EmpVO) session.getAttribute("EmpVO");
+		int empno = empvo.getEmpno();
+
+		int result = 0;
+		result = mapper.canceled3(appNo);
+
+		// 쪽지보내기 기능 추가 해 볼 예정
+		//
+
+		return result;
 	}
 
 	// 결재 승인 스크립트(letterOfApprovalView)
@@ -384,6 +433,7 @@ public class ApprovalController {
 		vo = mapper.viewAppLeaveList(appNo);
 		// System.out.println(vo);
 
+		model.addObject("signImg", vo.getAppCheckProgress().equals("반려") ? "canceled.png" : "approved.png");
 		model.addObject("empVO", session.getAttribute("EmpVO"));
 		model.addObject("approval", vo);
 		model.setViewName("/approval/leaveApplicationView");
@@ -446,6 +496,7 @@ public class ApprovalController {
 		int appNo = vo.getAppNo();
 		vo = mapper.selectExpenseReportListDetail(appNo);
 
+		model.addObject("signImg", vo.getAppCheckProgress().equals("반려") ? "canceled.png" : "approved.png");
 		model.addObject("empVO", session.getAttribute("EmpVO"));
 		model.addObject("approval", vo);
 		model.setViewName("/approval/expenseReportView");

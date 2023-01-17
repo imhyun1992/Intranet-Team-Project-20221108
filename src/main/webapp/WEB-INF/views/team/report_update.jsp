@@ -27,23 +27,49 @@
                 </ul>
             </div>
             <!-- =================================contents================================================= -->
-            <fmt:requestEncoding value="UTF-8"/>
+           <fmt:requestEncoding value="UTF-8"/>
             <c:set var="vo" value="${ReportVO}"></c:set>
             
         	<c:set var="content" value="${fn:replace(vo.content, '<', '&lt;') }"></c:set>
-			<c:set var="content" value="${fn:replace(vo.content, '>', '&gt;') }"></c:set>			
+			<c:set var="content" value="${fn:replace(content, '>', '&gt;') }"></c:set>	
+			<c:set var="content" value="${fn:replace(content, enter, '<br/>') }"></c:set>			
 			
-            <div class="content">
-				<form action="report_service?idx=${vo.idx}&currentPage=${currentPage}&mode=4" method="post">					
-		         	<h1>${vo.title}</h1>
-					<h5><fmt:formatDate value="${vo.writedate}" pattern = "yyyy-MM-dd(E), aa h시 mm분"/></h5>
+             <div class="content_view">
+				<div style="display: flex; line-height: 20px">
+				</div>
+				<form action="report_updateOK?idx=${vo.idx}&currentPage=${currentPage}" method="post" enctype="multipart/form-data">					
+		         	<tr>
+						<td><input id="title" type="text" name="title" value="${vo.title}" /></td>
+					</tr>
+					
+					<hr>
+					
+					<td>
+						<select id="type" name="type" style="width: 150px;">
+							<option value="일일 보고서">일일 보고서</option>
+							<option value="주간 보고서">주간 보고서</option>
+						</select>
+					</td>
+					
 					<hr/>	
-					<textarea id="content" name="content" style="resize: none; width: 900px" rows="14" >${content}</textarea>
-					<br/>
-	                <input type="reset" value="다시쓰기"/>
-					<input type="submit" value="저장하기"/>
-	                <hr/>
-	                <input type="button" value="돌아가기" onclick="history.back()"/>
+					
+					<textarea id="content" name="content" style="resize: none;" rows="16" >${content}</textarea>
+						<tr>
+							<td><input type="file" name="filename"/></td> 
+						</tr>	
+	                <div align="right">
+		                <input type="reset" value="다시쓰기"/>
+						<input type="submit" value="저장"/>
+					</div>
+					
+	               	<hr/>
+	               	<div style="height: 180px"></div>
+	                <div align="right">
+	               		 <input type="button" value="돌아가기" onclick="history.back()"/>
+	                </div>
+	                
+					<input type="hidden" name="attachedfile" value="${vo.attachedfile}"/>
+					<input type="hidden" name="realfilename" value="${vo.realfilename}"/>
 	            </form>		  
             </div>
 			<!-- =================================contents================================================= -->
@@ -61,6 +87,6 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 </body>
 </html>

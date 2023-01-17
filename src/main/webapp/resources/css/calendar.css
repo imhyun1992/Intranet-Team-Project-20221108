@@ -10,7 +10,7 @@
 	vertical-align: middle;
 }
 
-.calendar .navigation a {
+.calendar .navigation > a {
 	font-weight: bold;
 	margin: 5px;
 }
@@ -18,6 +18,23 @@
 .calendar .navigation span {
 	margin: 5px;
 }
+
+.calendar_head {
+	display: flex;
+}
+
+.calendar_head > div:nth-child(1) {
+	width: 67%;
+	text-align: right;
+}
+
+.calendar_head > div:nth-child(2) {
+	text-align: right;
+	width: 33%;
+	padding: 6px 0px;
+	line-height: 39px;
+}
+
 
 .con1{
 	position:relative;

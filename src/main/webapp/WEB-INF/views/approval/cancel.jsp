@@ -13,14 +13,16 @@
         <button onclick="closePopup()">닫기</button>
     </div>
     <input type="hidden" id="approvalSeq" name="approvalSeq"/>
+    <input type="hidden" id="role" name="role"/>
 </div>
 <script>
   (function () {
     $(".searchTemplate_area").hide();
   })();
 
-  function showCancelForm(seq) {
+  function showCancelForm(seq, role) {
     $('#approvalSeq').val(seq);
+    $('#role').val(role);
 
     const height = Math.floor($(".searchTemplate_area").height());
     const scrollTop = Math.floor($("html").scrollTop() / 2);
@@ -29,28 +31,38 @@
   }
 
   async function cancelAction(){
-    if (confirm("정말 반려 처리하시겠습니까?")) {
-      const seq = $('#approvalSeq').val();
-      const reason = $('#cancelReason').val();
-      await fetch('cancelAction', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({'seq' : seq, 'reason' : reason})
-      }).then( async data => {
-        let result = await data.text();
-        if(result === 'ok'){
-          alert("반려 처리에 성공했습니다.");
-        }else{
-          alert('반려 처리에 실패했습니다.');
-        }
-        closePopup();
-        let mainPath = '${path}/approval/approvalMain';
-        console.log('mainPath', mainPath);
-        location.href = mainPath;
-      });
-    }
+      if (confirm("정말 반려 처리하시겠습니까?")) {
+          const seq = $('#approvalSeq').val();
+          const role = $('#role').val();
+          if(role === 'A' || role === 'B' || role === 'C'){
+              const rolePath = role === 'A' ? 'loacanceled1' : role === 'B' ? 'loacanceled2' : 'loacanceled3';
+              await $.ajax({
+                  type: "post",
+                  url: "${path}/approval/" + rolePath + "?appNo="+seq,
+                  success: async function(){
+                      let appendTag = '<img src="${path}/images/canceled.png" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" />';
+                      if(role === 'A'){
+                          $("#firstA").append(appendTag);
+                      }
+                      if(role === 'B'){
+                          $("#interimA").append(appendTag);
+                      }
+                      if(role === 'C'){
+                          $("#finalA").append(appendTag);
+                      }
+                      await Swal.fire({
+                          icon: 'success',
+                          title: '반려 처리했습니다.'
+                      });
+                  },
+                  error: function(){ alert("잠시 후 다시 시도해주세요."); }
+              });
+              closePopup();
+              let mainPath = '${path}/approval/approvalMain';
+              console.log('mainPath', mainPath);
+              location.href = mainPath;
+          }
+      }
   }
 
   function closePopup(){

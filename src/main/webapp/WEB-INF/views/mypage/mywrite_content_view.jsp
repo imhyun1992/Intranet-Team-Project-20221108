@@ -41,7 +41,7 @@
 	         	<div style="display: flex; line-height: 20px">
 					<h5 style="width: 95%"><fmt:formatDate value="${vo.writedate}" pattern = "yyyy-MM-dd aa h시 mm분"/></h5>
 					<div style="display: flex ">
-						<img src="./images/thums.png" alt="thums" width="14px" height="14px" style="padding: 3px">
+						<img src="${path}/images/thums.png" alt="thums" width="22px" style="padding: 3px">
 						<h5>${vo.hit}</h5>
 					</div>
 				</div>
@@ -81,7 +81,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 

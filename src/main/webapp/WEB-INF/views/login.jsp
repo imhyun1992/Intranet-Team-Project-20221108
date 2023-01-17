@@ -18,6 +18,10 @@
 	    <link rel="stylesheet" href="${path}/css/tjoeun_login.css">	
    	    
 	</head>
+	
+	<script>
+		sessionStorage.setItem("count", 1800);
+	</script>
 
 	<body class="is-preload">
 	
@@ -32,19 +36,19 @@
 			<!-- Main -->
 			<section class="main">
 				<h1>TJ INTRANET</h1><br>
-				<form method="post" action="login_confirm">
+				<form action="login_confirm" method="post">
 					<div class="fields">
 
 						<div class="field">
-							<input type="text" name="empno" id="empno" placeholder="사원번호를 입력해주세요" />
+							<input type="text" name="empno" placeholder="사원번호를 입력해주세요" />
 						</div>
 						
 						<div class="field">
-							<input type="password" name="password" id="password" placeholder="비밀번호를 입력해주세요" />
+							<input type="password" name="password" placeholder="비밀번호를 입력해주세요" />
 						</div>
 
 						</hr>
-
+						<input type="hidden" name="position" value="True"/>
 						<div class="field">
 							<button type = "submit">Login</a>
 							<button type = "button" onclick="location.href='${path}/register'">Join us</button>
@@ -52,7 +56,7 @@
 		
 					</div>	
 
-					<a href="#">아이디</a><h7>·</h7><a href="#">비밀번호 찾기</a>
+					<a href="findIDpage">아이디</a><h7>·</h7><a href="findPWpage">비밀번호 찾기</a>
 				</form>
 			
 				</hr>

@@ -1,6 +1,11 @@
 package com.tjoeun.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -102,12 +107,9 @@ public class register {
 		
 		MyBatisDAO mapper = sqlSession.getMapper(MyBatisDAO.class);
 		
-		int empno = Integer.parseInt(request.getParameter("empno"));
 		String password = request.getParameter("password");
 		String checkPassword = request.getParameter("checkPassword");
-		String password1 = request.getParameter("password1");
-		String password2 = request.getParameter("password2");
-		
+		String password1 = request.getParameter("password1");		
 		
 		if (checkPassword == null || checkPassword.equals("")) {
 			return "1";
@@ -121,5 +123,6 @@ public class register {
 		mapper.registerUpdate(vo);		
 		return "3";
 	}
+	
 
 }

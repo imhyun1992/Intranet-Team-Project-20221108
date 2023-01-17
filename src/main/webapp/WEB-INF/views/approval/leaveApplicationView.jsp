@@ -87,7 +87,6 @@
 				<c:if test="${view.deptName == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
 				<c:if test="${view.deptName == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
 											
-			<form action="${path}/approval/leaveApplication" method="post">
 				<div class="cash-form-section">
 					<div class="cash-disbursement">
 						<table border="2px"
@@ -112,7 +111,7 @@
 									</c:when>
 									<c:when test="${approval.appPresent eq 'B'}">
 										<td name="firstA" id="firstA">${approval.firstApprover}<img
-											src="${path}/images/approved.png"
+											src="${path}/images/${signImg}"
 											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 										<td name="interimA" id="interimA">${approval.interimApprover}</td>
 										<td name="finalA" id="finalA">${approval.finalApprover}</td>
@@ -122,7 +121,7 @@
 											src="${path}/images/approved.png"
 											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 										<td name="interimA" id="interimA">${approval.interimApprover}<img
-											src="${path}/images/approved.png"
+											src="${path}/images/${signImg}"
 											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 										<td name="finalA" id="finalA">${approval.finalApprover}</td>
 									</c:when>
@@ -134,7 +133,7 @@
 											src="${path}/images/approved.png"
 											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 										<td name="finalA" id="finalA">${approval.finalApprover}<img
-											src="${path}/images/approved.png"
+											src="${path}/images/${signImg}"
 											style="position: absolute; width: 130px; height: 130px; margin-left: -92px; margin-top: -50px" /></td>
 									</c:when>
 									<c:otherwise>
@@ -287,7 +286,6 @@
 							</tr>
 						</table>
 					</div>
-			</form>
 
 
 			<div id="button">
@@ -296,7 +294,7 @@
 					<c:when test="${(empVO.empno eq approval.firstApprover && approval.appPresent eq 'A') ||
 	        						(empVO.empno eq approval.interimApprover && approval.appPresent eq 'B')}">
 						<button type="submit" id="approveddone">결재</button>
-						<button type="submit" id="canceldone" onclick="showCancelForm(${approval.appNo})">반려</button>
+						<button type="submit" id="canceldone" onclick="showCancelForm(${approval.appNo}, '${approval.appPresent}')">반려</button>
 						<input type="text" style="border: none; width: 40px;"disabled >
 					</c:when>
 					<c:otherwise>

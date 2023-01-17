@@ -50,11 +50,17 @@
 		<beans:property name="mapperLocations" value="classpath:com/tjoeun/dao/*.xml"/>
 		<beans:property name="configLocation" value="classpath:mybatis-config.xml"/>
 	</beans:bean>
-	
+		
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg index="0" ref="sqlSessionFactory"></beans:constructor-arg>
 	</beans:bean>	
 	
+	<!-- 파일 업로드를 위한 bean -->
+	<beans:bean id="commonsMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="2147483648"></beans:property>   <!-- 최대 업로드 파일 크기, 2GB -->
+		<beans:property name="maxInMemorySize" value="-1"></beans:property> <!-- 메모리에 최대로 저장할 수 있는 공간, 제한X -->
+	</beans:bean>
+		
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	
 	

@@ -704,7 +704,22 @@
 		UPDATE APPROVAL SET
 		APP_PRESENT='D', APP_CHECK_PROGRESS='결재완료' WHERE APP_SEQ=#{appNo}
 	</update>
-	
+
+	<update id="canceled1" parameterType="_int">
+		UPDATE APPROVAL SET
+							APP_PRESENT='B', APP_CHECK_PROGRESS='반려' WHERE APP_SEQ=#{appNo}
+	</update>
+
+	<update id="canceled2" parameterType="_int">
+		UPDATE APPROVAL SET
+							APP_PRESENT='C', APP_CHECK_PROGRESS='반려' WHERE APP_SEQ=#{appNo}
+	</update>
+
+	<update id="canceled3" parameterType="_int">
+		UPDATE APPROVAL SET
+							APP_PRESENT='D', APP_CHECK_PROGRESS='반려' WHERE APP_SEQ=#{appNo}
+	</update>
+
 		<!-- 검색 -->
 	<select id="AselecCountMulti" parameterType="param" resultType="int">
 		SELECT COUNT(*) FROM approval

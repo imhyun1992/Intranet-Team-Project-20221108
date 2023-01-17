@@ -2,6 +2,9 @@ package com.tjoeun.vo;
 
 import java.util.ArrayList;
 
+import lombok.Data;
+
+@Data
 public class DateData {
 	
 	private String year;
@@ -10,54 +13,6 @@ public class DateData {
 	private String status;
 	private String event;
 	private ArrayList<TodoVO> todolist = new ArrayList<TodoVO>();
-
-	public String getYear() {
-		return year;
-	}
-
-	public void setYear(String year) {
-		this.year = year;
-	}
-
-	public String getMonth() {
-		return month;
-	}
-
-	public void setMonth(String month) {
-		this.month = month;
-	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getEvent() {
-		return event;
-	}
-
-	public void setEvent(String event) {
-		this.event = event;
-	}
-
-	public ArrayList<TodoVO> getTodolist() {
-		return todolist;
-	}
-
-	public void setTodolist(ArrayList<TodoVO> todolist) {
-		this.todolist = todolist;
-	}
 
 	public DateData() { }
 

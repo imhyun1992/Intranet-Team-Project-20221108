@@ -31,8 +31,8 @@
             <c:set var="vo" value="${BoardVO}"></c:set>
             
         	<c:set var="content" value="${fn:replace(vo.content, '<', '&lt;') }"></c:set>
-			<c:set var="content" value="${fn:replace(vo.content, '>', '&gt;') }"></c:set>
-			<c:set var="content" value="${fn:replace(vo.content, enter, '<br/>') }"></c:set>			
+			<c:set var="content" value="${fn:replace(content, '>', '&gt;') }"></c:set>
+			<c:set var="content" value="${fn:replace(content, enter, '<br/>') }"></c:set>			
 			
             <div class="content_view">
 										
@@ -40,7 +40,7 @@
 	         	<div style="display: flex; line-height: 20px">
 					<h5 style="width: 95%"><fmt:formatDate value="${vo.writedate}" pattern = "yyyy-MM-dd aa h시 mm분"/></h5>
 					<div style="display: flex ">
-						<img src="${path}/images/thums.png" alt="thums" width="14px" height="14px" style="padding: 3px">
+						<img src="${path}/images/thums.png" alt="thums" width="20px" height="20px" style="padding: 3px">
 						<h5>${vo.hit}</h5>
 					</div>
 				</div>
@@ -79,10 +79,10 @@
 							<c:forEach var="co" items="${co}">	
 								
 								<c:set var="cocontent" value="${fn:replace(co.content, '<', '&lt;') }"></c:set>
-								<c:set var="cocontent" value="${fn:replace(co.content, '>', '&gt;') }"></c:set>
-								<c:set var="cocontent" value="${fn:replace(co.content, enter, '<br/>') }"></c:set>	
+								<c:set var="cocontent" value="${fn:replace(cocontent, '>', '&gt;') }"></c:set>
+								<c:set var="cocontent" value="${fn:replace(cocontent, enter, '<br/>') }"></c:set>	
 								
-								<tr>
+								<tr id="comment_${co.idx}">
 									<td width="800px">		
 										<img alt="화살표" src="${path}/images/arrow.png" width="15"/>		
 										<span style="font-weight: bold;">${co.name}</span>(<fmt:formatDate value="${co.writedate}" pattern = "yy/MM/dd a h시 mm분"/>) : ${cocontent}
@@ -90,8 +90,7 @@
 									<c:if test="${EmpVO.name == co.name}">
 										<td align="right">
 											<button type="button" title="수정" style="font-size: 7px" onclick="commentService(${co.idx},2,'수정','${cocontent}','${vo.idx}')">수정</button>
-											<button type="button" title="삭제" style="font-size: 7px" 
-												onclick="location.href='comment_service?mode=3&idx=${co.idx}&gup=${vo.idx}&currentPage=${currentPage}&category=자유 게시판'">삭제</button>
+											<button type="button" title="삭제" style="font-size: 7px" onclick="commentDelete(${co.idx})">삭제</button>
 										</td>
 									</c:if>
 								</tr>
@@ -120,7 +119,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 

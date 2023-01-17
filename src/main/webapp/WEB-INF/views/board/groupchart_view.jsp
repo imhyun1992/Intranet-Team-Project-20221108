@@ -28,7 +28,7 @@
             <div class="nav">
                 <ul>
 					<li><a href="${path}"><img src="${path}/images/home.png" alt="home" width="18px"></a>&#62;</li>
-					<li><a href="${path}/groupchart_main">조직도</a>&#62;</li>
+					<li><a href="${path}/board/groupchart_main">조직도</a>&#62;</li>
                     <li>${dname}</li>
                 </ul>
             </div>
@@ -37,8 +37,18 @@
             <c:set var="Elists" value="${EmpList.list}"></c:set>
 			
             <div class="content_view">
+            
+            	<!-- 검색 -->
+            	<div align="right">
+               		<form action="groupchart_view" method="post">
+               			<input type="text" name="searchname" placeholder="이름을 입력해주세요" style="width: 200px"/>
+               			<input type="hidden" name="deptno" value="${deptno}">
+               			<input type="submit" value="검색" />
+               		</form>
+                </div>
 
-                <div class="address_view">
+				<!-- 직원 목록 -->
+                <div class="address_view" style="height: 520px;">
 					<table>	
 						<thead>
 							<tr>
@@ -46,12 +56,13 @@
 			           	 		<th width="100">이름</th>
 			           	 		<th width="180">직급</th>
 			           	 		<th width="250">직통번호</th>
-								<th width="250">E-mail</th>						
+								<th width="200">E-mail</th>		
+								<th></th>				
 							</tr>
 						</thead>
 						<c:if test="${Elist.size() == 0}">					
 							<tr>
-								<td colspan="5" style="text-align: center;">주소록이 없습니다.</td>
+								<td colspan="5" style="text-align: center;">조회된 사원이 없습니다.</td>
 							</tr>
 						</c:if>
 
@@ -59,10 +70,17 @@
 							<c:forEach var="Elist" items="${Elists}">							
 								<tr>
 									<td>${Elist.empno}</td>
-									<td>${Elist.name}</td>
+									<td>
+										<c:set var="search" value="<span>${searchname}</span>"></c:set>
+										${fn:replace(Elist.name, searchname ,search)}
+									</td>
 									<td>${Elist.position}</td>
 									<td>${Elist.incnum}</td>
 									<td>${Elist.email}</td>
+									<td onclick="pmPop(${Elist.empno}, '${Elist.name}')" class="imghover">
+										<img src="${path}/images/email.png"/>
+										<img src="${path}/images/emailhover.png"/>
+									</td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -144,7 +162,10 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
+	
+	<!-- 쪽지 전송 Modal -->
+	<%@ include file="../includes/pmModal.jsp" %>
 
 </body>
 

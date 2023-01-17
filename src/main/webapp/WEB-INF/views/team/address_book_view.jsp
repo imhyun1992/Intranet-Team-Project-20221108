@@ -31,16 +31,28 @@
 			<c:set var="view" value="${AddressBookList.list}"></c:set>
 
 			<div class="content_view">
-				<h1>${deptname}</h1>
-				<hr />
+			
+				<div style="display: flex;">
+					<h3>${deptname}</h3>
+									
+					<!-- 검색 -->
+	            	<div align="right" style="width: 83%">
+	               		<form action="address_book_list" method="post">
+	               			<input type="text" name="searchname" placeholder="검색할 이름을 입력해주세요" style="width: 250px"/>
+	               			<input type="submit" value="검색" />
+	               		</form>
+	                </div>
+                </div> <hr />
+				
 				<div class="address_view">
 					<table>
 						<thead>
 							<tr>
 								<th width="200">직급</th>
 								<th width="200">이름</th>
-								<th width="300">전화번호</th>
+								<th width="250">전화번호</th>
 								<th width="200">이메일</th>
+								<th></th>
 							</tr>
 						</thead>
 						<!-- ==================== 주소록 출력 ===================================== -->
@@ -53,9 +65,16 @@
 							<c:forEach var="vo" items="${view}">
 								<tr>
 									<td>${vo.position}</td>
-									<td>${vo.name}</td>
+									<td>
+										<c:set var="search" value="<span>${searchname}</span>"></c:set>
+										${fn:replace(vo.name, searchname ,search)}
+									</td>
 									<td>${vo.pernum}</td>
 									<td>${vo.email}</td>
+									<td onclick="pmPop(${vo.empno}, '${vo.name}')" class="imghover">
+										<img src="${path}/images/email.png"/>
+										<img src="${path}/images/emailhover.png"/>
+									</td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -118,7 +137,10 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
+	
+	<!-- 쪽지 전송 Modal -->
+	<%@ include file="../includes/pmModal.jsp" %>
 
 </body>
 

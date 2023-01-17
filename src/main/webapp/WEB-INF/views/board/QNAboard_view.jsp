@@ -57,7 +57,7 @@
 								<fmt:formatDate value="${vo.writedate}" pattern = "a h:mm:ss" var = "sdf2date"/>
 								
 								<c:set var="title" value="${fn:replace(vo.title, '<', '&lt;') }"></c:set>
-								<c:set var="title" value="${fn:replace(vo.title, '>', '&gt;') }"></c:set>
+								<c:set var="title" value="${fn:replace(title, '>', '&gt;') }"></c:set>
 								
 								<tr>
 									<td align="center">${vo.name}</td>
@@ -67,7 +67,7 @@
 										</td>
 									</c:if>
 									<c:if test="${vo.seq == 1}">
-										<td>&nbsp;&nbsp;<img alt="화살표" src="./images/arrow.png" width="15" height="110%"/>&nbsp;A.&nbsp;${title}</td>
+										<td>&nbsp;&nbsp;<img alt="화살표" src="${path}/images/arrow.png" width="15" height="110%"/>&nbsp;A.&nbsp;${title}</td>
 									</c:if>
 				 					<td align="right" style="padding-right: 30px">
 					
@@ -164,7 +164,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 

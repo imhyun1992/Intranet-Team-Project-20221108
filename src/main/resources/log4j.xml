@@ -12,12 +12,12 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.tjoeun.Intranet_Project">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 	<logger name="org.springframework.beans">

@@ -31,7 +31,7 @@
             <c:set var="vo" value="${BoardVO}"></c:set>
             
         	<c:set var="content" value="${fn:replace(vo.content, '<', '&lt;') }"></c:set>
-			<c:set var="content" value="${fn:replace(vo.content, '>', '&gt;') }"></c:set>	
+			<c:set var="content" value="${fn:replace(content, '>', '&gt;') }"></c:set>	
 			
 			<c:if test="${vo.deptno == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
 			<c:if test="${vo.deptno == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
@@ -78,7 +78,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 

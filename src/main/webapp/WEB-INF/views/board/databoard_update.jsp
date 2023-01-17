@@ -31,7 +31,7 @@
             <c:set var="vo" value="${BoardVO}"></c:set>
             
         	<c:set var="content" value="${fn:replace(vo.content, '<', '&lt;') }"></c:set>
-			<c:set var="content" value="${fn:replace(vo.content, '>', '&gt;') }"></c:set>			
+			<c:set var="content" value="${fn:replace(content, '>', '&gt;') }"></c:set>			
 			
 			<c:if test="${vo.deptno == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
 			<c:if test="${vo.deptno == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
@@ -41,29 +41,32 @@
 			
             <div class="content_view">
 										
-	         	<h1>${vo.title}</h1>
-				<h5><fmt:formatDate value="${vo.writedate}" pattern = "yyyy-MM-dd aa h시 mm분"/></h5>
-	         	<div style="display: flex; line-height: 20px">
-					<h5 style="width: 95%">${vo.name}&lpar;${dname}&rpar;</h5>
-					<div style="display: flex ">
-						<img src="./images/thums.png" alt="thums" width="14px" height="14px" style="padding: 3px">
-						<h5>${vo.hit}</h5>
+				<form action="data_updateOK?currentPage=${currentPage}" method="post" enctype="multipart/form-data">
+		         	<input type="text" name="title" value="${vo.title}"/>
+					<h5><fmt:formatDate value="${vo.writedate}" pattern = "yyyy-MM-dd aa h시 mm분"/></h5>
+		         	<div style="display: flex; line-height: 20px">
+						<h5 style="width: 95%">${vo.name}&lpar;${dname}&rpar;</h5>
+						<div style="display: flex ">
+							<img src="${path}/images/thums.png" alt="thums" width="14px" height="14px" style="padding: 3px">
+							<h5>${vo.hit}</h5>
+						</div>
 					</div>
-				</div>
-				<hr/>	
-				<form action="board_updateOK?idx=${vo.idx}&currentPage=${currentPage}&category=자료실" method="post">					
-					<textarea id="content" name="content" style="resize: none;" rows="19" >${content}</textarea>
-					<input type="file" name="attachedfile"/>
-					<br/>
+					<hr/>	
+					<input type="hidden" name="idx" value="${vo.idx}"/> 
+					<input type="hidden" name="category" value="자료실"/> 
+					<input type="hidden" name="attachedfile" value="${vo.attachedfile}" />
+					
+					<textarea id="content" name="content" rows="19" >${content}</textarea>
+					<input type="file" name="filename"/>
 	                <div align="right">
 		                <input type="reset" value="다시쓰기"/>
 						<input type="submit" value="저장"/>
 					</div>
 	                <hr/>
-	                 <div align="right">
-	                	<input type="button" value="돌아가기" onclick="history.back()"/>
-	                </div>
-	            </form>		  
+					<div align="right">
+						<input type="button" value="돌아가기" onclick="history.back()" />
+					</div>
+				</form>		  
             </div>
 			<!-- =================================contents================================================= -->
 		
@@ -80,7 +83,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 

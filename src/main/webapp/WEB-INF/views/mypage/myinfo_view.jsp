@@ -5,8 +5,8 @@
 <html>
 <head>
 	<%@ include file="../includes/head.jsp" %>
-	<script src="./js/register.js" defer="defer"></script>
-	<link rel="stylesheet" href="./css/passwordChange.css">
+	<script src="../js/register.js" defer="defer"></script>
+	<script src="../js/profile.js" defer="defer"></script>
 </head>
 <body>
 
@@ -71,6 +71,7 @@
 					</tr>
 				</table>
 				<input type="button" class="changeBtn" name="pwchange" value="비밀번호 변경" onclick="changePop()">
+				<%-- <input type="button" value="프로필 이미지 변경" onclick="openRegiProfile(${EmpVO.empno})"> --%>
 			</div>
 			<!-- =================================contents================================================= -->
 		
@@ -88,9 +89,12 @@
 
 	<!-- 비밀번호 변경 Modal -->
 	<%@ include file="../includes/changePwModal.jsp" %>
+	
+	<!-- 프로필 이미지 변경 Modal -->
+	<%@ include file="../includes/regiProfile.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 	
 </body>
 </html>

@@ -77,7 +77,7 @@
 								<c:if test="${vo.deptno == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
 								
 								<c:set var="title" value="${fn:replace(vo.title, '<', '&lt;') }"></c:set>
-								<c:set var="title" value="${fn:replace(vo.title, '>', '&gt;') }"></c:set>
+								<c:set var="title" value="${fn:replace(title, '>', '&gt;') }"></c:set>
 								
 								<tr>
 									<td align="center">${dname}</td>
@@ -191,7 +191,7 @@
 	<%@ include file="../includes/footer.jsp" %>
 
 	<!-- 일정 등록 Modal -->
-	<%@ include file="../includes/todoModal.jsp" %>
+	<%@ include file="../includes/insertTodoModal.jsp" %>
 
 </body>
 
