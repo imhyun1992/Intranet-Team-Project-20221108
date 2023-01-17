@@ -38,7 +38,7 @@
 			</div>
 			<!-- =================================contents================================================= -->
 			<fmt:requestEncoding value="UTF-8" />
-			
+
 			<div class="content_view">
 				<div style="text-align: left;">
 					<h4>결재현황</h4>
@@ -75,9 +75,6 @@
 				<hr />
 				<!-- 목록view -->
 				<div style="text-align: left; height: auto;">
-					<h6	style="float: right;">
-						<a href="${path}/approval/approvalList">+ 결재목록 전체보기</a>
-					</h6>
 					<h4>결재 수신목록</h4>
 				</div>
 				<form action="">
@@ -89,6 +86,11 @@
 
 						<c:if test="${mainList != null}">
 							<c:forEach var="list" items="${mainList}">
+								<c:if test="${list.deptName == 500}"><c:set var="deptName" value="경영지원부"></c:set></c:if>
+								<c:if test="${list.deptName == 400}"><c:set var="deptName" value="IT부"></c:set></c:if>
+								<c:if test="${list.deptName == 300}"><c:set var="deptName" value="상품개발부"></c:set></c:if>
+								<c:if test="${list.deptName == 200}"><c:set var="deptName" value="마케팅부"></c:set></c:if>
+								<c:if test="${list.deptName == 100}"><c:set var="deptName" value="영업부"></c:set></c:if>
 								<tr>
 									<td>${list.rowNum}</td>
 									<c:choose>
@@ -120,7 +122,7 @@
 										</c:when>
 									</c:choose>
 									<td>${list.userName}</td>
-									<td>${list.deptName}</td>
+									<td>${deptName}</td>
 									<td><fmt:formatDate value="${list.appWriteDate}"
 											pattern="yyyy/MM/dd" /></td>
 									<td>${list.appCheckProgress}</td>
@@ -142,6 +144,11 @@
 
 					<c:if test="${mainList1 != null}">
 						<c:forEach var="list" items="${mainList1}">
+							<c:if test="${list.deptName == 500}"><c:set var="deptName" value="경영지원부"></c:set></c:if>
+							<c:if test="${list.deptName == 400}"><c:set var="deptName" value="IT부"></c:set></c:if>
+							<c:if test="${list.deptName == 300}"><c:set var="deptName" value="상품개발부"></c:set></c:if>
+							<c:if test="${list.deptName == 200}"><c:set var="deptName" value="마케팅부"></c:set></c:if>
+							<c:if test="${list.deptName == 100}"><c:set var="deptName" value="영업부"></c:set></c:if>
 							<tr>
 								<td>${list.rowNum}</td>
 								<c:choose>
@@ -173,7 +180,7 @@
 									</c:when>
 								</c:choose>
 								<td>${list.userName}</td>
-								<td>${list.deptName}</td>
+								<td>${deptName}</td>
 								<td><fmt:formatDate value="${list.appWriteDate}" pattern="yyyy/MM/dd" /></td>
 								<td>${list.appCheckProgress}</td>
 							</tr>

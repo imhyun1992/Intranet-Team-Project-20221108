@@ -1,18 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- modal section -->
 <div class="modal hidden">
 	<div class="bg"></div>
 	<div class="modalBox">
-<!-- 		
-		<div style="margin: 40px 0px 0px 60px;">
-			<input type="text" name="searchData" id="searchData"
-				style="width: 250px; height: 30px; border-radius: 10px; font-size: 20px; text-align: center;"
-				maxlength="4">
-			<button type="button" id="search1">검색</button>
-		</div>
- -->
 
 		<c:set var="Elists" value="${empList}" />
 		<div
@@ -27,15 +21,20 @@
 					<th>부 서</th>
 					<th>직 책</th>
 				</tr>
-				<tr>
 					<c:if test="${Elist.size() != 0}">
 						<c:forEach var="Elist" items="${Elists}">
-							<td><input type="checkbox" name="refer-list" id="refer-list"
-								style="height: 15px;"></td>
-							<td>${Elist.name}</td>
-							<td>${Elist.deptno}</td>
-							<td>${Elist.position}</td>
-				</tr>
+								<c:if test="${Elist.deptno == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
+								<c:if test="${Elist.deptno == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
+								<c:if test="${Elist.deptno == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
+								<c:if test="${Elist.deptno == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
+								<c:if test="${Elist.deptno == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
+							<tr>
+								<td><input type="checkbox" name="refer-list" id="refer-list"
+									style="height: 15px;"></td>
+								<td>${Elist.name}</td>
+								<td>${dname}</td>
+								<td>${Elist.position}</td>
+							</tr>
 				</c:forEach>
 				</c:if>
 				<tbody></tbody>

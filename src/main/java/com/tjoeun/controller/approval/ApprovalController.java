@@ -338,6 +338,7 @@ public class ApprovalController {
 		vo.setDeptName(deptno);
 
 		if (empno == vo.getAppWriteNo()) {
+			
 			result = mapper.insertApproval(vo);
 			vo.setLeaveAppNo(vo.getAppNo());
 			request.setAttribute("result", vo);

@@ -68,13 +68,12 @@
 							</c:if>
 							<c:if test="${paging.list != null}">
 								<c:forEach var="item" items="${paging.list}">
-								
-								<c:if test="${item.deptName == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
-								<c:if test="${item.deptName == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
-								<c:if test="${item.deptName == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
-								<c:if test="${item.deptName == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
-								<c:if test="${item.deptName == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
-								
+									<c:if test="${item.deptName == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
+									<c:if test="${item.deptName == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
+									<c:if test="${item.deptName == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
+									<c:if test="${item.deptName == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
+									<c:if test="${item.deptName == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
+									
 									<tr>
 										<!--
 										${list} 
@@ -109,7 +108,7 @@
 											</c:when>
 										</c:choose>
 										<td>${item.userName}</td>
-										<td>${item.deptName}</td>
+										<td>${dname}</td>
 										<td><fmt:formatDate value="${item.appWriteDate}"
 												pattern="yyyy/MM/dd" /></td>
 										<td>${item.appCheckProgress}</td>

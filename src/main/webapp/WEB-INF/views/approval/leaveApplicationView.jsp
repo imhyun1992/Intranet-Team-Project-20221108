@@ -78,18 +78,20 @@
 							수신</a></li>
 				</ul>
 			</div>
-
+			
+			<fmt:requestEncoding value="UTF-8" />
+			<c:set var="view" value="${approval}"/>
+				<c:if test="${view.deptName == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
+				<c:if test="${view.deptName == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
+				<c:if test="${view.deptName == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
+				<c:if test="${view.deptName == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
+				<c:if test="${view.deptName == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
+											
 			<form action="${path}/approval/leaveApplication" method="post">
 				<div class="cash-form-section">
 					<div class="cash-disbursement">
 						<table border="2px"
 							style="width: 100%; font-size: 20px; border-collapse: collapse;">
-								<c:if test="${approval.deptName == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
-								<c:if test="${approval.deptName == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
-								<c:if test="${approval.deptName == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
-								<c:if test="${approval.deptName == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
-								<c:if test="${approval.deptName == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
-							
 							<tr>
 								<td rowspan="3" colspan="4"
 									style="width: 300px; height: 140px; font-size: 40px; font-weight: 600;">휴

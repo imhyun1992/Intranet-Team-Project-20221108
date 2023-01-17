@@ -10,11 +10,6 @@
 </head>
 
 <body>
-	<c:if test="${ApprovalVO.deptName == 500}"><c:set var="adeptname" value="경영지원부"></c:set></c:if>
-	<c:if test="${ApprovalVO.deptName == 400}"><c:set var="adeptname" value="IT부"></c:set></c:if>
-	<c:if test="${ApprovalVO.deptName == 300}"><c:set var="adeptname" value="상품개발부"></c:set></c:if>
-	<c:if test="${ApprovalVO.deptName == 200}"><c:set var="adeptname" value="마케팅부"></c:set></c:if>
-	<c:if test="${ApprovalVO.deptName == 100}"><c:set var="adeptname" value="영업부"></c:set></c:if>
 	<!-- header -->
 	<%@ include file="../includes/header.jsp"%>
 	<!-- contents start -->
@@ -34,7 +29,13 @@
 			</div>
 			
 			<fmt:requestEncoding value="UTF-8" />
-			<c:set var="view" value="${paging.list}"/>
+			<c:set var="view" value="${approval}"/>
+				<c:if test="${view.deptName == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
+				<c:if test="${view.deptName == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
+				<c:if test="${view.deptName == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
+				<c:if test="${view.deptName == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
+				<c:if test="${view.deptName == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
+			
 
 			<div class="cash-form-section">
 				<div class="cash-disbursement">
@@ -164,7 +165,7 @@
                    <td style="height: 70px; width: 80px;">성 명</td>
                    <td><input type="text" readonly value="${approval.userName}"></td>
                    <td style="width: 80px;">부 서</td>
-                   <td><input type="text" readonly value="${approval.deptName}"></td>
+                   <td><input type="text" readonly value="${dname}"></td>
                    <td style="width: 80px;">직 급</td>
                    <td colspan="3"><input type="text" readonly value="${approval.rank}"></td>
                </tr>

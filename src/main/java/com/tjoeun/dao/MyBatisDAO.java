@@ -128,6 +128,5 @@ public interface MyBatisDAO {
 	int AselecCountMulti(Param param);
 	ArrayList<ApprovalVO> AselectListMulti(Param param);
 	List<EmpVO> selectMemberByName(String searchName);
-
 	int updateApprovalFromCancel(Map<String, Object> bodyMap);
 }

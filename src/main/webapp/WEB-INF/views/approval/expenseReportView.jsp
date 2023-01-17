@@ -27,15 +27,19 @@
 					<li><a href="${path}/approval/expenseReportView">지출결의서 수신</a></li>
 				</ul>
 			</div>
+			
+			<fmt:requestEncoding value="UTF-8" />
+			<c:set var="view" value="${approval}"/>
+				<c:if test="${view.deptName == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
+				<c:if test="${view.deptName == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
+				<c:if test="${view.deptName == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
+				<c:if test="${view.deptName == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
+				<c:if test="${view.deptName == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
+			
 			<div class="cash-form-section">
 				<div class="cash-disbursement"
 					style="text-align: center; border: 2px solid black;">
 					<table style="width: 100%; font-size: 20px; border-collapse: collapse;">
-						<c:if test="${approval.deptName == 500}"><c:set var="dname" value="경영지원부"></c:set></c:if>
-						<c:if test="${approval.deptName == 400}"><c:set var="dname" value="IT부"></c:set></c:if>
-						<c:if test="${approval.deptName == 300}"><c:set var="dname" value="상품개발부"></c:set></c:if>
-						<c:if test="${approval.deptName == 200}"><c:set var="dname" value="마케팅부"></c:set></c:if>
-						<c:if test="${approval.deptName == 100}"><c:set var="dname" value="영업부"></c:set></c:if>
 					
 						<tr>
 							<td rowspan="3" colspan="4"
@@ -237,7 +241,7 @@
 	        						(empVO.empno eq approval.interimApprover && approval.appPresent eq 'B') ||
 	        						(empVO.empno eq approval.finalApprover && approval.appPresent eq 'C')}">
 								<button type="submit" id="approveddone">결재</button>
-								<button type="submit" id="canceldone" onclick="showCancelForm(${approval.appNo})">반려</button>
+						 		<button type="submit" id="canceldone" onclick="showCancelForm(${approval.appNo})">반려</button>
 								<input type="text" style="border: none; width: 40px;" disabled>
 							</c:when>
 							<c:otherwise>
@@ -250,7 +254,7 @@
 						<a href="${path}/approval/approvalMain" style="color: black">취소</a>
 					</button>
 				</div>
-			</div>
+			</div> 
 
 			<!-- 모달 스크립트 -->
 <script>
