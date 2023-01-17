@@ -73,69 +73,7 @@
 	</div>
 </div>
 
-<!-- 모달 내 검색 스크립트 -->
-<script>
-    	$("#search1").on("click",function(){
-        	var searchData = $("input[name='searchData']").val();
-                	
-            $.ajax({
-                   type: "get",
-                   url: "${path}/approval/searchMemberInModal",
-                   data: {
-   				       searchData:searchData
-   				   },
-                   success: function(data){
-                   	   console.log(data);
-                   	
-                       $("#refer-left-section").empty();
-                       $("#refer-left-section").append(
-                       		'<tr style="border-bottom: 1px solid black;">'
-                               +'<th>'
-                               +'<input type="checkbox" name="refer-listAll" id="refer-listAll" style="height: 15px; margin-top: 6px;">'
-                               +'</th>'
-                               +'<th>이 름</th>'
-                               +'<th>부 서</th>'
-                               +'<th>직 책</th>'
-                           +'</tr>'
-                       );
-                       
-                       var str = '<tr>';
-                   	
-	                   $.each(data, function(i) {
-	                       str +='<tr><td><input type="checkbox" name="refer-list" id="refer-list" style="height: 15px;"></td>'
-	    	               +'<td>'+ data[i].user_name +'</td>'
-	    	               +'<td>'+ data[i].dept_name +'</td>'
-	    	               +'<td>'+ data[i].rank +'</td>';
-	    	               str += '</tr>';
-	                   });
-                       
-                       $("#refer-left-section").append(str);
-                       
-                       $("#refer-left-section").append(
-				           '<tbody></tbody>'
-                       );
-                      
-                       $("#refer-left-section").append(
-                           "<script>"
-	                           + "$(document).ready(function() {"
-		               	           + "$('#refer-listAll').click(function() {"
-		               	               + "if($('#refer-listAll').prop('checked')){"
-		               	                   + "$('input[name=refer-list]:checkbox').prop('checked', true);"
-	             	     	           + "} else {"
-		               	                   + "$('input[name=refer-list]:checkbox').prop('checked', false);"
-		               	               + "}"
-		               	           + "});"
-	               	           + "});"
-               	           + "<\/script>"
-                       );
-            	   },
-                   error: function(){ alert("잠시 후 다시 시도해주세요."); }
-       		});
-		});
-</script>
-    	
 <!-- 모달 스크립트 -->
-
 <script>
 	    // modal 창 띄우기
 	    const open = () => {

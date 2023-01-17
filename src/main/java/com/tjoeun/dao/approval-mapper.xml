@@ -179,6 +179,7 @@
 		WHERE ROWNUM <![CDATA[ < ]]>= 6
 		ORDER BY ROWNUM
 	</select>
+	
 	<select id="selectRecentList1" parameterType="param"
 		resultMap="approvalResultMap">
 		SELECT ROWNUM, B.* FROM (SELECT A.APP_SEQ,

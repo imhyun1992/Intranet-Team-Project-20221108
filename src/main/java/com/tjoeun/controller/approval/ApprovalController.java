@@ -124,10 +124,14 @@ public class ApprovalController {
 
 			final Param param = new Param();
 			param.setApproval_status(approvalStatus);
+			
 			if(request.getParameter("userNo") != null && !String.valueOf(request.getParameter("userNo")).equals("")){
+				
 				param.setUserNo(Integer.parseInt(String.valueOf(request.getParameter("userNo"))));
 			}
+			
 			int totalCount = mapper.listCount(param);
+			
 			paging = new PagingInfo(pageSize, totalCount, currentPage);
 			param.setStartNo(paging.getStartNo());
 			param.setEndNo(paging.getEndNo());
@@ -201,10 +205,13 @@ public class ApprovalController {
 		String finalFileName = "";
 		String path = "";
 		
-		if (!appLoaFileUpload.isEmpty()) {
+//		if (!appLoaFileUpload.isEmpty()) {
+		if (appLoaFileUpload != null) {
 			StringBuilder sb = new StringBuilder();
 			
-			path = request.getSession().getServletContext().getRealPath("resources/upload/");
+			path = request.getSession().getServletContext().getRealPath("/resources/upload/");
+			
+			System.out.println("sb****************" + sb);
 			
 			File file = new File(path);
 			if (!file.exists()) {
@@ -216,6 +223,8 @@ public class ApprovalController {
 			finalFileName = sb.append(empno).append("_").append(name).append("_").append(originFileName).toString();
 			
 			file = new File(path + finalFileName);
+			
+			System.out.println("path: ******************************" + path);
 			
 			try {
 				appLoaFileUpload.transferTo(file);
@@ -524,27 +533,11 @@ public class ApprovalController {
 		
     bodyMap.put("seq", Integer.parseInt(String.valueOf(bodyMap.get("seq"))));
 		int result = mapper.updateApprovalFromCancel(bodyMap);
+		
 		if (result > 0) {
 			return "ok";
 		} else{
 			return "fail";
 		}
 	}
-
-// 수신참조자 모달 검색
-//	@ResponseBody
-//	@RequestMapping("/searchMemberInModal")
-//	public List<EmpVO> searchMemberInModal(EmpVO empVO, HttpServletRequest request,
-//			@RequestParam(value = "searchData") String searchData, EmpVO empvo) {
-//		MyBatisDAO mapper = sqlsession.getMapper(MyBatisDAO.class);
-//		HttpSession session = request.getSession();
-//
-//		empVO = (EmpVO) session.getAttribute("EmpVO");
-//		int empno = empVO.getEmpno();
-//
-//		List<EmpVO> empList = null;
-//		empList = mapper.selectSearchedMemberForApproval(searchData, empvo);
-//
-//		return empList;
-//	}
 }
